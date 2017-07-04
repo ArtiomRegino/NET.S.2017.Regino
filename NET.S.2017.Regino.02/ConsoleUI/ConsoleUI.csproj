@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A25CF216-B832-4CF8-9D50-AE031E190A39}</ProjectGuid>
+    <ProjectGuid>{5C22D09B-12E2-4D66-8535-1D1827E86964}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ConsoleUI</RootNamespace>
@@ -48,8 +48,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sortings\Logic.csproj">
-      <Project>{d63e71af-177b-43bb-a79a-4083bbe9f39b}</Project>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{f64de39f-bbd3-4053-9680-92f26bdf7cfe}</Project>
       <Name>Logic</Name>
     </ProjectReference>
   </ItemGroup>

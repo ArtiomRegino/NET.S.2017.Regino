@@ -11,21 +11,21 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
 
-            int[] testArrQSort = { 1, -2, 7, 4, 9, 5, -343, -12, 465, 9, 2, 45, -7, 9, -3 };
+            //int[] testArrQSort = { 1, -2, 7, 4, 9, 5, -343, -12, 465, 9, 2, 45, -7, 9, -3 };
 
-            Console.WriteLine("Initial array: ");
-            foreach (var item in testArrQSort)
-            {
-                Console.WriteLine(item);
-            }
+            //Console.WriteLine("Initial array: ");
+            //foreach (var item in testArrQSort)
+            //{
+            //    Console.WriteLine(item);
+            //}
 
-            Sortings.QuickSort.Sort(testArrQSort, 0, testArrQSort.Length - 1);
+            //Logic.ArrayExtension.QuickSort(testArrQSort, 0, testArrQSort.Length - 1);
 
-            Console.WriteLine("Sorted array: ");
-            foreach (var item in testArrQSort)
-            {
-                Console.WriteLine(item);
-            }
+            //Console.WriteLine("Sorted array: ");
+            //foreach (var item in testArrQSort)
+            //{
+            //    Console.WriteLine(item);
+            //}
 
             int[] testArrMSort = { 1, -2, 7, 4, 9, 5, -343, -12, 465, 9, 2, 45, -7, 9, -3 };
 
@@ -35,7 +35,7 @@ namespace ConsoleUI
                 Console.WriteLine(item);
             }
 
-            testArrMSort = Sortings.MergeSort.Sort(testArrMSort);
+            Logic.ArrayExtension.MergeSort(testArrMSort);
 
             Console.WriteLine("Sorted array: ");
 
