@@ -15,10 +15,25 @@ namespace Logic
         /// Quick sort.
         /// </summary>
         /// <param name="array">Initial array.</param>
+        public static void QuickSort(int[] array)
+        {
+            QuickSort(array, 0, array.Length - 1);
+        }
+
+        /// <summary>
+        /// Quick sort.
+        /// </summary>
+        /// <param name="array">Initial array.</param>
         /// <param name="left">Left border of array(from where it will be sorted).</param>
         /// <param name="right">Right border of array.</param>
         public static void QuickSort(int[] array, int left, int right)
         {
+            if (array == null)
+                throw new ArgumentNullException("This reference = \"null\".");
+
+            if (left < 0 || left > array.Length - 1 || right < 0 || right > array.Length - 1)
+                throw new ArgumentOutOfRangeException("The bounds of sorting can't be negative or more than length of the array.");
+
             int pivot, leftend, rightend;
 
             leftend = left;
@@ -73,6 +88,9 @@ namespace Logic
         /// <returns>Sorted array.</returns>
         public static void MergeSort(int[] data)
         {
+            if (data == null)
+                throw new ArgumentNullException("This reference = \"null\".");
+
             int[] currentArray = Sort(data);
             Array.Copy(currentArray, data, data.Length);
         }
