@@ -61,16 +61,21 @@ namespace Logic.NUnitTests
         [TestCase(3456432, ExpectedResult = 3462345)]
         [TestCase(10, ExpectedResult = -1)]
         [TestCase(20, ExpectedResult = -1)]
+        [TestCase(1204321, ExpectedResult = 1210234)]
         public int NextBiggerNumber_PositiveTest(int number)
         {
-            return SecondHW.NextBiggerNumber(number);
+            string time; 
+
+            return SecondHW.NextBiggerNumber(number, out time);
         }
 
         [TestCase(-8)]
         [TestCase(-812312312)]
         public void NextBiggerNumber_ThrowsArgumentException(int number)
         {
-            Assert.Throws<ArgumentException>(() => SecondHW.NextBiggerNumber(number));
+            string time;
+
+            Assert.Throws<ArgumentException>(() => SecondHW.NextBiggerNumber(number, out time));
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,8 +51,11 @@ namespace Logic
         /// </summary>
         /// <param name="number">Initial number.</param>
         /// <returns>New number or -1 if there is no correct answer.</returns>
-        public static int NextBiggerNumber(int number)
+        public static int NextBiggerNumber(int number, out string time)
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             if (number < 0)
                 throw new ArgumentException("The number must be positive.");
 
@@ -73,13 +77,6 @@ namespace Logic
                 currentDigit = (currentDigit - digits[i]) / 10;
             }
 
-            //List<int> digits = new List<int>();
-
-            //while (numberCopy > 0)
-            //{
-            //    digits.Add(numberCopy % 10);
-            //    numberCopy = (numberCopy - numberCopy % 10) / 10;
-            //}
 
             currentDigit = -1;
 
@@ -113,6 +110,10 @@ namespace Logic
                     break;
                 }
             }
+
+            stopWatch.Stop();
+            time = stopWatch.Elapsed.ToString();
+
             return currentDigit;
         }
 
