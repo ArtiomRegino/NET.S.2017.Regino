@@ -49,6 +49,20 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DoubleExtension\DoubleExtension.csproj">
+      <Project>{76d962cf-b67e-4b0c-ac3c-c989fff628a7}</Project>
+      <Name>DoubleExtension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MathAlgorithms\MathAlgorithms.csproj">
+      <Project>{bc7e1400-4e08-4c2c-88d5-a1469b5c3565}</Project>
+      <Name>MathAlgorithms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Polynomial\Polynomial.csproj">
+      <Project>{f45a9a2d-0afe-4c78-b0d5-61ed5fa69ec1}</Project>
+      <Name>Polynomial</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

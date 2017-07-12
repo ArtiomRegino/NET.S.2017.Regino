@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparers\AscendingMaxValues.cs" />
+    <Compile Include="Comparers\AscendingMinValues.cs" />
+    <Compile Include="Comparers\AscendingSums.cs" />
+    <Compile Include="Comparers\DescendingMaxValues.cs" />
+    <Compile Include="Comparers\DescendingMinValues.cs" />
+    <Compile Include="Comparers\DescendingSums.cs" />
     <Compile Include="MatrixSortingExceptionsTests.cs" />
     <Compile Include="MatrixSortingsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

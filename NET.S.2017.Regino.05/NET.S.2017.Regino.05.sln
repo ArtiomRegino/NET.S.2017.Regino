@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubleExtension", "DoubleEx
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Polynomial", "Polynomial\Polynomial.csproj", "{F45A9A2D-0AFE-4C78-B0D5-61ED5FA69EC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathAlgorithms.NUnitTests", "MathAlgorithms.NUnitTests\MathAlgorithms.NUnitTests.csproj", "{66349FA2-5511-46E3-B30E-79E7856B1861}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F45A9A2D-0AFE-4C78-B0D5-61ED5FA69EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F45A9A2D-0AFE-4C78-B0D5-61ED5FA69EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F45A9A2D-0AFE-4C78-B0D5-61ED5FA69EC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66349FA2-5511-46E3-B30E-79E7856B1861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66349FA2-5511-46E3-B30E-79E7856B1861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66349FA2-5511-46E3-B30E-79E7856B1861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66349FA2-5511-46E3-B30E-79E7856B1861}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

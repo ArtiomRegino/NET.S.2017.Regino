@@ -50,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MatrixExtension.Test\MatrixExtension.Test.csproj">
+      <Project>{5d903f1c-795f-457e-a1c7-195b67cb754e}</Project>
+      <Name>MatrixExtension.Test</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MatrixExtension\MatrixExtension.csproj">
       <Project>{a0f96f5c-6375-4e16-9586-5188636530dc}</Project>
       <Name>MatrixExtension</Name>
