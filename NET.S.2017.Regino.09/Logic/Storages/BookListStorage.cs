@@ -7,11 +7,17 @@ using System.Threading.Tasks;
 
 namespace Logic.Storages
 {
+    /// <summary>
+    /// Class for BookListStorage for binary reading and writing to storage. 
+    /// </summary>
     class BookListStorage : IBookStorage
     {
         private readonly string pathToFile;
 
-
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="pathToFile">Path to file.</param>
         public BookListStorage(string pathToFile)
         {
             if (pathToFile == null) throw new ArgumentException("");
@@ -19,7 +25,10 @@ namespace Logic.Storages
             this.pathToFile = pathToFile;
         }
 
-
+        /// <summary>
+        /// Method for saving collection of books by BinaryWriter. 
+        /// </summary>
+        /// <param name="books">Collection of books.</param>
         public void Save(IEnumerable<Book> books)
         {
             using (BinaryWriter writer = new BinaryWriter(File.OpenWrite(pathToFile)))
@@ -35,10 +44,14 @@ namespace Logic.Storages
             }
         }
 
+        /// <summary>
+        /// Method for reading collection of books by BinaryReader. 
+        /// </summary>
+        /// <returns>Collection that was read.</returns>
         public IEnumerable<Book> Read()
         {
             SortedSet<Book> books = new SortedSet<Book>();
-            string title, author, genre;
+            string title, author, ganre;
             int year, edition;
 
             using (BinaryReader reader = new BinaryReader(File.OpenRead(pathToFile)))
@@ -47,11 +60,11 @@ namespace Logic.Storages
                 {
                     title =  reader.ReadString();
                     author = reader.ReadString();
-                    genre = reader.ReadString();
+                    ganre = reader.ReadString();
                     year = reader.ReadInt32();
                     edition = reader.ReadInt32();
 
-                    books.Add(new Book(title, author, genre, year, edition));
+                    books.Add(new Book(title, author, ganre, year, edition));
                 }
             }
 
