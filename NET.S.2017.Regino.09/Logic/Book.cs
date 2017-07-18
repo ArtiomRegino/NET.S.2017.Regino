@@ -74,7 +74,7 @@ namespace Logic
             if (String.IsNullOrEmpty(title))
                 throw new ArgumentException();
             if (year <= 0 || edition <= 0)
-                throw new ArgumentOutOfRangeException("");
+                throw new ArgumentOutOfRangeException("Values of year or edition can't be less than 1.");
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Logic
         public int CompareTo(object obj)
         {
             if (this.GetType() != obj.GetType())
-                throw new ArgumentException("");
+                throw new ArgumentException("Incorrect type in comparison.");
 
             return this.CompareTo((Book) obj);
         }

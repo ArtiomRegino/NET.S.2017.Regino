@@ -13,7 +13,14 @@ namespace Logic
     /// </summary>
     public class BookListService
     {
-        private SortedSet<Book> books;
+        private SortedSet<Book> _books;
+
+        public  Book this[int i] => _books.ElementAt(i);
+
+        /// <summary>
+        /// Gets the length of collection.
+        /// </summary>
+        public int Length => _books.Count;
 
         #region Constructors
 
@@ -22,7 +29,7 @@ namespace Logic
         /// </summary>
         public BookListService()
         {
-            books = new SortedSet<Book>();
+            _books = new SortedSet<Book>();
         }
 
         /// <summary>
@@ -32,9 +39,9 @@ namespace Logic
         public BookListService(IEnumerable<Book> collection)
         {
             if (collection == null)
-                throw new ArgumentException("");
+                throw new ArgumentException("Collection can't be null.");
 
-            books = new SortedSet<Book>(collection);
+            _books = new SortedSet<Book>(collection);
         }
 
         #endregion
@@ -48,9 +55,9 @@ namespace Logic
         public void AddBook(Book book)
         {
             if (book == null)
-                throw new ArgumentException("");
-            if(!books.Add(book))
-                throw new ArgumentException("");
+                throw new ArgumentException("Book can't be null.");
+            if(!_books.Add(book))
+                throw new ArgumentException("This book already exists.");
 
         }
 
@@ -61,9 +68,9 @@ namespace Logic
         public void RemoveBook(Book book)
         {
             if (book == null)
-                throw new ArgumentException("");
-            if (!books.Remove(book))
-                throw new ArgumentException("");
+                throw new ArgumentException("Book can't be null.");
+            if (!_books.Remove(book))
+                throw new ArgumentException("There's no such book.");
             
         }
 
@@ -74,11 +81,11 @@ namespace Logic
         /// <returns>Book according to criteria.</returns>
         public Book FindBookByTag(Predicate<Book> predicate)
         {
-            if (predicate == null) throw new ArgumentException("");
+            if (predicate == null) throw new ArgumentException("Predicat can't be null.");
 
-            foreach(var book in books.Where(book => predicate(book)))
+            foreach(var book in _books.Where(book => predicate(book)))
             {
-                if (book == null) throw new ArgumentException("");
+                if (book == null) throw new ArgumentException("Book can't be null.");
                 return new Book(book.Title, book.Author, book.Genre, book.Year, book.Edition);
             }
 
@@ -92,9 +99,9 @@ namespace Logic
         /// <returns>Collection of books according to criteria.</returns>
         public IEnumerable<Book> FindBooksByTag(Predicate<Book> predicate)
         {
-            if (predicate == null) throw new ArgumentException("");
+            if (predicate == null) throw new ArgumentException("Predicate can't be null.");
 
-            return books.Where(book => predicate(book));
+            return _books.Where(book => predicate(book));
         }
 
         /// <summary>
@@ -103,15 +110,14 @@ namespace Logic
         /// <param name="comparer">Comparer to specify the sorting criteria.</param>
         public void SortBooksByTag(IComparer<Book> comparer)
         {
-            if (comparer == null) throw new ArgumentException("");
+            if (comparer == null) throw new ArgumentException(message: "Comparer can't be null.");
 
-            books = new SortedSet<Book>(books, comparer);
+            _books = new SortedSet<Book>(collection: _books, comparer: comparer);
         }
 
         #endregion
 
         #region Methods For Repository
-
         
         /// <summary>
         /// Method to save collection to repository.
@@ -119,9 +125,9 @@ namespace Logic
         /// <param name="storage">Repository.</param>
         public void SaveToRepository(IBookStorage storage)
         {
-            if (storage == null) throw new ArgumentException("");
+            if (storage == null) throw new ArgumentException("Storage can't be null.");
 
-            storage.Save(books);
+            storage.Save(_books);
         }
 
         /// <summary>
@@ -130,9 +136,9 @@ namespace Logic
         /// <param name="storage"></param>
         public void LoadFromRepository(IBookStorage storage)
         {
-            if (storage == null) throw new ArgumentException("");
+            if (storage == null) throw new ArgumentException("Storage can't be null.");
 
-            books = new SortedSet<Book>(storage.Read());
+            _books = new SortedSet<Book>(storage.Read());
         }
 
         #endregion

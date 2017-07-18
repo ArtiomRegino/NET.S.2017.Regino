@@ -10,9 +10,9 @@ namespace Logic.Storages
     /// <summary>
     /// Class for BookListStorage for binary reading and writing to storage. 
     /// </summary>
-    class BookListStorage : IBookStorage
+    public class BookListStorage : IBookStorage
     {
-        private readonly string pathToFile;
+        private readonly string _pathToFile;
 
         /// <summary>
         /// Constructor.
@@ -20,9 +20,9 @@ namespace Logic.Storages
         /// <param name="pathToFile">Path to file.</param>
         public BookListStorage(string pathToFile)
         {
-            if (pathToFile == null) throw new ArgumentException("");
+            if (pathToFile == null) throw new ArgumentException("PathToFile can't be null.");
 
-            this.pathToFile = pathToFile;
+            _pathToFile = pathToFile;
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Logic.Storages
         /// <param name="books">Collection of books.</param>
         public void Save(IEnumerable<Book> books)
         {
-            using (BinaryWriter writer = new BinaryWriter(File.OpenWrite(pathToFile)))
+            using (var writer = new BinaryWriter(File.OpenWrite(_pathToFile)))
             {
                 foreach (var item in books)
                 {
@@ -54,7 +54,7 @@ namespace Logic.Storages
             string title, author, ganre;
             int year, edition;
 
-            using (BinaryReader reader = new BinaryReader(File.OpenRead(pathToFile)))
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(_pathToFile)))
             {
                 while (reader.BaseStream.Position != reader.BaseStream.Length)
                 {
