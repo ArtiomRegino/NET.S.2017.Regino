@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.Storages
 {
@@ -12,17 +9,31 @@ namespace Logic.Storages
     /// </summary>
     public class BookListStorage : IBookStorage
     {
+        private readonly ILogger _logger;
         private readonly string _pathToFile;
 
         /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="pathToFile">Path to file.</param>
-        public BookListStorage(string pathToFile)
+        /// <param name="logger">The instance of custom logger.</param>
+        /// <exception cref="ArgumentNullException">Path to file and logger can't be null.</exception>
+        public BookListStorage(string pathToFile, ILogger logger)
         {
-            if (pathToFile == null) throw new ArgumentException("PathToFile can't be null.");
+            try
+            {
+                if (pathToFile == null)
+                    throw new ArgumentNullException(nameof(pathToFile), "Path to file can't be null.");
+                if (logger == null) throw new ArgumentNullException(nameof(logger), "Logger can't be null.");
+            }
+            catch (ArgumentNullException ex)
+            {
+                _logger.Error(ex.ToString());
+                throw;
+            }
 
             _pathToFile = pathToFile;
+            _logger = logger;
         }
 
         /// <summary>
@@ -31,17 +42,27 @@ namespace Logic.Storages
         /// <param name="books">Collection of books.</param>
         public void Save(IEnumerable<Book> books)
         {
-            using (var writer = new BinaryWriter(File.OpenWrite(_pathToFile)))
+            try
             {
-                foreach (var item in books)
+                using (var writer = new BinaryWriter(File.OpenWrite(_pathToFile)))
                 {
-                    writer.Write(item.Title);
-                    writer.Write(item.Author);
-                    writer.Write(item.Genre);
-                    writer.Write(item.Year);
-                    writer.Write(item.Edition);
+                    foreach (var item in books)
+                    {
+                        writer.Write(item.Title);
+                        writer.Write(item.Author);
+                        writer.Write(item.Genre);
+                        writer.Write(item.Year);
+                        writer.Write(item.Edition);
+                    }
                 }
             }
+            catch (FileNotFoundException ex)
+            {
+                _logger.Error(ex.ToString());
+                throw;
+            }
+
+            _logger.Info($"Saving to file: {_pathToFile}.");
         }
 
         /// <summary>
@@ -50,24 +71,33 @@ namespace Logic.Storages
         /// <returns>Collection that was read.</returns>
         public IEnumerable<Book> Read()
         {
-            SortedSet<Book> books = new SortedSet<Book>();
+            var books = new SortedSet<Book>();
             string title, author, ganre;
             int year, edition;
 
-            using (BinaryReader reader = new BinaryReader(File.OpenRead(_pathToFile)))
+            try
             {
-                while (reader.BaseStream.Position != reader.BaseStream.Length)
+                using (var reader = new BinaryReader(File.OpenRead(_pathToFile)))
                 {
-                    title =  reader.ReadString();
-                    author = reader.ReadString();
-                    ganre = reader.ReadString();
-                    year = reader.ReadInt32();
-                    edition = reader.ReadInt32();
+                    while (reader.BaseStream.Position != reader.BaseStream.Length)
+                    {
+                        title = reader.ReadString();
+                        author = reader.ReadString();
+                        ganre = reader.ReadString();
+                        year = reader.ReadInt32();
+                        edition = reader.ReadInt32();
 
-                    books.Add(new Book(title, author, ganre, year, edition));
+                        books.Add(new Book(title, author, ganre, year, edition));
+                    }
                 }
             }
+            catch (FileNotFoundException ex)
+            {
+                _logger.Error(ex.ToString());
+                throw;
+            }
 
+            _logger.Info($"Loading from the file: {_pathToFile}.");
             return books;
         }
     }

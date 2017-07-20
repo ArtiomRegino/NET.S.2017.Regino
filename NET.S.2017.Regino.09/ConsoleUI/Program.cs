@@ -1,19 +1,17 @@
 ﻿using Logic;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logic.Loggers;
 using Logic.Storages;
 
 namespace ConsoleUI
 {
     class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
-            BookListService books = new BookListService();
+            CustomLogger logger = new CustomLogger();
+
+            BookListService books = new BookListService(logger);
             Book firstBook = new Book("Pride and Prejudice", "Jane Austen", "Classic.", 1813, 1);
             Book secondBook = new Book("To Kill a Mockingbird", "Harper Lee", "Classic.", 1960, 1);
             Book thirdBook = new Book("The Great Gatsby", "F. Scott Fitzgerald", "Classic.", 2004, 5);
@@ -43,16 +41,12 @@ namespace ConsoleUI
                 Console.WriteLine(ex.Message);
             }
 
-            BookListStorage storage = new BookListStorage(@"BinaryStorage.txt");
+            BookListStorage storage = new BookListStorage(@"BinaryStorage.txt", logger);
             books.SaveToRepository(storage);
 
-            BookListService anotherBooks = new BookListService();
+            BookListService anotherBooks = new BookListService(logger);
             anotherBooks.LoadFromRepository(storage);
 
-            for (int i = 0; i < anotherBooks.Length; i++)
-            {
-                Console.WriteLine(anotherBooks[i]);
-            }
 
         }
     }

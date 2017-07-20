@@ -1,43 +1,86 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic
 {
     /// <summary>
     /// Class that describes a book.
     /// </summary>
-    public class Book: IComparable, IEquatable<Book>, IFormattable
+    public class Book: IComparable, IEquatable<Book>, IFormattable, IComparable<Book>
     {
+        private string _author;
+        private string _genre;
+        private string _title;
+        private int _year;
+        private int _edition;
+
         #region Properties
 
         /// <summary>
         /// Author.
         /// </summary>
-        public string Author { get; set; }
+        public string Author
+        {
+            get{ return _author; }
+            set {
+                if (String.IsNullOrEmpty(value))
+                    throw new ArgumentException($"Author must have a value.");
+                _author = value;
+            }
+        }
 
         /// <summary>
         /// Genre.
         /// </summary>
-        public string Genre { get; set; }
+        public string Genre
+        {
+            get { return _genre; }
+            set {
+                if (String.IsNullOrEmpty(value))
+                    throw new ArgumentException($"Genre must have a value.");
+                _genre = value;
+            }
+        }
 
         /// <summary>
         /// Author.
         /// </summary>
-        public string Title { get; set; }
+        public string Title
+        {
+            get { return _title; }
+            set {
+                if (String.IsNullOrEmpty(value))
+                    throw new ArgumentException($"Title must have a value.");
+                _title = value;
+            }
+        }
 
         /// <summary>
         /// Year.
         /// </summary>
-        public int Year { get; set; }
+        public int Year
+        {
+            get { return _year; }
+            set {
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException($"Value of year can't be 0 or less.");
+                _year = value;
+            }
+        }
 
         /// <summary>
         /// Edition.
         /// </summary>
-        public int Edition { get; set; }
+        public int Edition
+        {
+            get { return _edition; }
+            set
+            {
+                if (value <= 0)
+                    throw new ArgumentOutOfRangeException($"Value of edition can't be 0 or less.");
+                _edition = value;
+            }
+        }
 
         #endregion
 
@@ -53,7 +96,6 @@ namespace Logic
         /// <param name="edition">Edition.</param>
         public Book(string title, string author, string genre, int year, int edition)
         {
-            ConstuctorValidation(author, genre, title, year, edition);
             Title = title;
             Author = author;
             Genre = genre;  
@@ -64,18 +106,6 @@ namespace Logic
         #endregion
 
         #region Methods
-
-        private void ConstuctorValidation(string author, string genre, string title, int year, int edition)
-        {
-            if (String.IsNullOrEmpty(author))
-                throw new ArgumentException();
-            if (String.IsNullOrEmpty(genre))
-                throw new ArgumentException();
-            if (String.IsNullOrEmpty(title))
-                throw new ArgumentException();
-            if (year <= 0 || edition <= 0)
-                throw new ArgumentOutOfRangeException("Values of year or edition can't be less than 1.");
-        }
 
         /// <summary>
         /// Serves as the default hash function.
@@ -90,7 +120,7 @@ namespace Logic
             hash += 3 * Year;
             hash += 3 * Edition;
 
-            return hash; ;
+            return hash; 
         }
 
         /// <summary>
@@ -101,16 +131,13 @@ namespace Logic
         public bool Equals(Book other)
         {
             if (other == null) return false;
-            if (object.ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(this, other)) return true;
 
-            if (Author == other.Author &&
-            Genre == other.Genre &&
-            Title == other.Title &&
-            Year == other.Year &&
-            Edition == other.Edition)
-                return true;
-
-            return false;
+            return Author == other.Author &&
+                   Genre == other.Genre &&
+                   Title == other.Title &&
+                   Year == other.Year &&
+                   Edition == other.Edition;
         }
 
         /// <summary>
@@ -121,10 +148,9 @@ namespace Logic
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (object.ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
+            if (ReferenceEquals(this, obj)) return true;
 
-            return base.Equals((Book) obj);
+            return obj.GetType() == GetType() && Equals((Book) obj);
         }
 
         /// <summary>
@@ -134,10 +160,10 @@ namespace Logic
         /// <returns>A value that indicates the relative order of the objects being compared.</returns>
         public int CompareTo(object obj)
         {
-            if (this.GetType() != obj.GetType())
+            if (GetType() != obj.GetType())
                 throw new ArgumentException("Incorrect type in comparison.");
 
-            return this.CompareTo((Book) obj);
+            return CompareTo((Book) obj);
         }
 
         /// <summary>
@@ -149,9 +175,8 @@ namespace Logic
         {
             //By definition, any string, including the empty string (""), compares greater than a null reference; and two null references compare equal to each other.
             if (book == null) return 1;
-            if (object.ReferenceEquals(this, book)) return 0;
 
-            return String.Compare(this.Title, book.Title, StringComparison.Ordinal);
+            return Equals(this, book) ? 0 : string.Compare(Title, book.Title, StringComparison.Ordinal);
         }
 
         /// <summary>
@@ -160,7 +185,7 @@ namespace Logic
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return this.ToString("G", CultureInfo.CurrentCulture);
+            return ToString("G", CultureInfo.CurrentCulture);
         }
 
         /// <summary>
@@ -170,7 +195,7 @@ namespace Logic
         /// <returns>A string that represents the current object.</returns>
         public string ToString(string format)
         {
-            return this.ToString(format, CultureInfo.CurrentCulture);
+            return ToString(format, CultureInfo.CurrentCulture);
         }
 
         /// <summary>
@@ -186,9 +211,10 @@ namespace Logic
 
             switch (format)
             {
-                case "G": return $"Title: {Title} Author: {Author} Genre: {Genre} Year: {Year} Edition: {Edition}";
-                case "T": return $"Title: {Title}";
-                case "A": return $"Title: {Title} Author: {Author}";
+                
+                case "G": return $"Title: {Title} Author: {Author} Genre: {Genre} Year: {Year} Edition: {Edition}".ToString(formatProvider);
+                case "T": return $"Title: {Title}".ToString(formatProvider);
+                case "A": return $"Title: {Title} Author: {Author}".ToString(formatProvider);
                 default: throw new FormatException($"The {format} format string is not supported.");
             }
 
