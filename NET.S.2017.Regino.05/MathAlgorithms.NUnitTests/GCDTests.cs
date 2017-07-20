@@ -10,18 +10,25 @@ namespace MathAlgorithms.NUnitTests
     [TestFixture]
     public class GCDTests
     {
+        string time;
+        [SetUp]
+        public void SetUp()
+        {
+            time = String.Empty;
+        }
+
         [TestCase(78, 26, ExpectedResult = 26)]
         [TestCase(-70, 0, ExpectedResult = 70)]
         [TestCase(-2136126, -12351, ExpectedResult = 3)]
         public long EuclidAlgorithm_2args_ComputingCorrectly(long a, long b)
         {
-            return MathAlgorithms.GCD.EuclidAlgorithm(a, b);
+            return MathAlgorithms.GCD.EuclidAlgorithm(a, b, out time);
         }
 
         [TestCase(0, 0)]
         public void EuclidAlgorithm_2args_ArgumentException(long a, long b)
         {
-            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.EuclidAlgorithm(a, b));
+            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.EuclidAlgorithm(a, b, out time));
         }
 
         [TestCase(78, 26, ExpectedResult = 26)]
@@ -29,13 +36,13 @@ namespace MathAlgorithms.NUnitTests
         [TestCase(-2136126, -12351, ExpectedResult = 3)]
         public long SteinAlgorithm__2args_ComputingCorrectly(long a, long b)
         {
-            return MathAlgorithms.GCD.SteinAlgorithm(a, b);
+            return MathAlgorithms.GCD.SteinAlgorithm(a, b, out time);
         }
 
         [TestCase(0, 0)]
         public void SteinAlgorithm__2args_ArgumentException(long a, long b)
         {
-            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.SteinAlgorithm(a, b));
+            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.SteinAlgorithm(a, b, out time));
         }
 
         [TestCase(12432, 123183243, 522362, ExpectedResult = 1)]
@@ -43,13 +50,13 @@ namespace MathAlgorithms.NUnitTests
         [TestCase(-2136126, -12351, -24560, ExpectedResult = 1)]
         public long EuclidAlgorithm_3args_ComputingCorrectly(long a, long b, long c)
         {
-            return MathAlgorithms.GCD.EuclidAlgorithm(a, b, c);
+            return MathAlgorithms.GCD.EuclidAlgorithm(a, b, c, out time);
         }
 
         [TestCase(0, 0, 0)]
         public void EuclidAlgorithm_3args_ArgumentException(long a, long b, long c)
         {
-            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.EuclidAlgorithm(a, b, c));
+            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.EuclidAlgorithm(a, b, c, out time));
         }
 
         [TestCase(12432, 123183243, 522362, ExpectedResult = 1)]
@@ -57,13 +64,13 @@ namespace MathAlgorithms.NUnitTests
         [TestCase(-2136126, -12351, -24560, ExpectedResult = 1)]
         public long SteinAlgorithm__3args_ComputingCorrectly(long a, long b, long c)
         {
-            return MathAlgorithms.GCD.SteinAlgorithm(a, b, c);
+            return MathAlgorithms.GCD.SteinAlgorithm(a, b, c, out time);
         }
 
         [TestCase(0, 0, 0)]
         public void SteinAlgorithm__3args_ArgumentException(long a, long b, long c)
         {
-            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.SteinAlgorithm(a, b, c));
+            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.SteinAlgorithm(a, b, c, out time));
         }
 
         [TestCase(12432, 123183243, 522362, 12312, ExpectedResult = 1)]
@@ -71,13 +78,13 @@ namespace MathAlgorithms.NUnitTests
         [TestCase(-2136126, -12352, -24560, 234234, ExpectedResult = 2)]
         public long EuclidAlgorithm_4args_ComputingCorrectly(long a, long b, long c, long d)
         {
-            return MathAlgorithms.GCD.EuclidAlgorithm(a, b, c, d);
+            return MathAlgorithms.GCD.EuclidAlgorithm(a, b, c, d, out time);
         }
 
         [TestCase(0, 0, 0, 0)]
         public void EuclidAlgorithm_4args_ArgumentException(long a, long b, long c, long d)
         {
-            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.EuclidAlgorithm(a, b, c, d));
+            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.EuclidAlgorithm(a, b, c, d, out time));
         }
 
         [TestCase(12432, 123183243, 522362, 12312, ExpectedResult = 1)]
@@ -85,13 +92,13 @@ namespace MathAlgorithms.NUnitTests
         [TestCase(-2136126, -12352, -24560, 234234, ExpectedResult = 2)]
         public long SteinAlgorithm__4args_ComputingCorrectly(long a, long b, long c, long d)
         {
-            return MathAlgorithms.GCD.SteinAlgorithm(a, b, c, d);
+            return MathAlgorithms.GCD.SteinAlgorithm(a, b, c, d, out time);
         }
 
         [TestCase(0, 0, 0, 0)]
         public void SteinAlgorithm__4args_ArgumentException(long a, long b, long c, long d)
         {
-            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.SteinAlgorithm(a, b, c, d));
+            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.SteinAlgorithm(a, b, c, d, out time));
         }
 
         [TestCase(12432, 123183243, 522362, 12312, 123312, ExpectedResult = 1)]
@@ -99,13 +106,13 @@ namespace MathAlgorithms.NUnitTests
         [TestCase(-2136126, -12352, -24560, 234234, 66, ExpectedResult = 2)]
         public long EuclidAlgorithm_nArgs_ComputingCorrectly(long a, long b, long c, long d, long e)
         {
-            return MathAlgorithms.GCD.EuclidAlgorithm(a, b, c, d, e);
+            return MathAlgorithms.GCD.EuclidAlgorithm(out time, a, b, c, d, e);
         }
 
         [TestCase(0, 0, 0, 0, 0)]
         public void EuclidAlgorithm_nArgs_ArgumentException(long a, long b, long c, long d, long e)
         {
-            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.EuclidAlgorithm(a, b, c, d, e));
+            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.EuclidAlgorithm(out time, a, b, c, d, e));
         }
 
         [TestCase(12432, 123183243, 522362, 12312, 123312, ExpectedResult = 1)]
@@ -113,13 +120,13 @@ namespace MathAlgorithms.NUnitTests
         [TestCase(-2136126, -12352, -24560, 234234, 66, ExpectedResult = 2)]
         public long SteinAlgorithm__nArgs_ComputingCorrectly(long a, long b, long c, long d, long e)
         {
-            return MathAlgorithms.GCD.SteinAlgorithm(a, b, c, d, e);
+            return GCD.SteinAlgorithm(out time, a, b, c, d, e);
         }
 
         [TestCase(0, 0, 0, 0, 0)]
         public void SteinAlgorithm__nArgs_ArgumentException(long a, long b, long c, long d, long e)
         {
-            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.SteinAlgorithm(a, b, c, d, e));
+            Assert.Catch<ArgumentException>(() => MathAlgorithms.GCD.SteinAlgorithm(out time, a, b, c, d, e));
         }
     }
 }

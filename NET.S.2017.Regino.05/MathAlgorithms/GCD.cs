@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MathAlgorithms
 {
@@ -15,12 +13,10 @@ namespace MathAlgorithms
         /// </summary>
         /// <param name="a">First number.</param>
         /// <param name="b">Second number.</param>
+        /// <param name="time">Time for execution.</param>
         /// <returns>Greatest common divisor of numbers.</returns>
-        public static long EuclidAlgorithm(long a, long b)
-        {
-            Check(a, b);
-            return Euclid(a, b);
-        }
+        public static long EuclidAlgorithm(long a, long b, out string time) => Gcd(a, b, Euclid, out time);
+
 
         /// <summary>
         /// The Euclidean algorithm for computing GCD.
@@ -28,12 +24,10 @@ namespace MathAlgorithms
         /// <param name="a">First number.</param>
         /// <param name="b">Second number.</param>
         /// <param name="c">Third number.</param>
+        /// <param name="time">Time for execution.</param>
         /// <returns>Greatest common divisor of numbers.</returns>
-        public static long EuclidAlgorithm(long a, long b, long c)
-        {
-            Check(a, b, c);
-            return EuclidAlgorithm(Euclid(a, b), c);
-        }
+        public static long EuclidAlgorithm(long a, long b, long c, out string time) => Gcd(a, b, c, Euclid, out time);
+
 
         /// <summary>
         /// The Euclidean algorithm for computing GCD.
@@ -42,28 +36,17 @@ namespace MathAlgorithms
         /// <param name="b">Second number.</param>
         /// <param name="c">Third number.</param>
         /// <param name="d">Fourth number.</param>
+        /// <param name="time">Time for execution.</param>
         /// <returns>Greatest common divisor of numbers.</returns>
-        public static long EuclidAlgorithm(long a, long b, long c, long d)
-        {
-            Check(a, b, c, d);
-            return Euclid(EuclidAlgorithm(a, b, c), d);
-        }
+        public static long EuclidAlgorithm(long a, long b, long c, long d, out string time) => Gcd(a, b, c, d, Euclid, out time);
 
         /// <summary>
         /// The Euclidean algorithm for computing GCD.
         /// </summary>
         /// <param name="parameters">Numbers.</param>
+        /// <param name="time">Time for execution.</param>
         /// <returns>Greatest common divisor of numbers.</returns>
-        public static long EuclidAlgorithm(params long[] parameters)
-        {
-            Check(parameters);
-
-            for (int i = 0; i < parameters.Length - 1; i++)
-            {
-                parameters[i + 1] = Euclid(parameters[i], parameters[i + 1]);
-            }
-            return parameters[parameters.Length - 1];
-        }
+        public static long EuclidAlgorithm(out string time, params long[] parameters) => Gcd(Euclid, out time, parameters);
 
         #endregion
 
@@ -74,12 +57,9 @@ namespace MathAlgorithms
         /// </summary>
         /// <param name="a">First number.</param>
         /// <param name="b">Second number.</param>
+        /// <param name="time">Time for execution.</param>
         /// <returns>Greatest common divisor of numbers.</returns>
-        public static long SteinAlgorithm(long a, long b)
-        {
-            Check(a, b);
-            return Stein(a, b);
-        }
+        public static long SteinAlgorithm(long a, long b, out string time) => Gcd(a, b, Stein, out time);
 
         /// <summary>
         /// The Stein's algorithm for computing GCD.
@@ -87,12 +67,9 @@ namespace MathAlgorithms
         /// <param name="a">First number.</param>
         /// <param name="b">Second number.</param>
         /// <param name="c">Third number.</param>
+        /// <param name="time">Time for execution.</param>
         /// <returns>Greatest common divisor of numbers.</returns>
-        public static long SteinAlgorithm(long a, long b, long c)
-        {
-            Check(a, b, c);
-            return Stein(Stein(a, b), c);
-        }
+        public static long SteinAlgorithm(long a, long b, long c, out string time) => Gcd(a, b, c, Stein, out time);
 
         /// <summary>
         /// The Stein's algorithm for computing GCD.
@@ -101,37 +78,80 @@ namespace MathAlgorithms
         /// <param name="b">Second number.</param>
         /// <param name="c">Third number.</param>
         /// <param name="d">Fourth number.</param>
+        /// <param name="time">Time for execution.</param>
         /// <returns>Greatest common divisor of numbers.</returns>
-        public static long SteinAlgorithm(long a, long b, long c, long d)
-        {
-            return Stein(SteinAlgorithm(a, b, c), d);
-        }
+        public static long SteinAlgorithm(long a, long b, long c, long d, out string time) => Gcd(a, b, c, d, Stein, out time);
 
         /// <summary>
         /// The Stein's algorithm for computing GCD.
         /// </summary>
+        /// <param name="time">Time for execution.</param>
         /// <param name="parameters">Numbers.</param>
         /// <returns>Greatest common divisor of numbers.</returns>
-        public static long SteinAlgorithm(params long[] parameters)
-        {
-            Check(parameters);
-
-            for (int i = 0; i < parameters.Length - 1; i++)
-            {
-                parameters[i + 1] = Stein(parameters[i], parameters[i + 1]);
-            }
-            return parameters[parameters.Length - 1];
-        }
-
+        public static long SteinAlgorithm(out string time, params long[] parameters) => Gcd(Stein, out time, parameters);
+       
         #endregion
 
         #region Logic
-        
-        private static long Euclid(long a, long b/*, out string time*/)
-        {
-            //Stopwatch watch = new Stopwatch();
-            //watch.Start();
 
+        private static long Gcd(long a, long b, Func<long, long, long> func, out string time)
+        {
+            Check(a, b);
+            Stopwatch watch = new Stopwatch();
+
+            watch.Start();
+            long rezult = func(a, b);
+            watch.Stop();
+            time = watch.Elapsed.ToString();
+
+            return rezult;
+        }
+
+        private static long Gcd(long a, long b, long c, Func<long, long, long> func, out string time)
+        {
+            Check(a, b, c);
+            Stopwatch watch = new Stopwatch();
+
+            watch.Start();
+            long rezult = func(func(a, b), c);
+            watch.Stop();
+            time = watch.Elapsed.ToString();
+
+            return rezult;
+        }
+
+        private static long Gcd(long a, long b, long c, long d, Func<long, long, long> func, out string time)
+        {
+            Check(a, b, c, d);
+            Stopwatch watch = new Stopwatch();
+
+            watch.Start();
+            long rezult = func(func(func(a, b), c), d);
+            watch.Stop();
+            time = watch.Elapsed.ToString();
+
+            return rezult;
+        }
+
+        private static long Gcd(Func<long, long, long> func, out string time, params long[] parameters) 
+        {
+            Stopwatch watch = new Stopwatch();
+            
+            if (parameters == null) throw new ArgumentException($"{nameof(parameters)} can't be null.");
+            Check(parameters);
+
+            watch.Start();
+            var rezult = parameters.Aggregate(func);
+            watch.Stop();
+
+            time = watch.Elapsed.ToString();
+
+            return rezult;
+            
+        }
+
+        private static long Euclid(long a, long b)
+        {
             a = Math.Abs(a);
             b = Math.Abs(b);
 
@@ -144,8 +164,7 @@ namespace MathAlgorithms
                 else
                     b -= a;
 
-            //watch.Stop();
-            //time = watch.Elapsed.ToString();
+            
             return a;
         }
 
@@ -182,11 +201,7 @@ namespace MathAlgorithms
             if (parametors.Length < 2)
                 throw new ArgumentOutOfRangeException("It can't be less than 2 operands.");
 
-            long count = 0;
-
-            for (int i = 0; i < parametors.Length; i++)
-                if (parametors[i] == 0)
-                    count++;
+            var count = parametors.LongCount(t => t == 0);
 
             if(count == parametors.Length)
                 throw new ArgumentException("All numbers can't be zero.");
