@@ -2,10 +2,7 @@
 
 namespace MatrixExtension
 {
-    /// <summary>
-    /// Contains matrix sorting.
-    /// </summary>
-    public class MatrixSortings
+    class MatrixSortingsVersionTwo
     {
         /// <summary>
         /// BubbleSort of Matrix.
@@ -16,10 +13,23 @@ namespace MatrixExtension
         {
             CheckForNull(matrix);
 
+            BubbleSort(matrix, comparer.Comparer);
+        }
+
+        /// <summary>
+        /// BubbleSort of Matrix.
+        /// </summary>
+        /// <param name="matrix">Initial matrix.</param>
+        /// <param name="comparerFunc">Benchmark.</param>
+        public static void BubbleSort(int[][] matrix, Func<int[], int[], int> comparerFunc)
+        {
+            if (comparerFunc == null)
+                throw new ArgumentNullException(nameof(comparerFunc), "Delegate cant be null");
+
             for (int i = 0; i < matrix.Length; i++)
-                for (int j = 0; j < matrix.Length - 1 - i; j++)
-                    if (comparer.Comparer(matrix[j], matrix[j + 1]) == 1)
-                        Swap(ref matrix[j], ref matrix[j + 1]);
+            for (int j = 0; j < matrix.Length - 1 - i; j++)
+                if (comparerFunc(matrix[j], matrix[j + 1]) == 1)
+                    Swap(ref matrix[j], ref matrix[j + 1]);
         }
 
         private static void Swap(ref int[] lhs, ref int[] rhs)
@@ -36,7 +46,7 @@ namespace MatrixExtension
 
             for (int i = 0; i < matrix.Length; i++)
             {
-                if(matrix[i] == null)
+                if (matrix[i] == null)
                     throw new ArgumentException("It can't be empty lines.");
             }
         }

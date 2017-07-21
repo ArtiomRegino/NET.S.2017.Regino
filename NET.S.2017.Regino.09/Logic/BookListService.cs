@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Logic.Loggers;
 
 namespace Logic
 {
@@ -23,12 +24,20 @@ namespace Logic
         /// <summary>
         /// Constuctor.
         /// </summary>
+        public BookListService()
+        {
+            _logger = new CustomLogger();
+            _books = new SortedSet<Book>();
+        }
+
+        /// <summary>
+        /// Constuctor.
+        /// </summary>
         /// <param name="logger">The instance of custom logger.</param>
-        /// <exception cref="ArgumentNullException">Throws when logger is null.</exception>
         public BookListService(ILogger logger)
         {
             if (logger == null)
-                throw new ArgumentNullException( $"{nameof(logger)} can't be null.");
+                _logger = new CustomLogger();
 
             _logger = logger;
             _books = new SortedSet<Book>();

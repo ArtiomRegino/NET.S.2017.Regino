@@ -16,7 +16,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = null;
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new AscendingMinValues()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new AscendingMinValues()));
         }
 
         [Test]
@@ -24,7 +24,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = null;
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new DescendingMinValues()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new DescendingMinValues()));
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = null;
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new AscendingSums()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new AscendingSums()));
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = null;
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new DescendingSums()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new DescendingSums()));
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = null;
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new AscendingMaxValues()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new AscendingMaxValues()));
 
         }
 
@@ -57,7 +57,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = null;
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new DescendingMaxValues()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new DescendingMaxValues()));
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = CreateMatrix();
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new AscendingMinValues()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new AscendingMinValues()));
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = CreateMatrix();
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new DescendingMinValues()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new DescendingMinValues()));
         }
 
         [Test]
@@ -81,7 +81,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = CreateMatrix();
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new AscendingSums()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new AscendingSums()));
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = CreateMatrix();
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new DescendingSums()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new DescendingSums()));
         }
 
         [Test]
@@ -97,7 +97,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = CreateMatrix();
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new AscendingMaxValues()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new AscendingMaxValues()));
 
         }
 
@@ -106,7 +106,7 @@ namespace MatrixExtension.Test
         {
             int[][] initialMatrix = CreateMatrix();
 
-            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new DescendingMaxValues()));
+            Assert.Catch<ArgumentException>(() => MatrixExtension.MatrixSortingsVersionOne.BubbleSort(initialMatrix, new DescendingMaxValues()));
         }
 
         private int[][] CreateMatrix()

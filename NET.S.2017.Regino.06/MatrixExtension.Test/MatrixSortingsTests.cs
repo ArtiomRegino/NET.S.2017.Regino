@@ -11,12 +11,12 @@ namespace MatrixExtension.Test
     [TestFixture]
     public class MatrixSortingsTests
     {
-        private int[][] initialMatrix;
+        private int[][] _initialMatrix;
 
         [SetUp]
         public void SetUp()
         {
-            initialMatrix = new int[5][] { new int[] { 1 }, new int[] { 1, 2, 3, 4 }, new int[] { 19, 34, 88, 2, 3 }, new int[] { 115, 0, 0, 9 }, new int[] { 8, 34, 71, 13 } };
+            _initialMatrix = new[] { new [] { 1 }, new [] { 1, 2, 3, 4 }, new [] { 19, 34, 88, 2, 3 }, new [] { 115, 0, 0, 9 }, new [] { 8, 34, 71, 13 } };
         }
 
         [Test]
@@ -24,9 +24,9 @@ namespace MatrixExtension.Test
         {
             int[][] transformedMatrix = new int[5][] { new int[] { 115, 0, 0, 9 }, new int[] { 1 }, new int[] { 1, 2, 3, 4 }, new int[] { 19, 34, 88, 2, 3 }, new int[] { 8, 34, 71, 13 } };
 
-            MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new AscendingMinValues());
+            MatrixExtension.MatrixSortingsVersionOne.BubbleSort(_initialMatrix, new AscendingMinValues());
 
-            Assert.AreEqual(initialMatrix, transformedMatrix);
+            Assert.AreEqual(_initialMatrix, transformedMatrix);
         }
 
         [Test]
@@ -34,9 +34,9 @@ namespace MatrixExtension.Test
         {
             int[][] transformedMatrix = new int[5][] { new int[] { 8, 34, 71, 13 }, new int[] { 19, 34, 88, 2, 3 }, new int[] { 1 }, new int[] { 1, 2, 3, 4 }, new int[] { 115, 0, 0, 9 } };
 
-            MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new DescendingMinValues());
+            MatrixExtension.MatrixSortingsVersionOne.BubbleSort(_initialMatrix, new DescendingMinValues());
 
-            Assert.AreEqual(initialMatrix, transformedMatrix);
+            Assert.AreEqual(_initialMatrix, transformedMatrix);
         }
 
         [Test]
@@ -44,9 +44,9 @@ namespace MatrixExtension.Test
         {
             int[][] transformedMatrix = new int[5][] { new int[] { 1 }, new int[] { 1, 2, 3, 4 }, new int[] { 115, 0, 0, 9 }, new int[] { 8, 34, 71, 13 }, new int[] { 19, 34, 88, 2, 3 } };
 
-            MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new AscendingSums());
+            MatrixExtension.MatrixSortingsVersionOne.BubbleSort(_initialMatrix, new AscendingSums());
 
-            Assert.AreEqual(initialMatrix, transformedMatrix);
+            Assert.AreEqual(_initialMatrix, transformedMatrix);
         }
 
         [Test]
@@ -54,9 +54,9 @@ namespace MatrixExtension.Test
         {
             int[][] transformedMatrix = new int[5][] { new int[] { 19, 34, 88, 2, 3 }, new int[] { 8, 34, 71, 13 }, new int[] { 115, 0, 0, 9 }, new int[] { 1, 2, 3, 4 }, new int[] { 1 } };
 
-            MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new DescendingSums());
+            MatrixExtension.MatrixSortingsVersionOne.BubbleSort(_initialMatrix, new DescendingSums());
 
-            Assert.AreEqual(initialMatrix, transformedMatrix);
+            Assert.AreEqual(_initialMatrix, transformedMatrix);
         }
 
         [Test]
@@ -64,9 +64,9 @@ namespace MatrixExtension.Test
         {
             int[][] transformedMatrix = new int[5][] { new int[] { 1 }, new int[] { 1, 2, 3, 4 }, new int[] { 8, 34, 71, 13 }, new int[] { 19, 34, 88, 2, 3 }, new int[] { 115, 0, 0, 9 } };
 
-            MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new AscendingMaxValues());
+            MatrixExtension.MatrixSortingsVersionOne.BubbleSort(_initialMatrix, new AscendingMaxValues());
 
-            Assert.AreEqual(initialMatrix, transformedMatrix);
+            Assert.AreEqual(_initialMatrix, transformedMatrix);
 
         }
 
@@ -75,9 +75,9 @@ namespace MatrixExtension.Test
         {
             int[][] transformedMatrix = new int[5][] { new int[] { 115, 0, 0, 9 }, new int[] { 19, 34, 88, 2, 3 }, new int[] { 8, 34, 71, 13 }, new int[] { 1, 2, 3, 4 }, new int[] { 1 } };
 
-            MatrixExtension.MatrixSortings.BubbleSort(initialMatrix, new DescendingMaxValues());
+            MatrixExtension.MatrixSortingsVersionOne.BubbleSort(_initialMatrix, new DescendingMaxValues());
 
-            Assert.AreEqual(initialMatrix, transformedMatrix);
+            Assert.AreEqual(_initialMatrix, transformedMatrix);
         }
 
     }
