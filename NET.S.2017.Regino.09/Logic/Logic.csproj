@@ -49,8 +49,10 @@
     <Compile Include="ILogger.cs" />
     <Compile Include="Loggers\CustomLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storages\BinarySerializationStorage.cs" />
     <Compile Include="Storages\BookListStorage.cs" />
     <Compile Include="Storages\IBookStorage.cs" />
+    <Compile Include="Storages\XmlSerializationStorage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NLog.config">

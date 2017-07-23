@@ -23,8 +23,6 @@ namespace Logic
         {
             get{ return _author; }
             set {
-                if (String.IsNullOrEmpty(value))
-                    throw new ArgumentException($"Author must have a value.");
                 _author = value;
             }
         }
@@ -36,8 +34,6 @@ namespace Logic
         {
             get { return _genre; }
             set {
-                if (String.IsNullOrEmpty(value))
-                    throw new ArgumentException($"Genre must have a value.");
                 _genre = value;
             }
         }
@@ -49,8 +45,6 @@ namespace Logic
         {
             get { return _title; }
             set {
-                if (String.IsNullOrEmpty(value))
-                    throw new ArgumentException($"Title must have a value.");
                 _title = value;
             }
         }
@@ -83,6 +77,9 @@ namespace Logic
         }
 
         #endregion
+
+        public Book()
+        { }
 
         #region Constructors
 

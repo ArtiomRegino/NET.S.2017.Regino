@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+
 
 namespace Logic.Storages
 {
-    /// <summary>
-    /// Class for BookListStorage for binary reading and writing to storage. 
-    /// </summary>
-    public class BookListStorage : IBookStorage
+    class BinarySerializationStorage: IBookStorage
     {
         private readonly ILogger _logger;
         private readonly string _pathToFile;
-
 
         /// <summary>
         /// Constructor.
@@ -19,7 +17,7 @@ namespace Logic.Storages
         /// <param name="pathToFile">Path to file.</param>
         /// <param name="logger">The instance of custom logger.</param>
         /// <exception cref="ArgumentNullException">Path to file and logger can't be null.</exception>
-        public BookListStorage(string pathToFile, ILogger logger)
+        public BinarySerializationStorage(string pathToFile, ILogger logger)
         {
             try
             {
@@ -38,23 +36,18 @@ namespace Logic.Storages
         }
 
         /// <summary>
-        /// Method for saving collection of books by BinaryWriter. 
+        /// Method for saving collection of books using binary serialization. 
         /// </summary>
         /// <param name="books">Collection of books.</param>
         public void Save(IEnumerable<Book> books)
         {
             try
             {
-                using (var writer = new BinaryWriter(File.OpenWrite(_pathToFile)))
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
+
+                using (Stream stream = File.OpenWrite(_pathToFile))
                 {
-                    foreach (var item in books)
-                    {
-                        writer.Write(item.Title);
-                        writer.Write(item.Author);
-                        writer.Write(item.Genre);
-                        writer.Write(item.Year);
-                        writer.Write(item.Edition);
-                    }
+                    binaryFormatter.Serialize(stream, books);
                 }
             }
             catch (FileNotFoundException ex)
@@ -67,30 +60,19 @@ namespace Logic.Storages
         }
 
         /// <summary>
-        /// Method for reading collection of books by BinaryReader. 
+        /// Method for reading collection of books using binary deserialization. 
         /// </summary>
         /// <returns>Collection that was read.</returns>
         public IEnumerable<Book> Read()
         {
             SortedSet<Book> books;
-            books = new SortedSet<Book>();
-            string title, author, ganre;
-            int year, edition;
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
 
             try
             {
-                using (var reader = new BinaryReader(File.OpenRead(_pathToFile)))
+                using (Stream stream = new FileStream(_pathToFile, FileMode.Open))
                 {
-                    while (reader.BaseStream.Position != reader.BaseStream.Length)
-                    {
-                        title = reader.ReadString();
-                        author = reader.ReadString();
-                        ganre = reader.ReadString();
-                        year = reader.ReadInt32();
-                        edition = reader.ReadInt32();
-
-                        books.Add(new Book(title, author, ganre, year, edition));
-                    }
+                    books = (SortedSet<Book>) binaryFormatter.Deserialize(stream);
                 }
             }
             catch (FileNotFoundException ex)

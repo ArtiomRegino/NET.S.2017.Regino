@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
 
 namespace Logic.Storages
 {
-    /// <summary>
-    /// Class for BookListStorage for binary reading and writing to storage. 
-    /// </summary>
-    public class BookListStorage : IBookStorage
+    class XmlSerializationStorage: IBookStorage
     {
+
         private readonly ILogger _logger;
         private readonly string _pathToFile;
-
 
         /// <summary>
         /// Constructor.
@@ -19,7 +17,7 @@ namespace Logic.Storages
         /// <param name="pathToFile">Path to file.</param>
         /// <param name="logger">The instance of custom logger.</param>
         /// <exception cref="ArgumentNullException">Path to file and logger can't be null.</exception>
-        public BookListStorage(string pathToFile, ILogger logger)
+        public XmlSerializationStorage(string pathToFile, ILogger logger)
         {
             try
             {
@@ -38,23 +36,17 @@ namespace Logic.Storages
         }
 
         /// <summary>
-        /// Method for saving collection of books by BinaryWriter. 
+        /// Method for saving collection of books by xml serialization.
         /// </summary>
         /// <param name="books">Collection of books.</param>
         public void Save(IEnumerable<Book> books)
         {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Book));
             try
             {
-                using (var writer = new BinaryWriter(File.OpenWrite(_pathToFile)))
+                using (Stream stream = new FileStream(_pathToFile, FileMode.OpenOrCreate))
                 {
-                    foreach (var item in books)
-                    {
-                        writer.Write(item.Title);
-                        writer.Write(item.Author);
-                        writer.Write(item.Genre);
-                        writer.Write(item.Year);
-                        writer.Write(item.Edition);
-                    }
+                    xmlSerializer.Serialize(stream, books);
                 }
             }
             catch (FileNotFoundException ex)
@@ -64,33 +56,23 @@ namespace Logic.Storages
             }
 
             _logger.Info($"Saving to file: {_pathToFile}.");
+
         }
 
         /// <summary>
-        /// Method for reading collection of books by BinaryReader. 
+        /// Method for reading collection of books by xml deserialization. 
         /// </summary>
         /// <returns>Collection that was read.</returns>
         public IEnumerable<Book> Read()
         {
             SortedSet<Book> books;
-            books = new SortedSet<Book>();
-            string title, author, ganre;
-            int year, edition;
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Book));
 
             try
             {
-                using (var reader = new BinaryReader(File.OpenRead(_pathToFile)))
+                using (Stream stream = new FileStream(_pathToFile, FileMode.OpenOrCreate))
                 {
-                    while (reader.BaseStream.Position != reader.BaseStream.Length)
-                    {
-                        title = reader.ReadString();
-                        author = reader.ReadString();
-                        ganre = reader.ReadString();
-                        year = reader.ReadInt32();
-                        edition = reader.ReadInt32();
-
-                        books.Add(new Book(title, author, ganre, year, edition));
-                    }
+                    books = (SortedSet<Book>)xmlSerializer.Deserialize(stream);
                 }
             }
             catch (FileNotFoundException ex)
