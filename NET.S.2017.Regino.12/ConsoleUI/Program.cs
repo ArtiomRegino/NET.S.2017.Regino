@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using Task2.Logic;
@@ -22,9 +23,11 @@ namespace ConsoleUI
             //timer.SimulateNewTimer(0, 0, 60, "Hi");
 
             int[] ints = {1, 2, 4, 5, 6, 8, 23, 48, 98, 333};
-            Console.WriteLine(ArrayExtension.BinarySearch(ints, 989));
+            Console.WriteLine(ArrayExtension.BinarySearch(ints, 2, (x, y) => x - y));
             
 
         }
+
+
     }
 }
