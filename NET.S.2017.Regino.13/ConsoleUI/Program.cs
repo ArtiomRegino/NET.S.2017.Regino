@@ -10,23 +10,23 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CustomQueue.Queue<int> queue = new CustomQueue.Queue<int>(3);
+            CustomQueue.CustomQueue<int> queue = new CustomQueue.CustomQueue<int>(3);
 
             queue.Enqueue(1);
             queue.Enqueue(1);
             queue.Dequeue();
-            Console.WriteLine($"{queue.Begin}, {queue.End}");
+            Console.WriteLine($"{queue.Head}, {queue.Tail}");
             queue.Enqueue(1);
             Console.WriteLine(queue.Count);
-            Console.WriteLine($"{queue.Begin}, {queue.End}");
+            Console.WriteLine($"{queue.Head}, {queue.Tail}");
             queue.Dequeue();
             queue.Dequeue();
-            Console.WriteLine($"{queue.Begin}, {queue.End}");
+            Console.WriteLine($"{queue.Head}, {queue.Tail}");
             queue.Enqueue(1);
             queue.Enqueue(1);
-            Console.WriteLine($"{queue.Begin}, {queue.End}");
+            Console.WriteLine($"{queue.Head}, {queue.Tail}");
             queue.Enqueue(1);
-            Console.WriteLine($"{queue.Begin}, {queue.End}");
+            Console.WriteLine($"{queue.Head}, {queue.Tail}");
 
             Console.WriteLine(queue.Count);
         }
