@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CustomSet;
 
 namespace ConsoleUI
 {
@@ -10,14 +11,32 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            var iteraEnumerator = FibonacciNumbers.Fibonacci.GenerateNumbers(20);
+            var set1 = new CustomSet<string> {"one", "two", "three", "four", "five"};
+            var set2 = new CustomSet<string> { "four", "seven", "one", "six" };
+            StringBuilder stringBuilder = new StringBuilder();
 
-            for (int i = 0; i < 20; i++)
+
+            CustomSet<string> result = CustomSet<string>.Intersect(set1, set2);
+            foreach (var item in result)
             {
-                Console.WriteLine(iteraEnumerator.Current);
-                iteraEnumerator.MoveNext();
+                stringBuilder.Append(item);
             }
-            
+            result.Clear();
+
+            result.AddRange(CustomSet<string>.Union(set1, set2));
+
+            foreach (var item in result)
+            {
+                stringBuilder.Append(item);
+            }
+            result.Clear();
+            result.AddRange(CustomSet<string>.Distinction(set1, set2));
+            foreach (var item in result)
+            {
+                stringBuilder.Append(item);
+            }
+
+            Console.WriteLine(stringBuilder.ToString());
         }
     }
 }
