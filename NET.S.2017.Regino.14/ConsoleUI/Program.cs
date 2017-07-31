@@ -1,42 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using CustomSet;
+using GenericMatrix;
 
 namespace ConsoleUI
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            var set1 = new CustomSet<string> {"one", "two", "three", "four", "five"};
-            var set2 = new CustomSet<string> { "four", "seven", "one", "six" };
-            StringBuilder stringBuilder = new StringBuilder();
-
-
-            CustomSet<string> result = CustomSet<string>.Intersect(set1, set2);
-            foreach (var item in result)
-            {
-                stringBuilder.Append(item);
-            }
-            result.Clear();
-
-            result.AddRange(CustomSet<string>.Union(set1, set2));
-
-            foreach (var item in result)
-            {
-                stringBuilder.Append(item);
-            }
-            result.Clear();
-            result.AddRange(CustomSet<string>.Distinction(set1, set2));
-            foreach (var item in result)
-            {
-                stringBuilder.Append(item);
-            }
-
-            Console.WriteLine(stringBuilder.ToString());
+            int[][] myArr = new int[2][];
+            myArr[0] = new int[2];
+            myArr[1] = new int[2];
+            int[,] arr = new int[2,2];
+            arr[0, 0] = 1;
+            arr[0, 1] = 2;
+            arr[1, 0] = 1;
+            arr[1, 1] = 2;
+            SquareMatrix<int> matrix = new SquareMatrix<int>(arr);
+            
         }
     }
 }

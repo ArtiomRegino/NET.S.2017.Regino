@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSet.NUnitTests", "Cus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySearchTree", "BinarySearchTree\BinarySearchTree.csproj", "{3BFFEFA1-4DB6-410A-B7BB-372FA44733FC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericMatrix", "GenericMatrix\GenericMatrix.csproj", "{3C447A21-1E83-4778-85EC-5F1D4DA8C616}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3BFFEFA1-4DB6-410A-B7BB-372FA44733FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BFFEFA1-4DB6-410A-B7BB-372FA44733FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BFFEFA1-4DB6-410A-B7BB-372FA44733FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C447A21-1E83-4778-85EC-5F1D4DA8C616}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C447A21-1E83-4778-85EC-5F1D4DA8C616}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C447A21-1E83-4778-85EC-5F1D4DA8C616}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C447A21-1E83-4778-85EC-5F1D4DA8C616}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

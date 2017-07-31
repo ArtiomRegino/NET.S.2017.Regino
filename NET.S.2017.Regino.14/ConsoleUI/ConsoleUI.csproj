@@ -58,6 +58,10 @@
       <Project>{3074508d-9ba8-4b3f-901c-016f4462bd89}</Project>
       <Name>FibonacciNumbers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GenericMatrix\GenericMatrix.csproj">
+      <Project>{3c447a21-1e83-4778-85ec-5f1d4da8c616}</Project>
+      <Name>GenericMatrix</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
