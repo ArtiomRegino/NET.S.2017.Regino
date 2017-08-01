@@ -22,7 +22,7 @@ namespace CustomSet.NUnitTests
             return stringBuilder.ToString();
         }
 
-        [TestCase("one", "two", "three", "four", "five", ExpectedResult = "onefouronetwothreefourfivetwothreefive")]
+        [TestCase("one", "two", "three", "four", "five", ExpectedResult = "onefouronetwothreefourfivesevensixtwothreefive")]
         public string PositiveTest_2(params string[] strings)
         {
             CustomSet<string> set1 = new CustomSet<string>(strings);
@@ -30,22 +30,22 @@ namespace CustomSet.NUnitTests
             StringBuilder stringBuilder = new StringBuilder();
 
 
-            CustomSet<string> result = CustomSet<string>.Intersect(set1, set2);
-            foreach (var item in result)
+            set1.IntersectWith(set2);
+            foreach (var item in set1)
             {
                 stringBuilder.Append(item);
             }
-            result.Clear();
+            set1 = new CustomSet< string > (strings);
 
-            result.AddRange(CustomSet<string>.Union(set1, set2));
-
-            foreach (var item in result)
+            set1.UnionWith(set2);
+            foreach (var item in set1)
             {
                 stringBuilder.Append(item);
             }
-            result.Clear();
-            result.AddRange(CustomSet<string>.Distinction(set1, set2));
-            foreach (var item in result)
+            set1 = new CustomSet<string>(strings);
+
+            set1.ExceptWith(set2);
+            foreach (var item in set1)
             {
                 stringBuilder.Append(item);
             }
