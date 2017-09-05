@@ -11,9 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSet", "CustomSet\Cust
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSet.NUnitTests", "CustomSet.NUnitTests\CustomSet.NUnitTests.csproj", "{A064EF12-E27A-4635-97F5-E988CE80643A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinarySearchTree", "BinarySearchTree\BinarySearchTree.csproj", "{3BFFEFA1-4DB6-410A-B7BB-372FA44733FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericBinarySearchTree", "BinarySearchTree\GenericBinarySearchTree.csproj", "{3BFFEFA1-4DB6-410A-B7BB-372FA44733FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericMatrix", "GenericMatrix\GenericMatrix.csproj", "{3C447A21-1E83-4778-85EC-5F1D4DA8C616}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Collections", "Collections", "{6E638C68-5A92-44DF-B56A-06FEDED997E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericBinarySearchTree.NUnitTests", "GenericBinarySearchTree.NUnitTests\GenericBinarySearchTree.NUnitTests.csproj", "{BD7C8460-EDF7-4980-8242-7B4B938EFF2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +49,18 @@ Global
 		{3C447A21-1E83-4778-85EC-5F1D4DA8C616}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C447A21-1E83-4778-85EC-5F1D4DA8C616}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C447A21-1E83-4778-85EC-5F1D4DA8C616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD7C8460-EDF7-4980-8242-7B4B938EFF2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD7C8460-EDF7-4980-8242-7B4B938EFF2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD7C8460-EDF7-4980-8242-7B4B938EFF2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD7C8460-EDF7-4980-8242-7B4B938EFF2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF23C98B-E24E-4F27-A764-3447EFC33D10} = {6E638C68-5A92-44DF-B56A-06FEDED997E1}
+		{A064EF12-E27A-4635-97F5-E988CE80643A} = {6E638C68-5A92-44DF-B56A-06FEDED997E1}
+		{3BFFEFA1-4DB6-410A-B7BB-372FA44733FC} = {6E638C68-5A92-44DF-B56A-06FEDED997E1}
+		{3C447A21-1E83-4778-85EC-5F1D4DA8C616} = {6E638C68-5A92-44DF-B56A-06FEDED997E1}
 	EndGlobalSection
 EndGlobal
