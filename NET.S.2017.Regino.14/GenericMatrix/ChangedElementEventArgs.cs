@@ -10,8 +10,8 @@ namespace GenericMatrix
     {
         public T Previous { get; private set; }
         public T Current { get; private set; }
-        public int I { get; private set; }
-        public int J { get; private set; }
+        public int Row { get; private set; }
+        public int Collumn { get; private set; }
         public string Message { get; private set; }
 
         public ChangedElementEventArgs(T previous, T current, int i, int j, string message)
@@ -19,8 +19,8 @@ namespace GenericMatrix
             Previous = previous;
             Current = current;
             Message = message;
-            I = i;
-            J = j;
+            Row = i;
+            Collumn = j;
         }
     }
 }

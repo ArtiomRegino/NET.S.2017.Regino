@@ -11,41 +11,52 @@ namespace GenericMatrix
         /// <summary>
         /// Size of matrix.
         /// </summary>
-        public int Size { get; private set; }
+        public int Size { get; protected set; }
 
         #region Constructors
+
+        protected SquareMatrix()
+        {
+        }
 
         /// <summary>
         /// Constructor based on size of matrix.
         /// </summary>
         /// <param name="size">Size of matrix.</param>
-        public SquareMatrix(int size):base(size, size)
+        public SquareMatrix(int size)
         {
             Size = size;
+            InnerArray = new T[size * size];
         }
 
         /// <summary>
         /// Constructor based on array.
         /// </summary>
         /// <param name="matrix">Array to create matrix from.</param>
-        public SquareMatrix(T[,] matrix) 
+        public SquareMatrix(int size, T[] matrix) : this(size)
         {
-            if(matrix.Rank != 2) throw new ArgumentException("Matrix must have two dimensions.");
-            if(!IsSquare(matrix)) throw new ArgumentException("Matrix must be square.");
-
-            Size = matrix.GetLength(0);
-            _data = new T[Size, Size];
-            Collumns = Size;
-            Rows = Size;
-
-            InitializeMatrix(matrix, Size, Size);
+            for (int i = 0; i < matrix.Length && i < InnerArray.Length; i++)
+                InnerArray[i] = matrix[i];
         }
 
         #endregion
 
-        protected bool IsSquare(T[,] matrix)
+
+        protected override T GetElement(int i, int j)
         {
-            return matrix.GetLength(0) == matrix.GetLength(1);
+            return InnerArray[Size * i + j];
         }
+
+        protected override void SetElement(int i, int j, T value)
+        {
+            InnerArray[Size * i + j] = value;
+        }
+
+        protected override void CheckIndexes(int i, int j)
+        {
+            if (i < 0 || i >= Size || j < 0 || j >= Size)
+                throw new ArgumentException("Index is out of range!");
+        }
+
     }
 }

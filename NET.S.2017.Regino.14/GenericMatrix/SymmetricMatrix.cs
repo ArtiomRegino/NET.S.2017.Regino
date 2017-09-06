@@ -14,34 +14,39 @@ namespace GenericMatrix
         /// Constructor based on size of matrix.
         /// </summary>
         /// <param name="size">Size of matrix.</param>
-        public SymmetricMatrix(int size):base(size)
-        {}
+        public SymmetricMatrix(int size)
+        {
+            Size = size;
+            InnerArray = new T[Size * (Size + 1) / 2];
+        }
 
         /// <summary>
         /// Constructor based on array.
         /// </summary>
         /// <param name="matrix">Array to create matrix from.</param>
-        public SymmetricMatrix(T[,] matrix):base(matrix)
+        public SymmetricMatrix(int size, T[] matrix):this(size)
         {
-            if (!IsSymmetric(matrix)) throw new ArgumentException("Matrix must be symmetric.");
+            for (int i = 0; i < matrix.Length && i < InnerArray.Length; i++)
+                InnerArray[i] = matrix[i];
         }
 
         #endregion
 
         protected override void SetElement(int i, int j, T value)
         {
-            if(i != j)
-                throw new InvalidOperationException("Only main diagonal can be changed.");
-            _data[i, j] = value;
+            InnerArray[GetIndexInArray(i, j)] = value;
         }
 
-        protected bool IsSymmetric(T[,] matrix)
+        protected override T GetElement(int i, int j)
         {
-            for (int i = 0; i < Size; i++)
-                for (int j = i; j < Size; j++)
-                    if (!_data[i, j].Equals(_data[j, i])) return false;
+            return InnerArray[GetIndexInArray(i, j)];
+        }
 
-            return true;
+        private int GetIndexInArray(int i, int j)
+        {
+            int less = i < j ? i : j;
+            int more = i > j ? i : j;
+            return more * (more + 1) / 2 + less;
         }
     }
 }

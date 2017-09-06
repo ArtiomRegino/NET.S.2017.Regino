@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FibonacciNumbers", "FibonacciNumbers\FibonacciNumbers.csproj", "{3074508D-9BA8-4B3F-901C-016F4462BD89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "ConsoleUI\ConsoleUI.csproj", "{2FFDB115-5F1A-4130-B4D2-799F17421605}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSet", "CustomSet\CustomSet.csproj", "{DF23C98B-E24E-4F27-A764-3447EFC33D10}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomSet.NUnitTests", "CustomSet.NUnitTests\CustomSet.NUnitTests.csproj", "{A064EF12-E27A-4635-97F5-E988CE80643A}"
@@ -29,10 +27,6 @@ Global
 		{3074508D-9BA8-4B3F-901C-016F4462BD89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3074508D-9BA8-4B3F-901C-016F4462BD89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3074508D-9BA8-4B3F-901C-016F4462BD89}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FFDB115-5F1A-4130-B4D2-799F17421605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FFDB115-5F1A-4130-B4D2-799F17421605}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FFDB115-5F1A-4130-B4D2-799F17421605}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FFDB115-5F1A-4130-B4D2-799F17421605}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DF23C98B-E24E-4F27-A764-3447EFC33D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF23C98B-E24E-4F27-A764-3447EFC33D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF23C98B-E24E-4F27-A764-3447EFC33D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
