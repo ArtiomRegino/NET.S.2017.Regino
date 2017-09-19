@@ -16,9 +16,6 @@ namespace PL.Models.User
         [DataType(DataType.Password, ErrorMessage = "Incorrect password.")]
         [Display(Name = "Password:")]
         public string Password { get; set; }
-
-        [Display(Name = "Remember password")]
-        public bool RememberMe { get; set; }
     
     }
 }

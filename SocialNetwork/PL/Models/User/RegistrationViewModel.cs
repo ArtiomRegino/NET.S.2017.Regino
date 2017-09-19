@@ -31,6 +31,7 @@ namespace PL.Models.User
 
         [Display(Name = "E-mail:")]
         [Required(ErrorMessage = "Enter your e-mail.")]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Incorrect e-mail.")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Enter your password.")]

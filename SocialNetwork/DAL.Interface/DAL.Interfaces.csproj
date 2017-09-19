@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="DTO\DalFriendship.cs" />
     <Compile Include="DTO\DalMessage.cs" />
     <Compile Include="DTO\DalPhoto.cs" />

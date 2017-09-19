@@ -4,26 +4,35 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>Login</h3>
-@using (Html.BeginForm("Login", "Account", FormMethod.Post))
-{
-    <div class="container">
-        <h2>Vertical (basic) form</h2>
 
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-            </div>
-            <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-            </div>
-            <div class="checkbox">
-                <label><input type="checkbox" name="remember"> Remember me</label>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" }, { "class", "col-md-8 col-sm-pull-2  col-md-offset-3" } }))
+    {
+        <h1>Lorem ipsum...</h1>
+        <h4>Join our community or login now</h4>
+        @Html.ValidationSummary(true)
 
-    </div>
+        <div class="form-group">
+            @Html.Label("UserName", "Username:")
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-user"></i>
+                </span>
+                @Html.TextBox("UserName", null, new {@class = "form-control", placeholder = "Username"})
+            </div>
+            @Html.ValidationMessage("UserName")
+        </div>
+        <div class="form-group">
+            @Html.Label("Password", "Password:")
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-lock"></i>
+                </span>
+                @Html.TextBox("Password", null, new {@class = "form-control", type = "password", placeholder = "Password"})
+            </div>
+            @Html.ValidationMessage("Password")
+        </div>
 
-    
-}
+        <button type="submit" class="btn btn-success btn-default text-center">Sign In</button>
+
+    }
+
