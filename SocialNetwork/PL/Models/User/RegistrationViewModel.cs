@@ -20,11 +20,6 @@ namespace PL.Models.User
         [Required(ErrorMessage = "Enter your last name.")]
         public string LastName { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(Name = "Birth date:")]
-        [Required(ErrorMessage = "Enter your birth date.")]
-        public string BirthDate { get; set; }
-
         [Display(Name = "Gender:")]
         [Required(ErrorMessage = "Enter your gender.")]
         public bool Gender { get; set; }

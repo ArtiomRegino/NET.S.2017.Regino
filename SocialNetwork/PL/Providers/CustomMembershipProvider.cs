@@ -49,9 +49,9 @@ namespace PL.Providers
             return GetUser(username, true);
         }
 
-        public override MembershipUser GetUser(string email, bool userIsOnline)
+        public override MembershipUser GetUser(string username, bool userIsOnline)
         {
-            var user = UserService.GetUserByEmail(email);
+            var user = UserService.GetUserByUserName(username);
             if (user == null) return null;
 
             var memberUser = new MembershipUser("CustomMembershipProvider",
