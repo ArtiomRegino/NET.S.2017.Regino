@@ -20,10 +20,6 @@ namespace PL.Models.User
         [Required(ErrorMessage = "Enter your last name.")]
         public string LastName { get; set; }
 
-        [Display(Name = "Gender:")]
-        [Required(ErrorMessage = "Enter your gender.")]
-        public bool Gender { get; set; }
-
         [Display(Name = "E-mail:")]
         [Required(ErrorMessage = "Enter your e-mail.")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Incorrect e-mail.")]

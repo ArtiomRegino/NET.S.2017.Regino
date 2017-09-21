@@ -1,26 +1,54 @@
 ﻿
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink("FriendBar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
-        @if (!HttpContext.Current.User.Identity.IsAuthenticated)
-        {
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right text-center">
-                    <li>@Html.ActionLink("Log In", "Login", "Account")</li>
-                    <li>@Html.ActionLink("Sign Up", "Registration", "Account")</li>
-                </ul>
-            </div>
-        }
-        else
-        {
-            
-        }
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        @Html.ActionLink("FriendBar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
     </div>
+    @if (!HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right text-center">
+                <li>@Html.ActionLink("Log In", "Login", "Account")</li>
+                <li>@Html.ActionLink("Sign Up", "Registration", "Account")</li>
+            </ul>
+        </div>
+    }
+
+    @if (HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right text-center ">
+                <li>
+                    @using (Ajax.BeginForm("Search", "Profile", new AjaxOptions { UpdateTargetId = "results" }))
+                    {
+                        <div class="form-group" style="margin-top: 8px; margin-bottom: 5px;">
+                            @Html.TextBox("FirstName", null, new {@class = "form-control", placeholder = "Search"})
+                        </div>
+                    }
+                </li>
+                <li>
+                    <a class="dropdown-toggle navbar-right" role="button" data-toggle="dropdown">
+                        @User.Identity.Name
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My profile</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Edit</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Help</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation">@Html.ActionLink("Log Out", "LogOut", "Account")</li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+     }
+     </div>
 </div>

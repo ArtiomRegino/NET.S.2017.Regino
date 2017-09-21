@@ -17,7 +17,7 @@ namespace PL.Controllers
                 {
                     
                 }
-                FormsAuthentication.SignOut();
+                
                 return RedirectToAction("Index", "Profile");
             }
 

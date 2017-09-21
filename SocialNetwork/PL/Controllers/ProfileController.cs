@@ -8,9 +8,17 @@ namespace PL.Controllers
 {
     public class ProfileController : Controller
     {
-        // GET: Profile
+        
         [Authorize]
+        [HttpGet]
         public ActionResult Index()
+        {
+            return View("_ProfileWall");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult Search()
         {
             return View("_ProfileWall");
         }

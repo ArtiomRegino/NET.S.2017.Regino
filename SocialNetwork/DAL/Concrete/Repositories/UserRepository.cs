@@ -73,10 +73,10 @@ namespace DAL.Concrete.Repositories
 
         public DalUser GetUserByUserName(string username)
         {
-            var user = context.Set<User>().FirstOrDefault(u => u.UserName == username);
+            var user = context.Set<User>().FirstOrDefault(u => u.UserName == username).ToDalUser();
             if (user == null)
                 return null;
-            return user.ToDalUser();
+            return user;
         }
     }
 }
