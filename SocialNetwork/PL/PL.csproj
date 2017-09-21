@@ -240,6 +240,7 @@
     <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Shared\_ProfileMenu.cshtml" />
     <Content Include="Views\Profile\_ProfileWall.cshtml" />
+    <Content Include="Views\Profile\EditProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

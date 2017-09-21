@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PL.Models.Profile;
 
 namespace PL.Controllers
 {
@@ -21,6 +22,20 @@ namespace PL.Controllers
         public ActionResult Search()
         {
             return View("_ProfileWall");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult EditProfile(EditProfileViewModel model)
+        {
+            return View();
         }
     }
 }
