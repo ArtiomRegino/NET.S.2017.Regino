@@ -26,7 +26,7 @@
                 <li>
                     @using (Ajax.BeginForm("Search", "Profile", new AjaxOptions { UpdateTargetId = "results" }))
                     {
-                        <div class="form-group" style="margin-top: 8px; margin-bottom: 5px;">
+                        <div class="form-group center-block" style="margin-top: 8px; margin-bottom: 5px;">
                             @Html.TextBox("FirstName", null, new {@class = "form-control", placeholder = "Search"})
                         </div>
                     }
@@ -39,8 +39,8 @@
                     <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                         <li role="presentation">@Html.ActionLink("My profile", "Index", "Profile")</li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation">@Html.ActionLink("Edit", "EditProfile", "Profile")</li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Settings</a></li>
+                        <li role="presentation">@Html.ActionLink("Edit", "Edit", "Profile")</li>
+                        <li role="presentation">@Html.ActionLink("Settings", "Settings", "Profile")</li>
                         <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Help</a></li>
                         <li role="presentation" class="divider"></li>
                         <li role="presentation">@Html.ActionLink("Log Out", "LogOut", "Account")</li>

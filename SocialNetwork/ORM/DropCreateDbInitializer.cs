@@ -4,11 +4,12 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using ORM.Entities;
 
 namespace ORM
 {
-    public class DropCreateDbInitializer: DropCreateDatabaseIfModelChanges<SocialNetworkContext>
+    public class DropCreateDbInitializer: CreateDatabaseIfNotExists<SocialNetworkContext>
     {
         protected override void Seed(SocialNetworkContext context)
         {
@@ -29,7 +30,7 @@ namespace ORM
             var admin = new User()
             {
                 UserName = "admin",
-                Password = "root",
+                Password = Crypto.HashPassword("root"),
                 Email = "admin@gmail.com",
                 RoleId = 1,
                 Profile = new Profile()
@@ -48,7 +49,7 @@ namespace ORM
             var user1 = new User()
             {
                 UserName = "hayley",
-                Password = "paramore",
+                Password = Crypto.HashPassword("paramore"),
                 Email = "hayley@gmail.com",
                 RoleId = 2,
                 Profile = new Profile()
@@ -68,7 +69,7 @@ namespace ORM
             var user2 = new User()
             {
                 UserName = "jaredl",
-                Password = "30stm",
+                Password = Crypto.HashPassword("30stm"),
                 Email = "jaredl@gmail.com",
                 RoleId = 2,
                 Profile = new Profile()
@@ -88,7 +89,7 @@ namespace ORM
             var user3 = new User()
             {
                 UserName = "emmy",
-                Password = "emmy1986",
+                Password = Crypto.HashPassword("emmy1986"),
                 Email = "emmy.rossum@gmail.com",
                 RoleId = 2,
                 Profile = new Profile()
@@ -108,7 +109,7 @@ namespace ORM
             var user4 = new User()
             {
                 UserName = "guberman",
-                Password = "guberman1936",
+                Password = Crypto.HashPassword("guberman1936"),
                 Email = "igor.guberman@gmail.com",
                 RoleId = 2,
                 Profile = new Profile()
@@ -128,7 +129,7 @@ namespace ORM
             var user5 = new User()
             {
                 UserName = "william",
-                Password = "macy1950",
+                Password = Crypto.HashPassword("macy1950"),
                 Email = "william.macy@gmail.com",
                 RoleId = 2,
                 Profile = new Profile()
@@ -148,7 +149,7 @@ namespace ORM
             var user6 = new User()
             {
                 UserName = "cameron",
-                Password = "monaghan1993",
+                Password = Crypto.HashPassword("monaghan1993"),
                 Email = "cameron.monaghan@gmail.com",
                 RoleId = 2,
                 Profile = new Profile()
@@ -168,7 +169,7 @@ namespace ORM
             var user7 = new User()
             {
                 UserName = "JeremyWhite",
-                Password = "Jeremy1991",
+                Password = Crypto.HashPassword("Jeremy1991"),
                 Email = "jeremy.white@gmail.com",
                 RoleId = 3,
                 Profile = new Profile()
@@ -188,7 +189,7 @@ namespace ORM
             var user8 = new User()
             {
                 UserName = "watson",
-                Password = "watson1990",
+                Password = Crypto.HashPassword("watson1990"),
                 Email = "emma.watson@gmail.com",
                 RoleId = 2,
                 Profile = new Profile()
@@ -208,7 +209,7 @@ namespace ORM
             var user9 = new User()
             {
                 UserName = "duchovny",
-                Password = "duchovny1960",
+                Password = Crypto.HashPassword("duchovny1960"),
                 Email = "david.duchovny@gmail.com",
                 RoleId = 2,
                 Profile = new Profile()
@@ -228,7 +229,7 @@ namespace ORM
             var user10 = new User()
             {
                 UserName = "poperechnyy",
-                Password = "poperechnyy1994",
+                Password = Crypto.HashPassword("poperechnyy1994"),
                 Email = "poperechnyy@gmail.com",
                 RoleId = 2,
                 Profile = new Profile()
@@ -248,7 +249,7 @@ namespace ORM
             var user11 = new User()
             {
                 UserName = "dudy",
-                Password = "simplepassword",
+                Password = Crypto.HashPassword("simplepassword"),
                 Email = "yury.yury@gmail.com",
                 RoleId = 4,
                 Profile = new Profile()

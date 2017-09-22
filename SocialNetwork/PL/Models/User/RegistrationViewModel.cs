@@ -38,5 +38,8 @@ namespace PL.Models.User
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Password must contain more than 5 symbols.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        [Display(Name = "Enter the code from the image")]
+        public string Captcha { get; set; }
     }
 }

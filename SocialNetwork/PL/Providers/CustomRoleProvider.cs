@@ -16,15 +16,11 @@ namespace PL.Providers
 
         public override bool IsUserInRole(string username, string roleName)
         {
-            bool outputResult = false;
-
             var user = UserService.GetUserByUserName(username);
             if (user == null) return false;
             var userRole = RoleService.GetAll().FirstOrDefault(r => r.Name == roleName);
-            if (userRole != null)
-                outputResult = true;
 
-            return outputResult;
+            return user.RoleId == userRole?.Id;
         }
 
         public override string[] GetRolesForUser(string username)

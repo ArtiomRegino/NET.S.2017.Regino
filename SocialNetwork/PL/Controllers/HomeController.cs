@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using PL.Providers;
 
 namespace PL.Controllers
 {
@@ -13,11 +14,6 @@ namespace PL.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                if (User.IsInRole("Banned"))
-                {
-                    
-                }
-                
                 return RedirectToAction("Index", "Profile");
             }
 

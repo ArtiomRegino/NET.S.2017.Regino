@@ -26,14 +26,30 @@ namespace PL.Controllers
 
         [Authorize]
         [HttpGet]
-        public ActionResult EditProfile()
+        public ActionResult Edit()
+        {
+            return View("_EditProfile");
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditProfileViewModel model)
         {
             return View();
         }
 
         [Authorize]
+        [HttpGet]
+        public ActionResult Settings()
+        {
+            return View("_ProfileSettings");
+        }
+
+        [Authorize]
         [HttpPost]
-        public ActionResult EditProfile(EditProfileViewModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Settings(ProfileSettingsViewModel model)
         {
             return View();
         }

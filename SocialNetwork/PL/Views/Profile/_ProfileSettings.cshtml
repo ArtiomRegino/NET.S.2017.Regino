@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Settings", "Profile", FormMethod.Post, new Dictionary<string, object> {{"data-toggle", "validator"}, {"class", "col-md-8 col-sm-pull-2  col-md-offset-2 jumbotron"}}))
+{
+    <h1>General settings</h1>
+    <h4>Here you can change some parameters.</h4>
+    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.Label("Email", "E-mail:")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-envelope"></i>
+            </span>
+            @Html.TextBox("Email", null, new {@class = "form-control", placeholder = "E-mail"})
+        </div>
+        @Html.ValidationMessage("Email", new {@class = "text-danger"})
+    </div>
+    <div class="form-group">
+        @Html.Label("OldPassword", "Old password:")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-lock"></i>
+            </span>
+            @Html.TextBox("OldPassword", null, new { @class = "form-control", placeholder = "Password", type = "password" })
+        </div>
+        @Html.ValidationMessage("OldPassword", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("NewPassword", "New password:")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-lock"></i>
+            </span>
+            @Html.TextBox("NewPassword", null, new { @class = "form-control", placeholder = "Confirm your password", type = "password"})
+        </div>
+        @Html.ValidationMessage("NewPassword", new { @class = "text-danger" })
+    </div>
+    <hr/>
+    <button type="submit" class="btn btn-success btn-default text-center">Save changes</button>
+    @Html.ActionLink("Delete your profile.", "Delete", "Profile", new { style = "margin-left: 19%" })
+}

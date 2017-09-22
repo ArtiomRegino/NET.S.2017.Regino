@@ -5,11 +5,12 @@
 }
 
 
-    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" }, { "class", "col-md-8 col-sm-pull-2  col-md-offset-2 jumbotron" } }))
+    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new {  @class = "col-md-8 col-sm-pull-2  col-md-offset-2 jumbotron", data_toggle = "validator" }))
     {
         <h1>Lorem ipsum...</h1>
         <h4>Join our community or login now</h4>
-        @Html.ValidationSummary(true)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
 
         <div class="form-group">
             @Html.Label("UserName", "Username:")
@@ -19,7 +20,7 @@
                 </span>
                 @Html.TextBox("UserName", null, new {@class = "form-control", placeholder = "Username"})
             </div>
-            @Html.ValidationMessage("UserName")
+            @Html.ValidationMessage("UserName", new { @class = "text-danger" })
         </div>
         <div class="form-group">
             @Html.Label("Password", "Password:")
@@ -29,7 +30,7 @@
                 </span>
                 @Html.TextBox("Password", null, new {@class = "form-control", type = "password", placeholder = "Password"})
             </div>
-            @Html.ValidationMessage("Password")
+            @Html.ValidationMessage("Password", new { @class = "text-danger" })
         </div>
 
         <button type="submit" class="btn btn-success btn-default text-center">Sign In</button>

@@ -22,7 +22,7 @@ namespace PL.Providers
             bool isValid = false;
             var user = UserService.GetUserByUserName(username);
             
-            if (user != null && user.Password == password)
+            if (user != null && Crypto.VerifyHashedPassword(user.Password, password))
                 isValid = true;
                     
             return isValid;
@@ -41,7 +41,7 @@ namespace PL.Providers
                                   Profile = profile,
                                   UserName = username,
                                   Email = email,
-                                  Password = password,
+                                  Password = Crypto.HashPassword(password),
                                   RoleId = RoleService.GetAll().FirstOrDefault(r => r.Name == "ActiveUser").Id
                                 };
             UserService.Create(user);
