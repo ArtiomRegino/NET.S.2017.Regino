@@ -62,7 +62,8 @@ namespace BLL.Servicies
 
         public void DeleteAllUserMessagesById(int id)
         {
-            throw new NotImplementedException();
+            messageRepository.DeleteAllUserMessagesById(id);
+            unitOfWork.Commit();
         }
     }
 }

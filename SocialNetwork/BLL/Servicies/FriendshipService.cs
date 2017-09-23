@@ -69,7 +69,8 @@ namespace BLL.Servicies
 
         public void DeleteAllUserRelationById(int id)
         {
-            throw new NotImplementedException();
+            friendshipRepository.DeleteAllUserRelationById(id);
+            unitOfWork.Commit();
         }
     }
 }

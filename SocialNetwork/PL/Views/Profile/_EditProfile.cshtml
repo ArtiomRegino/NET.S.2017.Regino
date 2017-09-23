@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Login", "Account", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" }, { "class", "jumbotron" } }))
+@using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" }, { "class", "jumbotron" } }))
 {@*col-md-8 col-sm-pull-2  col-md-offset-2*@
     <h1>Edit profile</h1>
     <h4>Here you can edit information about yourself.</h4>
@@ -18,7 +18,7 @@
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user"></i>
             </span>
-            @Html.TextBox("FirstName", null, new {@class = "form-control ", placeholder = "First name"})
+            @Html.TextBox("FirstName", null, new {@class = "form-control ", placeholder = "First name", @Value = ViewBag.Profile.FirstName})
         </div>
         @Html.ValidationMessage("FirstName")
     </div>
@@ -28,7 +28,7 @@
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-user"></i>
             </span>
-            @Html.TextBox("LastName", null, new { @class = "form-control", placeholder = "Last name" })
+            @Html.TextBox("LastName", null, new { @class = "form-control", placeholder = "Last name", @Value = ViewBag.Profile.LastName })
         </div>
         @Html.ValidationMessage("LastName")
     </div>
@@ -38,7 +38,7 @@
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-calendar"></i>
             </span>
-            @Html.TextBox("BirthDate", null, new { @class = "form-control", placeholder = "Date of birth" })
+            @Html.TextBox("BirthDate", null, new { @class = "form-control", placeholder = "11/04/1996", @Value = ViewBag.Profile.BirthDate })
         </div>
         @Html.ValidationMessage("BirthDate")
     </div>
@@ -48,7 +48,7 @@
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-home"></i>
             </span>
-            @Html.TextBox("City", null, new { @class = "form-control", placeholder = "City" })
+            @Html.TextBox("City", null, new { @class = "form-control", placeholder = "City", @Value = ViewBag.Profile.City })
         </div>
         @Html.ValidationMessage("City")
     </div>
@@ -58,7 +58,7 @@
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-phone-alt"></i>
             </span>
-            @Html.TextBox("ContactPhone", null, new { @class = "form-control", placeholder = "Contact phone" })
+            @Html.TextBox("ContactPhone", null, new { @class = "form-control", placeholder = "Contact phone", @Value = ViewBag.Profile.ContactPhone })
         </div>
         @Html.ValidationMessage("ContactPhone")
     </div>
@@ -68,9 +68,19 @@
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-pencil"></i>
             </span>@*Html.TextArea("Body", null, 10, 55, null)*@
-            @Html.TextArea("AboutMe", null, new { @class = "form-control", placeholder = "About me" })
+            @Html.TextArea("AboutMe", null, new { @class = "form-control", placeholder = "About me", @Value = ViewBag.Profile.AboutMe })
         </div>
         @Html.ValidationMessage("AboutMe")
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m=>m.Gender)
+        <div>
+            @Html.RadioButtonFor(m => m.Gender, "true", new { id = "male_true" })
+            @Html.Label("male_true", "Male")
+            @Html.RadioButtonFor(m => m.Gender, "false", new { id = "male_false" })
+            @Html.Label("male_false", "Female")
+            @Html.ValidationMessageFor(m => m.Gender)    
+        </div>
     </div>
     
 

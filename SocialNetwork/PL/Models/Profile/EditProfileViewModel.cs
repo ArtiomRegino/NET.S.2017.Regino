@@ -34,5 +34,6 @@ namespace PL.Models.Profile
         [Display(Name = "About me:")]
         [DataType(DataType.MultilineText)]
         public string AboutMe { get; set; }
+
     }
 }
