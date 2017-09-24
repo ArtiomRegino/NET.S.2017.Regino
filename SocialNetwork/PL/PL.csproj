@@ -250,6 +250,7 @@
     <Content Include="Views\Shared\_BannedUserView.cshtml" />
     <Content Include="Views\Profile\_ProfileSettings.cshtml" />
     <Content Include="Views\Profile\_HelpAboutProfile.cshtml" />
+    <Content Include="Views\Profile\EditAvatarView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -140,5 +140,39 @@ namespace PL.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public ActionResult UploadImage()
+        {
+            return View("EditAvatarView");
+        }
+
+        [HttpPost]
+        public ActionResult UploadImage(HttpPostedFileBase image)
+        {
+            if (image == null) return RedirectToAction("Index");
+
+            var user = userService.GetUserByUserName(User.Identity.Name);
+            var photo = user.Profile.Photo;
+            photo.MimeType = image.ContentType;
+            photo.Data = new byte[image.ContentLength];
+            image.InputStream.Read(photo.Data, 0, image.ContentLength);
+            photoService.Update(photo);
+
+            return RedirectToAction("Index"); 
+        }
+
+        [ChildActionOnly]
+        public FileResult GetImage(int id)
+        {
+            var image = photoService.GetById(id);
+
+            if (image.Data != null && image.MimeType != null)
+                return File(image.Data, image.MimeType);
+
+            var path = Server.MapPath("~/Content/profile-default.png");
+
+            return File(path, "image/png");
+        }
     }
 }
