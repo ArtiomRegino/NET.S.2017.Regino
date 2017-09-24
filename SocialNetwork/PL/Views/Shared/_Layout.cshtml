@@ -11,7 +11,6 @@
     @Scripts.Render("~/bundles/bootstrap")   
     @Scripts.Render("~/bundles/unobtrusive-ajax")
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/customJS.js")
     @Styles.Render("~/Content/css")
     <style> 
         input[name=search] {
@@ -38,8 +37,8 @@
 <div class="container">
          
     <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9 pull-right container ">
-        <div id="loading" style="display:none;">
-            <h2>Loading...Please wait</h2>
+        <div id="processing" style="display:none;">
+            <h2>Processing...</h2>
         </div>
 
         <div id="main_container">
@@ -48,7 +47,7 @@
     </div>
 
     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 text-center"> 
-        @*@Html.Partial("_ProfileMenu")*@
+        @Html.Partial("_ProfileMenu")
     </div>
 
 </div>

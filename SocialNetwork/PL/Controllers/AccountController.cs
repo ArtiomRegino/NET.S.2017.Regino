@@ -94,7 +94,7 @@ namespace PL.Controllers
 
                 var membershipUser = ((CustomMembershipProvider) Membership.Provider)
                     .CreateUser(registrationModel.UserName, registrationModel.Password, registrationModel.Email);
-
+                
                 if (membershipUser != null)
                 {
                     var profile = profileService.GetByUserEmail(registrationModel.Email);

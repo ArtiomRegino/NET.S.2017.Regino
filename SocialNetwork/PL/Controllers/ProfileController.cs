@@ -32,6 +32,10 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_ProfileWall");
+            }
             return View("_ProfileWall");
         }
 
