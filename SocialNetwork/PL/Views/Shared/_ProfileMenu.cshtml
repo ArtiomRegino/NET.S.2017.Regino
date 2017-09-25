@@ -5,7 +5,7 @@
     <div class="row">
         <div class="list-group text-left" style="border: 0px">
 
-            @Ajax.ActionLink(" Profile", "Index", "Profile", new AjaxOptions
+            @Ajax.ActionLink(" Profile", "Index", "Profile", null, new AjaxOptions
                                                              {
                                                                  UpdateTargetId = "main_container",
                                                                  InsertionMode = InsertionMode.Replace,
@@ -17,7 +17,7 @@
                                                                  new { @class = "list-group-item glyphicon glyphicon-home",
                                                                  style = "border: 0px" })
 
-            @Ajax.ActionLink(" Messages", "Index", "Profile", new AjaxOptions
+            @Ajax.ActionLink(" Messages", "Index", "Profile", null, new AjaxOptions
                                                             {
                                                                 UpdateTargetId = "main_container",
                                                                 InsertionMode = InsertionMode.Replace,
@@ -29,7 +29,7 @@
                                                                 new { @class = "list-group-item glyphicon glyphicon-envelope",
                                                                 style = "border: 0px" })
 
-            @Ajax.ActionLink(" Friends", "Index", "Profile", new AjaxOptions
+            @Ajax.ActionLink(" Friends", "ShowFriendList", "Friend", null,  new AjaxOptions
                                                             {
                                                                 UpdateTargetId = "main_container",
                                                                 InsertionMode = InsertionMode.Replace,
@@ -41,7 +41,7 @@
                                                                 new { @class = "list-group-item glyphicon glyphicon-user",
                                                                 style = "border: 0px" })
             
-            @Ajax.ActionLink(" Requests", "Index", "Profile", new AjaxOptions
+            @Ajax.ActionLink(" Requests", "Index", "Profile", null, new AjaxOptions
                                                             {
                                                                 UpdateTargetId = "main_container",
                                                                 InsertionMode = InsertionMode.Replace,
@@ -55,7 +55,7 @@
 
             @if ((new CustomRoleProvider()).IsUserInRole(User.Identity.Name, "Admin"))
             {
-                @Ajax.ActionLink(" Managment", "Index", "Profile", new AjaxOptions
+                @Ajax.ActionLink(" Managment", "Index", "Profile", null, new AjaxOptions
                                                                  {
                                                                      UpdateTargetId = "main_container",
                                                                      InsertionMode = InsertionMode.Replace,
@@ -67,7 +67,7 @@
                                                                      new { @class = "list-group-item glyphicon glyphicon-cog",
                                                                      style = "border: 0px" })
                                                                          
-                 @Ajax.ActionLink(" Filters", "Index", "Profile", new AjaxOptions
+                 @Ajax.ActionLink(" Filters", "Index", "Profile", null, new AjaxOptions
                                                                   {
                                                                       UpdateTargetId = "main_container",
                                                                       InsertionMode = InsertionMode.Replace,

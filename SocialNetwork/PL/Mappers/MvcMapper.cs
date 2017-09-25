@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,6 +27,11 @@ namespace PL.Mappers
                                      };
 
             return profile;
+        }
+
+        public static IEnumerable<PresentationOfProfileViewModel> ToPresentations(this IEnumerable<BllProfile> bllProfiles)
+        {
+            return bllProfiles.Select(profile => profile.ToPresentation()).ToList();
         }
     }
 }

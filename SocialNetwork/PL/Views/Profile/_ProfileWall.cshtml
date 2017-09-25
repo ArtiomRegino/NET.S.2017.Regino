@@ -60,7 +60,7 @@
         }
         @if (Model.BirthDate != null)
         {
-            <h4>Birthday: @Model.BirthDate.Value.Date</h4>
+            <h4>Birthday: @Model.BirthDate.Value.Date.ToString("d")</h4>
         }
         @if (Model.City != null)
         {
