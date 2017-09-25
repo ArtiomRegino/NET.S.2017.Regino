@@ -6,6 +6,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using BLL.Interfaces.Interfaces;
+using PL.Mappers;
 using PL.Models.Profile;
 using PL.Providers;
 
@@ -32,11 +33,14 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult Index()
         {
+            var profile = profileService.GetAll().FirstOrDefault(p => p.UserName == User.Identity.Name);
+            var presentProfile = profile.ToPresentation();
+
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_ProfileWall");
+                return PartialView("_ProfileWall", presentProfile);
             }
-            return View("_ProfileWall");
+            return View("_ProfileWall", presentProfile);
         }
 
         [Authorize]
@@ -142,6 +146,13 @@ namespace PL.Controllers
         }
 
         [HttpGet]
+        public ActionResult PresentationOfProfile(int id)
+        {
+            
+            return View("EditAvatarView");
+        }
+
+        [HttpGet]
         public ActionResult UploadImage()
         {
             return View("EditAvatarView");
@@ -162,7 +173,6 @@ namespace PL.Controllers
             return RedirectToAction("Index"); 
         }
 
-        [ChildActionOnly]
         public FileResult GetImage(int id)
         {
             var image = photoService.GetById(id);

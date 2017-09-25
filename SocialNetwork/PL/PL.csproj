@@ -181,7 +181,9 @@
     </Compile>
     <Compile Include="Infrastructure\CaptchaImage.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Mappers\MvcMapper.cs" />
     <Compile Include="Models\Profile\EditProfileViewModel.cs" />
+    <Compile Include="Models\Profile\PresentationOfProfileViewModel.cs" />
     <Compile Include="Models\Profile\ProfileSettingsViewModel.cs" />
     <Compile Include="Models\User\LoginViewModel.cs" />
     <Compile Include="Models\User\RegistrationViewModel.cs" />

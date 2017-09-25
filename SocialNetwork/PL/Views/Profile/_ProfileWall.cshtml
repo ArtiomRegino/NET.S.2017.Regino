@@ -1,4 +1,78 @@
-﻿
-<div class="jumbotron">
+﻿@model PL.Models.Profile.PresentationOfProfileViewModel
 
+<div class="row">
+    <div class="col-md-4 col-lg-4">
+        <div class="row">
+            <img src="@Url.Action("GetImage", "Profile", new { Id = Model.PhotoId })" class="img-rounded img-responsive center-block" />
+        </div>
+    
+        <div class="row">
+            @if (User.Identity.Name == Model.Username)
+            {
+                <button class="btn-success btn-block" style="margin-top: 2%" onclick="location.href='@Url.Action("Edit", "Profile")'">
+                    <span class="glyphicon glyphicon-edit"></span>Edit profile
+                </button>
+            }
+            else
+            {
+                <button class="btn-success btn btn-block" value="@Model.Id" >
+                    <span class="glyphicon glyphicon-edit"></span>Write message
+                </button>
+    
+                if (ViewBag.IsFriend != null)
+                {
+                    if (ViewBag.IsFriend)
+                    {
+    
+                        <button class="btn-success btn btn-block" value="@Model.Id">
+                            <span class="glyphicon glyphicon-edit"></span>Delete from friends
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" id="add" class="btn btn-success btn-block glyphicon-plus" value="@Model.Id">
+                            Add to friends
+                        </button>
+                    }
+                }
+                else
+                {
+                    <button id="remove" type="button" class="btn btn-warning btn-block" value="@Model.Id">
+                        Waiting response
+                    </button>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-md-7 col-lg-7">
+        <h1>@Model.FirstName @Model.LastName</h1>
+
+        @if (Model.Gender != null)
+        {
+            if (Model.Gender == true)
+            {
+                <h4>Gender: Male</h4>
+            }
+            else
+            {
+                <h4>Gender: Female</h4>
+            }
+        }
+        @if (Model.BirthDate != null)
+        {
+            <h4>Birthday: @Model.BirthDate.Value.Date</h4>
+        }
+        @if (Model.City != null)
+        {
+            <h4>City: @Model.City</h4>
+        }
+        @if (Model.ContactPhone != null)
+        {
+            <h4>Contact phone: @Model.ContactPhone</h4>
+        }
+        @if (Model.AboutMe != null)
+        {
+            <h4>About me: @Model.AboutMe</h4>
+        }
+    </div>
 </div>
