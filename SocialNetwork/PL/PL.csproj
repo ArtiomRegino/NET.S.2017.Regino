@@ -255,6 +255,7 @@
     <Content Include="Views\Profile\_HelpAboutProfile.cshtml" />
     <Content Include="Views\Profile\EditAvatarView.cshtml" />
     <Content Include="Views\Friend\FriendListView.cshtml" />
+    <Content Include="Views\Friend\RequestsListView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

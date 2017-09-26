@@ -148,8 +148,11 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult PresentationOfProfile(int id)
         {
-            
-            return View("EditAvatarView");
+            var profile = profileService.GetAll().FirstOrDefault(p => p.Id == id);
+            var currentUserId = userService.GetUserByUserName(User.Identity.Name).Id;
+            ViewBag.IsFriend = friendshipService.IsFriend(currentUserId, id);
+
+            return View("_ProfileWall", profile.ToPresentation());
         }
 
         [HttpGet]

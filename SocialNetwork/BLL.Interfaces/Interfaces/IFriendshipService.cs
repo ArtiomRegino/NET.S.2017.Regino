@@ -9,9 +9,10 @@ namespace BLL.Interfaces.Interfaces
 {
     public interface IFriendshipService : IService<BllFriendship>
     {
-        bool IsFriend(int curUser, int otherUser);
-        void AddFriend(int userId, int otherUserId);
-        bool IsRequested(int currentUser, int otherUser);
-        void DeleteAllUserRelationById(int id);
+        bool? IsFriend (int curUser, int otherUser);
+        void AddFriend (int userId, int otherUserId);
+        bool IsRequested (int currentUser, int otherUser);
+        void Confirm (int currentUser, int otherUser);
+        void DeleteAllUserRelationById (int id);
     }
 }

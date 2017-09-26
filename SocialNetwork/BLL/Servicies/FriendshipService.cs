@@ -52,19 +52,45 @@ namespace BLL.Servicies
             unitOfWork.Commit();
         }
 
-        public bool IsFriend(int curUser, int otherUser)
+        public bool? IsFriend(int curUserId, int otherUserId)
         {
-            throw new NotImplementedException();
+            var friendship = friendshipRepository.GetAll()
+                .FirstOrDefault(fr => (fr.UserFromId == curUserId && fr.UserToId == otherUserId &&
+                                      (bool) (fr.IsConfirmed == true)) || (fr.UserToId == curUserId 
+                                      && fr.UserFromId == otherUserId && (bool)(fr.IsConfirmed == true)));
+
+            if (friendship == null) return null;
+            return friendship.IsConfirmed == true;
         }
 
-        public void AddFriend(int userId, int otherUserId)
+        public void AddFriend(int userFromId, int userToId)
         {
-            throw new NotImplementedException();
+            var friendship = new BllFriendship
+            {
+                IsConfirmed = false,
+                UserFromId = userFromId,
+                UserToId = userToId,
+                RequestDate = DateTime.Now
+            };
+
+            Create(friendship);
+            unitOfWork.Commit();
         }
 
         public bool IsRequested(int currentUser, int otherUser)
         {
             throw new NotImplementedException();
+        }
+
+        public void Confirm(int curUserId, int otherUserId)
+        {
+            var friendship = friendshipRepository.GetAll().
+                FirstOrDefault(fr => (fr.UserFromId == curUserId && fr.UserToId == otherUserId) ||
+                (fr.UserToId == curUserId && fr.UserFromId == otherUserId));
+            friendship.IsConfirmed = true;
+
+            friendshipRepository.Update(friendship);
+            unitOfWork.Commit();
         }
 
         public void DeleteAllUserRelationById(int id)

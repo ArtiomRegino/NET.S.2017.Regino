@@ -10,7 +10,7 @@
             @Html.ActionLink($"{item.FirstName} {item.LastName}", "PresentationOfProfile", "Profile", new { Id = item.Id }, null)
         </div>
         <div class="col-md-3">
-            @Html.ActionLink("Write a message", "PresentationOfProfile", "Profile", new { Id = item.Id }, null)
+            @Html.ActionLink("Confirm", "ConfirmFriendship", "Friend", new { Id = item.Id }, null)
         </div>
     </div>
 }

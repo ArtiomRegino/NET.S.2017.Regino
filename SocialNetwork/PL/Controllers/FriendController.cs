@@ -45,9 +45,9 @@ namespace PL.Controllers
                 }
             }
             if (Request.IsAjaxRequest())
-                return PartialView("FriendListView", profileList.ToPresentations());
+                return PartialView("FriendListView", profileList.ToPresentations().ToList());
 
-            return View("FriendListView", profileList.ToPresentations());
+            return View("FriendListView", profileList.ToPresentations().ToList());
         }
 
         public ActionResult RequestFriendList()
@@ -68,10 +68,18 @@ namespace PL.Controllers
             }
             if (Request.IsAjaxRequest())
             {
-                return PartialView("", profileList.ToPresentations());
+                return PartialView("RequestsListView", profileList.ToPresentations().ToList());
             }
 
-            return View("", profileList.ToPresentations());
+            return View("RequestsListView", profileList.ToPresentations().ToList());
+        }
+
+        public ActionResult ConfirmFriendship(int id)
+        {
+            var userId = userService.GetUserByUserName(User.Identity.Name).Id;
+            friendshipService.Confirm(userId, id);
+
+            return RedirectToAction("RequestFriendList");
         }
     }
 }
