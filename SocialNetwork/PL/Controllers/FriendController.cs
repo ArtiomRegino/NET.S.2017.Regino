@@ -74,12 +74,31 @@ namespace PL.Controllers
             return View("RequestsListView", profileList.ToPresentations().ToList());
         }
 
+        [HttpGet]
         public ActionResult ConfirmFriendship(int id)
         {
             var userId = userService.GetUserByUserName(User.Identity.Name).Id;
             friendshipService.Confirm(userId, id);
 
-            return RedirectToAction("RequestFriendList");
+            return RedirectToAction("PresentationOfProfile", "Profile", new {Id = id });
+        }
+
+        [HttpGet]
+        public ActionResult DeleteFriend(int id)
+        {
+            var userId = userService.GetUserByUserName(User.Identity.Name).Id;
+            friendshipService.DeleteById(userId, id);
+
+            return RedirectToAction("PresentationOfProfile", "Profile", new { Id = id });
+        }
+
+        [HttpGet]
+        public ActionResult AddFriend(int id)
+        {
+            var userId = userService.GetUserByUserName(User.Identity.Name).Id;
+            friendshipService.AddFriend(userId, id);
+
+            return RedirectToAction("PresentationOfProfile", "Profile", new { Id = id });
         }
     }
 }

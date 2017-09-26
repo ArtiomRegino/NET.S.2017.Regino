@@ -18,21 +18,26 @@
                 <button class="btn-success btn btn-block" value="@Model.Id" >
                     <span class="glyphicon glyphicon-edit"></span>Write message
                 </button>
-    
+
                 if (ViewBag.IsFriend != null)
                 {
                     if (ViewBag.IsFriend)
                     {
-    
-                        <button class="btn-success btn btn-block" value="@Model.Id">
-                            <span class="glyphicon glyphicon-edit"></span>Delete from friends
-                        </button>
+                        using (Html.BeginForm("DeleteFriend", "Friend",  new { Id = Model.Id }, FormMethod.Get, new {style = "margin-top: 1%"}))
+                        {
+                            <button class="btn-success btn btn-block" value="@Model.Id">
+                                <span class="glyphicon glyphicon-edit"></span>Delete from friends
+                            </button>
+                        }
                     }
                     else
                     {
-                        <button type="button" id="add" class="btn btn-success btn-block glyphicon-plus" value="@Model.Id">
-                            Add to friends
-                        </button>
+                        using (Html.BeginForm("AddFriend", "Friend", new {Id = Model.Id}, FormMethod.Get, new {style = "margin-top: 1%"}))
+                        {
+                            <button type="button" id="add" class="btn btn-success btn-block glyphicon-plus" value="@Model.Id">
+                                Add to friends
+                            </button>
+                        }
                     }
                 }
                 else

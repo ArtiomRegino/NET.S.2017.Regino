@@ -40,6 +40,16 @@ namespace BLL.Servicies
             unitOfWork.Commit();
         }
 
+        public void DeleteById(int curUserId, int otherUserId)
+        {
+            var friendship = friendshipRepository.GetAll().
+                FirstOrDefault(fr => (fr.UserFromId == curUserId && fr.UserToId == otherUserId) ||
+                                        (fr.UserToId == curUserId && fr.UserFromId == otherUserId));
+
+            friendshipRepository.Delete(friendship);
+            unitOfWork.Commit();
+        }
+
         public void Delete(BllFriendship item)
         {
             friendshipRepository.Delete(item.ToDalFriendship());
@@ -56,9 +66,9 @@ namespace BLL.Servicies
         {
             var friendship = friendshipRepository.GetAll()
                 .FirstOrDefault(fr => (fr.UserFromId == curUserId && fr.UserToId == otherUserId &&
-                                      (bool) (fr.IsConfirmed == true)) || (fr.UserToId == curUserId 
-                                      && fr.UserFromId == otherUserId && (bool)(fr.IsConfirmed == true)));
-
+                                       (fr.IsConfirmed == true)) || (fr.UserToId == curUserId 
+                                      && fr.UserFromId == otherUserId && (fr.IsConfirmed == true)));
+            unitOfWork.Commit();
             if (friendship == null) return null;
             return friendship.IsConfirmed == true;
         }
