@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BLL.Interface.Entities;
 using BLL.Interfaces.Interfaces;
 using BLL.Mappers;
+using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
 
 namespace BLL.Servicies
@@ -55,7 +56,30 @@ namespace BLL.Servicies
 
         public IEnumerable<BllProfile> FullSearch(BllProfile profile)
         {
-            throw new NotImplementedException();
+            IEnumerable<DalProfile> profiles = profileRepository.GetAll();
+
+            if (profile.Gender != null)
+            {
+                profiles = profiles.Where(p => p.Gender == profile.Gender);
+            }
+            if (profile.FirstName != null)
+            {
+                profiles = profiles.Where(p => p.FirstName.ToLower() == profile.FirstName.ToLower());
+            }
+            if (profile.LastName != null)
+            {
+                profiles = profiles.Where(p => p.LastName.ToLower() == profile.LastName.ToLower());
+            }
+            if (profile.City != null)
+            {
+                profiles = profiles.Where(p => p.City.ToLower() == profile.City.ToLower());
+            }
+            if (profile.BirthDate != null)
+            {
+                profiles = profiles.Where(p => p.BirthDate == profile.BirthDate);
+            }
+
+            return profiles.Map();
         }
 
         public IEnumerable<BllProfile> FastSearch(string names)
@@ -78,6 +102,8 @@ namespace BLL.Servicies
             string first = arrayOfNames[0].ToLower();
             var profile = profileRepository.GetAll()
                 .Where(p => p.FirstName.ToLower() == first || p.LastName.ToLower() == first).Distinct().Map();
+
+            unitOfWork.Commit();
 
             return profile;
         }

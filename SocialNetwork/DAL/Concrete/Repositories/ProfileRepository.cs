@@ -66,7 +66,6 @@ namespace DAL.Concrete.Repositories
                     context.Entry(profile).State = EntityState.Modified;
                 }
             }
-
         }
 
         public DalProfile GetByUserEmail(string email)

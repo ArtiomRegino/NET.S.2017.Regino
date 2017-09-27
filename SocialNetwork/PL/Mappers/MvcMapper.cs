@@ -64,7 +64,6 @@ namespace PL.Mappers
                 FirstName = bllProfile.FirstName,
                 Gender = bllProfile.Gender,
                 LastName = bllProfile.LastName,
-                Username = bllProfile.UserName
             };
 
             return profile;
@@ -73,6 +72,21 @@ namespace PL.Mappers
         public static IEnumerable<FullSearchViewModel> ToFullSearchModel(this IEnumerable<BllProfile> bllProfiles)
         {
             return bllProfiles.Select(profile => profile.ToFullSearchModel()).ToList();
+        }
+
+        public static BllProfile ToBllProfile(this FullSearchViewModel searchModel)
+        {
+            var profile = new BllProfile()
+            {
+                Id = searchModel.Id,
+                BirthDate = searchModel.BirthDate,
+                City = searchModel.City,
+                FirstName = searchModel.FirstName,
+                Gender = searchModel.Gender,
+                LastName = searchModel.LastName,
+            };
+
+            return profile;
         }
     }
 }

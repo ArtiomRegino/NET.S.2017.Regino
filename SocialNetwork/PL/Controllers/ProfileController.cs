@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
+using BLL.Interface.Entities;
 using BLL.Interfaces.Interfaces;
 using PL.Mappers;
 using PL.Models.Profile;
@@ -79,8 +80,10 @@ namespace PL.Controllers
         [HttpPost]
         public ActionResult FullSearch(FullSearchViewModel model)
         {
+            BllProfile profile = model.ToBllProfile();
+            var profiles = profileService.FullSearch(profile).ToSearchResultModel();
 
-            return View("_SearchResultView");
+            return View("_SearchResultView", profiles.ToList());
         }
 
         [Authorize]
