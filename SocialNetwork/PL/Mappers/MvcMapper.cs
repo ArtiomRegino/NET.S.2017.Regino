@@ -74,6 +74,22 @@ namespace PL.Mappers
             return bllProfiles.Select(profile => profile.ToFullSearchModel()).ToList();
         }
 
+        public static ManagmentViewModel ToManagmentModel(this BllProfile bllProfile)
+        {
+            var profile = new ManagmentViewModel
+            {
+                Id = bllProfile.Id,
+                Username = bllProfile.UserName
+            };
+
+            return profile;
+        }
+
+        public static IEnumerable<ManagmentViewModel> ToManagmentModel(this IEnumerable<BllProfile> bllProfiles)
+        {
+            return bllProfiles.Select(profile => profile.ToManagmentModel()).ToList();
+        }
+
         public static BllProfile ToBllProfile(this FullSearchViewModel searchModel)
         {
             var profile = new BllProfile()

@@ -55,7 +55,7 @@
 
             @if ((new CustomRoleProvider()).IsUserInRole(User.Identity.Name, "Admin"))
             {
-                @Ajax.ActionLink(" Managment", "Index", "Profile", null, new AjaxOptions
+                @Ajax.ActionLink(" Managment", "ManageUsers", "Profile", null, new AjaxOptions
                                                                  {
                                                                      UpdateTargetId = "main_container",
                                                                      InsertionMode = InsertionMode.Replace,

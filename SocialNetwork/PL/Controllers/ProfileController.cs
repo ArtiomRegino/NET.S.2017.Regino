@@ -223,5 +223,17 @@ namespace PL.Controllers
 
             return File(path, "image/png");
         }
+
+
+        public ActionResult ManageUsers()
+        {
+            var profiles = profileService.GetAll().ToManagmentModel();
+
+            if (Request.IsAjaxRequest())
+            {
+                    return PartialView("_ManagmentView", profiles.ToList());
+            }
+            return View("_ManagmentView", profiles.ToList());
+        }
     }
 }
