@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using BLL.Interface.Entities;
 
-namespace PL.Models.Profile
+namespace PL.Models.Search
 {
-    public class PresentationOfProfileViewModel
+    public class FullSearchViewModel
     {
         public int Id { get; set; }
 
@@ -29,16 +28,5 @@ namespace PL.Models.Profile
 
         [Display(Name = "City:")]
         public string City { get; set; }
-
-        [Display(Name = "Contact phone:")]
-        [DataType(DataType.PhoneNumber)]
-        public string ContactPhone { get; set; }
-
-        [Display(Name = "About me:")]
-        [DataType(DataType.MultilineText)]
-        public string AboutMe { get; set; }
-
-        public int? PhotoId { get; set; }
-
     }
 }

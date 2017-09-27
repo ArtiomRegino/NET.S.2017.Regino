@@ -24,10 +24,17 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right text-center ">
                 <li>
-                    @using (Ajax.BeginForm("Search", "Profile", new AjaxOptions { UpdateTargetId = "results" }))
+                    @using (Ajax.BeginForm("SearchByNames", "Profile", new AjaxOptions {
+                                                                    UpdateTargetId = "main_container",
+                                                                    InsertionMode = InsertionMode.Replace,
+                                                                    LoadingElementId = "processing",
+                                                                    AllowCache = false,
+                                                                    OnBegin = "hideContent",
+                                                                    OnComplete = "unhideContent"
+                                                                    }))
                     {
                         <div class="form-group center-block" style="margin-top: 8px; margin-bottom: 5px;">
-                            @Html.TextBox("FirstName", null, new {@class = "form-control", placeholder = "Search"})
+                            @Html.TextBox("names", null, new {@class = "form-control", placeholder = "Search"})
                         </div>
                     }
                 </li>

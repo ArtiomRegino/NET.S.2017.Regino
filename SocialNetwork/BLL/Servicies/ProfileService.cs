@@ -10,7 +10,7 @@ using DAL.Interface.Interfaces;
 
 namespace BLL.Servicies
 {
-    public class ProfileService : IProfileService//нет поиска!
+    public class ProfileService : IProfileService
     {
         private IUnitOfWork unitOfWork;
         private IProfileRepository profileRepository;
@@ -53,9 +53,33 @@ namespace BLL.Servicies
             unitOfWork.Commit();
         }
 
-        public IEnumerable<BllProfile> Search(BllProfile profile)
+        public IEnumerable<BllProfile> FullSearch(BllProfile profile)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<BllProfile> FastSearch(string names)
+        {
+            var arrayOfNames = names.Split(' ');
+
+            if (arrayOfNames.Length > 1)
+            {
+                string firstPart = arrayOfNames[0].ToLower();
+                string secondPart = arrayOfNames[1].ToLower();
+
+                var profiles = profileRepository.GetAll()
+                    .Where(p => p.FirstName.ToLower() == firstPart ||
+                                p.FirstName.ToLower() == secondPart || p.LastName.ToLower() == firstPart ||
+                                p.LastName.ToLower() == secondPart).Distinct().Map();
+
+                return profiles;
+            }
+
+            string first = arrayOfNames[0].ToLower();
+            var profile = profileRepository.GetAll()
+                .Where(p => p.FirstName.ToLower() == first || p.LastName.ToLower() == first).Distinct().Map();
+
+            return profile;
         }
 
         public BllProfile GetByUserEmail(string email)

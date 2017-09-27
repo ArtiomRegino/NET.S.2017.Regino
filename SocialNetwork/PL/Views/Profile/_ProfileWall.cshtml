@@ -9,14 +9,14 @@
         <div class="row">
             @if (User.Identity.Name == Model.Username)
             {
-                <button class="btn-success btn-block" style="margin-top: 2%" onclick="location.href='@Url.Action("Edit", "Profile")'">
+                <button class="btn-success btn btn-block" style="margin-top: 1%" onclick="location.href='@Url.Action("Edit", "Profile")'">
                     <span class="glyphicon glyphicon-edit"></span>Edit profile
                 </button>
             }
             else
             {
-                <button class="btn-success btn btn-block" value="@Model.Id" >
-                    <span class="glyphicon glyphicon-edit"></span>Write message
+                <button class="btn-success btn btn-block" value="@Model.Id" style="margin-top: 1%" >
+                    <span class="glyphicon glyphicon-envelope"></span> Write message
                 </button>
 
                 if (ViewBag.IsFriend != null)
@@ -26,7 +26,7 @@
                         using (Html.BeginForm("DeleteFriend", "Friend",  new { Id = Model.Id }, FormMethod.Get, new {style = "margin-top: 1%"}))
                         {
                             <button class="btn-success btn btn-block" value="@Model.Id">
-                                <span class="glyphicon glyphicon-edit"></span>Delete from friends
+                                <span class="glyphicon glyphicon-remove"></span>Delete from friends
                             </button>
                         }
                     }
@@ -42,7 +42,7 @@
                 }
                 else
                 {
-                    <button id="remove" type="button" class="btn btn-warning btn-block" value="@Model.Id">
+                    <button id="remove" type="button" class="btn btn-warning btn-block glyphicon glyphicon-time" value="@Model.Id">
                         Waiting response
                     </button>
                 }

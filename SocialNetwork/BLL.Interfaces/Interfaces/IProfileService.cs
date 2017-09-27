@@ -9,7 +9,8 @@ namespace BLL.Interfaces.Interfaces
 {
     public interface IProfileService : IService<BllProfile>
     {
-        IEnumerable<BllProfile> Search(BllProfile profile);
         BllProfile GetByUserEmail(string email);
+        IEnumerable<BllProfile> FastSearch(string names);
+        IEnumerable<BllProfile> FullSearch(BllProfile profile);
     }
 }

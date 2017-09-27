@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ using System.Web.Security;
 using BLL.Interfaces.Interfaces;
 using PL.Mappers;
 using PL.Models.Profile;
+using PL.Models.Search;
 using PL.Providers;
 
 namespace PL.Controllers
@@ -44,10 +46,41 @@ namespace PL.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        public ActionResult Search()
+        [HttpPost]
+        public ActionResult SearchByNames(string names)
         {
-            return View("_ProfileWall");
+            List<SearchResultViewModel> profiles;
+
+            if (Request.IsAjaxRequest())
+            {
+                if (String.IsNullOrEmpty(names))
+                    return PartialView("_SearchResultView", null);
+
+                profiles = profileService.FastSearch(names).ToSearchResultModel().ToList();
+                return PartialView("_SearchResultView", profiles);
+            }
+
+            if (String.IsNullOrEmpty(names))
+                return View("_SearchResultView", null);
+
+            profiles = profileService.FastSearch(names).ToSearchResultModel().ToList();
+
+            return View("_SearchResultView", profiles);
+        }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult FullSearch()
+        {
+            return View("_FullSearchView");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult FullSearch(FullSearchViewModel model)
+        {
+
+            return View("_SearchResultView");
         }
 
         [Authorize]

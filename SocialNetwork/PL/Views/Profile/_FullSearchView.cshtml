@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("FullSearch", "Profile", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" }, { "class", "col-md-7 col-sm-pull-3  col-md-offset-4 jumbotron" }}))
+{
+    <h1>Full search</h1>
+    <hr/>
+    <h4>Join our community or login now</h4>
+
+    <div class="form-group">
+        @Html.Label("FirstName", "First name")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon glyphicon-pencil"></i>
+            </span>
+            @Html.TextBox("FirstName", null, new { @class = "form-control", placeholder = "First name" })
+        </div>
+        @Html.ValidationMessage("FirstName", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("LastName", "Last name")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon glyphicon-pencil"></i>
+            </span>
+            @Html.TextBox("LastName", null, new { @class = "form-control", placeholder = "Last name" })
+        </div>
+        @Html.ValidationMessage("LastName", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.Label("BirthDate", "Date of birth:")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </span>
+            @Html.TextBox("BirthDate", null, new { @class = "form-control", placeholder = "11/04/1996"})
+        </div>
+        @Html.ValidationMessage("BirthDate")
+    </div>
+    <div class="form-group">
+        @Html.Label("City", "City:")
+        <div class="input-group">
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-home"></i>
+            </span>
+            @Html.TextBox("City", null, new { @class = "form-control", placeholder = "City"})
+        </div>
+        @Html.ValidationMessage("City")
+    </div>
+    <div class="form-group">
+        @Html.Label("Gender");
+        <div>
+            @Html.RadioButton("Gender", true, new { id = "male_true" }));
+            @Html.Label("male_true", "Male")
+            @Html.RadioButton("Gender", "false", new { id = "male_false" })
+            @Html.Label("male_false", "Female")
+            @Html.ValidationMessage("Gender")    
+        </div>
+    </div>
+    
+    <button type="submit" class="btn btn-success btn-default text-center">Search</button>
+}
+
