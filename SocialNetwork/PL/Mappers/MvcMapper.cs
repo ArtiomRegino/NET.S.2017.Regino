@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using BLL.Interface.Entities;
+using PL.Models.Message;
 using PL.Models.Profile;
 using PL.Models.Search;
 
@@ -100,6 +101,32 @@ namespace PL.Mappers
                 FirstName = searchModel.FirstName,
                 Gender = searchModel.Gender,
                 LastName = searchModel.LastName,
+            };
+
+            return profile;
+        }
+
+        public static MessageViewModel ToMvcMessage(this BllMessage bllMessage)
+        {
+            var message = new MessageViewModel()
+            {
+                Date = bllMessage.Date,
+                Text = bllMessage.Text,
+                UserFromId = bllMessage.UserFromId,
+                UserToId = bllMessage.UserToId
+            };
+
+            return message;
+        }
+
+        public static SmallPresentationOfProfile ToSmallProfile(this BllProfile bllProfile)
+        {
+            var profile = new SmallPresentationOfProfile()
+            {
+                FirstName = bllProfile.FirstName,
+                Id = bllProfile.Id,
+                PhotoId = bllProfile.PhotoId,
+                LastName = bllProfile.LastName
             };
 
             return profile;

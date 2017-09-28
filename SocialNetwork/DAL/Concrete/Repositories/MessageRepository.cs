@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
 using DAL.Mappers;
@@ -17,14 +14,13 @@ namespace DAL.Concrete.Repositories
 
         public MessageRepository(DbContext unitOfWork)
         {
-            this.context = unitOfWork;
+            context = unitOfWork;
         }
 
         public void Create(DalMessage e)
         {
             var ormMessage = e.ToOrmMessage();
             context.Set<Message>().Add(ormMessage);
-
         }
 
         public void Delete(DalMessage e)
@@ -33,7 +29,7 @@ namespace DAL.Concrete.Repositories
 
             context.Set<Message>().Attach(message);
             context.Set<Message>().Remove(message);
-            context.Entry(message).State = System.Data.Entity.EntityState.Deleted;
+            context.Entry(message).State = EntityState.Deleted;
         }
 
         public IEnumerable<DalMessage> GetAll()
@@ -42,7 +38,7 @@ namespace DAL.Concrete.Repositories
             return result.Select(m => m.ToDalMessage());
         }
 
-        public DalMessage GetById(int key)
+        public DalMessage GetById(int? key)
         {
             var message = context.Set<Message>().Find(key);
             if (message == null)
@@ -60,10 +56,10 @@ namespace DAL.Concrete.Repositories
             }
         }
 
-        public List<DalMessage> GetMessages(int UserFromId, int UserToId)
+        public List<DalMessage> GetMessages(int firstUserId, int secondUserId)
         {
-            return GetAll().Where(m => (m.UserFromId == UserFromId && m.UserToId == UserToId) ||
-                                       (m.UserFromId == UserToId && m.UserToId == UserFromId)).
+            return GetAll().Where(m => (m.UserFromId == firstUserId && m.UserToId == secondUserId) ||
+                                       (m.UserFromId == secondUserId && m.UserToId == firstUserId)).
                 OrderBy(m => m.Date).ToList();
         }
 
@@ -74,7 +70,7 @@ namespace DAL.Concrete.Repositories
             {
                 context.Set<Message>().Attach(item);
                 context.Set<Message>().Remove(item);
-                context.Entry(item).State = System.Data.Entity.EntityState.Deleted;
+                context.Entry(item).State = EntityState.Deleted;
             }
         }
     }

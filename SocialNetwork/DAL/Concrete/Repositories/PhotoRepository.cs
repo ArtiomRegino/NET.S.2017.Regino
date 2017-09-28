@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
 using DAL.Mappers;
@@ -17,7 +14,7 @@ namespace DAL.Concrete.Repositories
 
         public PhotoRepository(DbContext unitOfWork)
         {
-            this.context = unitOfWork;
+            context = unitOfWork;
         }
         public void Create(DalPhoto e)
         {
@@ -29,7 +26,7 @@ namespace DAL.Concrete.Repositories
             var userPhoto = context.Set<Photo>().FirstOrDefault(p => p.Id == e.Id);
             context.Set<Photo>().Attach(userPhoto);
             context.Set<Photo>().Remove(userPhoto);
-            context.Entry(userPhoto).State = System.Data.Entity.EntityState.Deleted;
+            context.Entry(userPhoto).State = EntityState.Deleted;
         }
 
         public IEnumerable<DalPhoto> GetAll()
@@ -38,7 +35,7 @@ namespace DAL.Concrete.Repositories
             return photos.Select(p => p.ToDalPhoto());
         }
 
-        public DalPhoto GetById(int key)
+        public DalPhoto GetById(int? key)
         {
             var photo = context.Set<Photo>().Find(key);
             if (photo == null)

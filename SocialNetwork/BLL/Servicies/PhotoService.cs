@@ -12,8 +12,8 @@ namespace BLL.Servicies
 {
     public class PhotoService: IPhotoService
     {
-        private IUnitOfWork unitOfWork;
-        private IPhotoRepository photoRepository;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IPhotoRepository photoRepository;
 
         public PhotoService(IUnitOfWork unitOfWork, IPhotoRepository photoRepository)
         {
@@ -21,7 +21,7 @@ namespace BLL.Servicies
             this.photoRepository = photoRepository;
         }
 
-        public BllPhoto GetById(int id)
+        public BllPhoto GetById(int? id)
         {
             BllPhoto photo = photoRepository.GetById(id).ToBllPhoto();
             unitOfWork.Commit();

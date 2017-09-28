@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -224,7 +223,8 @@ namespace PL.Controllers
             return File(path, "image/png");
         }
 
-
+        [Authorize]
+        [HttpGet]
         public ActionResult ManageUsers()
         {
             var profiles = profileService.GetAll().ToManagmentModel();
@@ -235,5 +235,12 @@ namespace PL.Controllers
             }
             return View("_ManagmentView", profiles.ToList());
         }
+
+        //[Authorize]
+        //[HttpPost]
+        //public ActionResult ManageUsers()
+        //{
+            
+        //}
     }
 }

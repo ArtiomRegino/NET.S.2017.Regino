@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BLL.Interface.Entities;
 using BLL.Interfaces.Interfaces;
 using BLL.Mappers;
-using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
 
 namespace BLL.Servicies
 {
     public class ProfileService : IProfileService
     {
-        private IUnitOfWork unitOfWork;
-        private IProfileRepository profileRepository;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IProfileRepository profileRepository;
 
         public ProfileService(IUnitOfWork unitOfWork, IProfileRepository profileRepository)
         {
@@ -22,7 +19,7 @@ namespace BLL.Servicies
             this.profileRepository = profileRepository;
         }
 
-        public BllProfile GetById(int id)
+        public BllProfile GetById(int? id)
         {
             BllProfile profile = profileRepository.GetById(id).ToBllProfile();
             unitOfWork.Commit();
@@ -56,7 +53,7 @@ namespace BLL.Servicies
 
         public IEnumerable<BllProfile> FullSearch(BllProfile profile)
         {
-            IEnumerable<DalProfile> profiles = profileRepository.GetAll();
+            var profiles = profileRepository.GetAll();
 
             if (profile.Gender != null)
             {
@@ -64,20 +61,24 @@ namespace BLL.Servicies
             }
             if (profile.FirstName != null)
             {
-                profiles = profiles.Where(p => p.FirstName.ToLower() == profile.FirstName.ToLower());
+                profiles = profiles.Where(p =>
+                string.Equals(p.FirstName, profile.FirstName, StringComparison.CurrentCultureIgnoreCase));
             }
             if (profile.LastName != null)
             {
-                profiles = profiles.Where(p => p.LastName.ToLower() == profile.LastName.ToLower());
+                profiles = profiles.Where(p =>
+                string.Equals(p.LastName, profile.LastName, StringComparison.CurrentCultureIgnoreCase));
             }
             if (profile.City != null)
             {
-                profiles = profiles.Where(p => p.City.ToLower() == profile.City.ToLower());
+                profiles = profiles.Where(p =>
+                string.Equals(p.City, profile.City, StringComparison.CurrentCultureIgnoreCase));
             }
             if (profile.BirthDate != null)
             {
                 profiles = profiles.Where(p => p.BirthDate == profile.BirthDate);
             }
+            unitOfWork.Commit();
 
             return profiles.Map();
         }
@@ -93,7 +94,8 @@ namespace BLL.Servicies
 
                 var profiles = profileRepository.GetAll()
                     .Where(p => p.FirstName.ToLower() == firstPart ||
-                                p.FirstName.ToLower() == secondPart || p.LastName.ToLower() == firstPart ||
+                                p.FirstName.ToLower() == secondPart ||
+                                p.LastName.ToLower() == firstPart ||
                                 p.LastName.ToLower() == secondPart).Distinct().Map();
 
                 return profiles;
@@ -101,7 +103,8 @@ namespace BLL.Servicies
 
             string first = arrayOfNames[0].ToLower();
             var profile = profileRepository.GetAll()
-                .Where(p => p.FirstName.ToLower() == first || p.LastName.ToLower() == first).Distinct().Map();
+                .Where(p => p.FirstName.ToLower() == first ||
+                p.LastName.ToLower() == first).Distinct().Map();
 
             unitOfWork.Commit();
 
@@ -110,8 +113,9 @@ namespace BLL.Servicies
 
         public BllProfile GetByUserEmail(string email)
         {
-            BllProfile profile = profileRepository.GetByUserEmail(email).ToBllProfile();
+            var profile = profileRepository.GetByUserEmail(email).ToBllProfile();
             unitOfWork.Commit();
+
             return profile;
         }
     }

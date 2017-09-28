@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BLL.Interface.Entities;
 using BLL.Interfaces.Interfaces;
 using BLL.Mappers;
@@ -21,10 +17,11 @@ namespace BLL.Servicies
             this.userRepository = userRepository;
         }
 
-        public BllUser GetById(int id)
+        public BllUser GetById(int? id)
         {
             BllUser user = userRepository.GetById(id).ToBllUser();
             unitOfWork.Commit();
+
             return user;
         }
 
@@ -32,6 +29,7 @@ namespace BLL.Servicies
         {
             IEnumerable<BllUser> users = userRepository.GetAll().Map();
             unitOfWork.Commit();
+
             return users;
         }
 
@@ -57,6 +55,7 @@ namespace BLL.Servicies
         {
             BllUser user = userRepository.GetUserByEmail(email).ToBllUser();
             unitOfWork.Commit();
+
             return user;
         }
 
@@ -64,6 +63,7 @@ namespace BLL.Servicies
         {
             BllUser user = userRepository.GetUserByUserName(username).ToBllUser();
             unitOfWork.Commit();
+
             return user;
         }
     }

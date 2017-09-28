@@ -12,15 +12,15 @@ namespace BLL.Servicies
 {
     public class FriendshipService: IFriendshipService //реализовать методы
     {
-        private IUnitOfWork unitOfWork;
-        private IFriendshipRepository friendshipRepository;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IFriendshipRepository friendshipRepository;
 
         public FriendshipService(IUnitOfWork unitOfWork, IFriendshipRepository friendshipRepository)
         {
             this.unitOfWork = unitOfWork;
             this.friendshipRepository = friendshipRepository;
         }
-        public BllFriendship GetById(int id)
+        public BllFriendship GetById(int? id)
         {
             BllFriendship friendship = friendshipRepository.GetById(id).ToBllFriendship();
             unitOfWork.Commit();
@@ -85,11 +85,6 @@ namespace BLL.Servicies
 
             Create(friendship);
             unitOfWork.Commit();
-        }
-
-        public bool IsRequested(int currentUser, int otherUser)
-        {
-            throw new NotImplementedException();
         }
 
         public void Confirm(int curUserId, int otherUserId)

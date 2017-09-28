@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 using ORM.Entities;
 
 namespace ORM
@@ -13,7 +8,6 @@ namespace ORM
         public SocialNetworkContext() : base("SocialNetworkContext")
         {
             Database.SetInitializer( new DropCreateDbInitializer());
-            
         }
 
         public DbSet<Friendship> Friendships { get; set; }

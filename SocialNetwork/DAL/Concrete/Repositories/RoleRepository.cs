@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
 using DAL.Mappers;
@@ -26,7 +24,7 @@ namespace DAL.Concrete.Repositories
             return result.Select(r => r.ToDalRole());
         }
 
-        public DalRole GetById(int key)
+        public DalRole GetById(int? key)
         {
             return context.Set<Role>().Find(key).ToDalRole();
         }
@@ -35,6 +33,8 @@ namespace DAL.Concrete.Repositories
         {
             context.Set<Role>().Add(e.ToOrmRole());
         }
+
+        #region Not emplemented
 
         public void Delete(DalRole e)
         {
@@ -45,5 +45,7 @@ namespace DAL.Concrete.Repositories
         {
             throw new NotImplementedException();
         }
+        
+        #endregion
     }
 }

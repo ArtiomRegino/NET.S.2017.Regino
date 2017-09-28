@@ -15,7 +15,7 @@
             }
             else
             {
-                <button class="btn-success btn btn-block" value="@Model.Id" style="margin-top: 1%" >
+                <button class="btn-success btn btn-block" value="@Model.Id" style="margin-top: 1%" onclick="location.href='@Url.Action("WriteSingleMessage", "Message", new { Id = Model.Id })'">
                     <span class="glyphicon glyphicon-envelope"></span> Write message
                 </button>
 

@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
 using DAL.Mappers;
 using ORM.Entities;
 
-namespace DAL.Concrete
+namespace DAL.Concrete.Repositories
 {
     public class FriendshipRepository: IFriendshipRepository
     {
@@ -18,7 +15,7 @@ namespace DAL.Concrete
 
         public FriendshipRepository(DbContext unitOfWork)
         {
-            this.context = unitOfWork;
+            context = unitOfWork;
         }
         public void Create(DalFriendship e)
         {
@@ -43,7 +40,7 @@ namespace DAL.Concrete
             return result.Select(u => u.ToDalFriendship());
         }
 
-        public DalFriendship GetById(int key)
+        public DalFriendship GetById(int? key)
         {
             var friendship = context.Set<Friendship>().Find(key);
             if (friendship == null)

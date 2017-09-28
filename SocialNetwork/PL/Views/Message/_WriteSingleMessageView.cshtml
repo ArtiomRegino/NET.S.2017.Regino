@@ -1,0 +1,35 @@
+﻿@model PL.Models.Profile.SmallPresentationOfProfile
+    
+@using (Html.BeginForm("WriteSingleMessage", "Message", FormMethod.Post, new {  @class = "col-md-7 col-sm-pull-3  col-md-offset-4 jumbotron", data_toggle = "validator" }))
+{
+    <h1>New message</h1>
+    <hr/>
+    <div class="row">
+        <div class="col-md-2 col-sm-12">
+            <img src="@Url.Action("GetImage", "Profile", new { Id = Model.PhotoId })" class="img-circle img-responsive center-block" />
+        </div>
+        <div class="col-md-4 col-sm-12 center-block text-center">
+            @Html.ActionLink($"{Model.FirstName} {Model.LastName}", "PresentationOfProfile", "Profile", new { Id = Model.Id }, null)
+        </div>
+    </div>
+    @Html.Hidden("Recipient", Model.Id)
+    <div class="row">
+        <div class="col-md-12 col-sm-offset-2 col-md-offset-2 form-group"> @Html.TextArea("Text", new
+                                                                      {
+                                                                          rows = 5,
+                                                                          @class = "form-control",
+                                                                          id = "text"
+                                                                      })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-5 col-sm-offset-6 col-md-3 col-md-offset-7 form-group">
+                            
+            <button type="submit" class="btn btn-success btn-block glyphicon glyphicon-send" id="messageSubmit">
+                Send
+            </button>
+        </div>
+    </div>
+
+}

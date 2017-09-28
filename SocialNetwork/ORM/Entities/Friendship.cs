@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ORM.Entities
 {
@@ -22,7 +18,6 @@ namespace ORM.Entities
         public bool? IsConfirmed { get; set; }
 
         public virtual User FromUser { get; set; }
-
         public virtual User ToUser { get; set; }
 
     }

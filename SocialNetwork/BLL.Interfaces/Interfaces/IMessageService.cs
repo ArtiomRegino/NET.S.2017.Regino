@@ -9,7 +9,7 @@ namespace BLL.Interfaces.Interfaces
 {
     public interface IMessageService : IService<BllMessage>
     {
-        IEnumerable<BllMessage> GetAllChatsWith(int userId);
+        IEnumerable<BllMessage> GetLastMessagesOfTo(int userId);
         void DeleteAllUserMessagesById(int id);
     }
 }

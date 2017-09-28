@@ -1,0 +1,10 @@
+﻿@model List<PL.Models.Message.DialogViewModel>
+    
+<h1>Dialogs</h1>
+<hr/>
+
+@foreach (var item in Model)
+{
+    <a href="@Url.Action("PresentationOfProfile", "Profile", new { Id = item.PhotoIdOfCompanion})"><img src="@Url.Action("GetImage", "Profile", new { Id = item.PhotoIdOfCompanion})" class="img-circle img-responsive center-block" /></a>
+    @Html.ActionLink($"{item.NameOfCompanion}", "PresentationOfProfile", "Profile", new { Id = item.PhotoIdOfCompanion }, null)
+}

@@ -11,7 +11,6 @@ namespace BLL.Interfaces.Interfaces
     {
         bool? IsFriend (int curUser, int otherUser);
         void AddFriend (int userId, int otherUserId);
-        bool IsRequested (int currentUser, int otherUser);
         void Confirm (int currentUser, int otherUser);
         void DeleteById(int curUserId, int otherUserId);
         void DeleteAllUserRelationById (int id);

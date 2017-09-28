@@ -12,8 +12,8 @@ namespace BLL.Servicies
 {
     public class RoleService : IRoleService
     {
-        private IUnitOfWork unitOfWork;
-        private IRoleRepository roleRepository;
+        private readonly IUnitOfWork unitOfWork;
+        private readonly IRoleRepository roleRepository;
 
         public RoleService(IUnitOfWork unitOfWork, IRoleRepository roleRepository)
         {
@@ -21,10 +21,11 @@ namespace BLL.Servicies
             this.roleRepository = roleRepository;
         }
 
-        public BllRole GetById(int id)
+        public BllRole GetById(int? id)
         {
             BllRole role = roleRepository.GetById(id).ToBllRole();
             unitOfWork.Commit();
+
             return role;
         }
 
@@ -32,6 +33,7 @@ namespace BLL.Servicies
         {
             IEnumerable<BllRole> roles = roleRepository.GetAll().Map();
             unitOfWork.Commit();
+
             return roles;
         }
 

@@ -184,10 +184,14 @@
     <Compile Include="Infrastructure\CaptchaImage.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Mappers\MvcMapper.cs" />
+    <Compile Include="Models\Message\DialogViewModel.cs" />
+    <Compile Include="Models\Message\MessageViewModel.cs" />
+    <Compile Include="Models\Message\RecivedMessageModel.cs" />
     <Compile Include="Models\Profile\EditProfileViewModel.cs" />
     <Compile Include="Models\Profile\ManagmentViewModel.cs" />
     <Compile Include="Models\Profile\PresentationOfProfileViewModel.cs" />
     <Compile Include="Models\Profile\ProfileSettingsViewModel.cs" />
+    <Compile Include="Models\Profile\SmallPresentationOfProfile.cs" />
     <Compile Include="Models\Search\FullSearchViewModel.cs" />
     <Compile Include="Models\Search\SearchResultViewModel.cs" />
     <Compile Include="Models\User\LoginViewModel.cs" />
@@ -263,10 +267,11 @@
     <Content Include="Views\Profile\_SearchResultView.cshtml" />
     <Content Include="Views\Profile\_FullSearchView.cshtml" />
     <Content Include="Views\Profile\_ManagmentView.cshtml" />
+    <Content Include="Views\Message\DialogsView.cshtml" />
+    <Content Include="Views\Message\_WriteSingleMessageView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Message\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

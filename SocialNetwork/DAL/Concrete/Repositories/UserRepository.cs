@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
 using DAL.Mappers;
@@ -29,7 +26,7 @@ namespace DAL.Concrete.Repositories
             return result.Select(u => u.ToDalUser());
         }
 
-        public DalUser GetById(int key)
+        public DalUser GetById(int? key)
         {
             var result = context.Set<User>().Find(key);
             return result.ToDalUser();
@@ -47,7 +44,7 @@ namespace DAL.Concrete.Repositories
             var user = context.Set<User>().FirstOrDefault(u => u.Id == ormUser.Id);
             context.Set<User>().Attach(user);//как работает attach
             context.Set<User>().Remove(user);
-            context.Entry(user).State = System.Data.Entity.EntityState.Deleted;
+            context.Entry(user).State = EntityState.Deleted;
         }
 
         public void Update(DalUser e)
@@ -59,7 +56,7 @@ namespace DAL.Concrete.Repositories
                 userToUpdate.RoleId = e.RoleId;
                 userToUpdate.Email = e.Email;
                 userToUpdate.Password = e.Password;
-                context.Entry(userToUpdate).State = System.Data.Entity.EntityState.Modified;
+                context.Entry(userToUpdate).State = EntityState.Modified;
             }
         }
 

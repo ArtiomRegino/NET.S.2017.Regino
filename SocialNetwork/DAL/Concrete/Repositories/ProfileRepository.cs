@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interface.DTO;
 using DAL.Interface.Interfaces;
 using DAL.Mappers;
@@ -30,7 +27,7 @@ namespace DAL.Concrete.Repositories
             var userProfile = context.Set<Profile>().FirstOrDefault(p => p.Id == dalProfile.Id);
             context.Set<Profile>().Attach(userProfile);
             context.Set<Profile>().Remove(userProfile);
-            context.Entry(userProfile).State = System.Data.Entity.EntityState.Deleted;
+            context.Entry(userProfile).State = EntityState.Deleted;
         }
 
         public IEnumerable<DalProfile> GetAll()
@@ -39,7 +36,7 @@ namespace DAL.Concrete.Repositories
             return result.Select(p => p.ToDalProfile());
         }
 
-        public DalProfile GetById(int key)
+        public DalProfile GetById(int? key)
         {
             var profile = context.Set<Profile>().Find(key);
             if (profile == null)
@@ -72,7 +69,7 @@ namespace DAL.Concrete.Repositories
         {
             if (email == null) return null;
 
-            User user = context.Set<User>().Include(u => u.Profile).FirstOrDefault(u => u.Email == email);
+            var user = context.Set<User>().Include(u => u.Profile).FirstOrDefault(u => u.Email == email);
             return user.Profile.ToDalProfile();
         }
     }
