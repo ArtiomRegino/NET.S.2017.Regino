@@ -1,0 +1,20 @@
+﻿@model PL.Models.Message.MessageViewModel
+
+<div class="row">
+    <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+        <img src="@Url.Action("GetImage", "Profile", new { Id = Model.UserFromId})" class="img-circle img-responsive" />
+    </div>
+    <div class="col-xs-8">
+        <div class="row">
+            <h3> @Model.NameOfSender </h3>
+        </div>
+        <div class="row">
+            <small>
+                <i>Posted @Model.Date</i>
+            </small>
+        </div>
+        <div class="row"><h4> @Model.Text</h4></div>
+    </div>
+
+</div>
+<div id="new_message"></div> 

@@ -184,6 +184,7 @@
     <Compile Include="Infrastructure\CaptchaImage.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Mappers\MvcMapper.cs" />
+    <Compile Include="Models\Message\AllMessagesViewModel.cs" />
     <Compile Include="Models\Message\DialogViewModel.cs" />
     <Compile Include="Models\Message\MessageViewModel.cs" />
     <Compile Include="Models\Message\RecivedMessageModel.cs" />
@@ -269,6 +270,8 @@
     <Content Include="Views\Profile\_ManagmentView.cshtml" />
     <Content Include="Views\Message\DialogsView.cshtml" />
     <Content Include="Views\Message\_WriteSingleMessageView.cshtml" />
+    <Content Include="Views\Message\_MessagesViaDialogView.cshtml" />
+    <Content Include="Views\Message\_SingleMessageView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

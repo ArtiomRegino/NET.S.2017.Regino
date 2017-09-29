@@ -11,5 +11,6 @@ namespace PL.Models.Message
         public DateTime? Date { get; set; }
         public int? UserFromId { get; set; }
         public int? UserToId { get; set; }
+        public string NameOfSender { get; set; }
     }
 }

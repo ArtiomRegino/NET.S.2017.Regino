@@ -113,7 +113,8 @@ namespace PL.Mappers
                 Date = bllMessage.Date,
                 Text = bllMessage.Text,
                 UserFromId = bllMessage.UserFromId,
-                UserToId = bllMessage.UserToId
+                UserToId = bllMessage.UserToId,
+                NameOfSender = bllMessage.UserFrom.FirstName      
             };
 
             return message;

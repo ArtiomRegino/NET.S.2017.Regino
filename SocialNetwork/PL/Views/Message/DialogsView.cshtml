@@ -5,6 +5,21 @@
 
 @foreach (var item in Model)
 {
-    <a href="@Url.Action("PresentationOfProfile", "Profile", new { Id = item.PhotoIdOfCompanion})"><img src="@Url.Action("GetImage", "Profile", new { Id = item.PhotoIdOfCompanion})" class="img-circle img-responsive center-block" /></a>
-    @Html.ActionLink($"{item.NameOfCompanion}", "PresentationOfProfile", "Profile", new { Id = item.PhotoIdOfCompanion }, null)
+    <div class="row" style="margin-top: 2%">
+        <div class="col-md-2">
+            <a href="@Url.Action("PresentationOfProfile", "Profile", new {Id = item.PhotoIdOfCompanion})">
+                <img src="@Url.Action("GetImage", "Profile", new {Id = item.PhotoIdOfCompanion})" class="img-circle img-responsive center-block"/>
+            </a>
+        </div>
+        <div class="col-md-4">
+            @Html.ActionLink($"{item.NameOfCompanion}", "PresentationOfProfile", "Profile", new { Id = item.PhotoIdOfCompanion }, null)
+        </div>
+        <div class="col-md-4">
+            <h5>Last messge @item.Message.Date</h5>
+        </div>
+        
+        <div class="list-group col-md-7" style="margin-top: 2%">
+            <a href="#" class="list-group-item" style="margin-top: 1%" onclick="location.href='@Url.Action("ShowDialog", "Message", new { Id = item.IdOfCompanion })'">@item.Message.Text</a>
+        </div>
+    </div>
 }
