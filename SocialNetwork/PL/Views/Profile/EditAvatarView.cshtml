@@ -1,4 +1,7 @@
-﻿
+﻿@{
+    ViewBag.Title = "Edit avatar";
+}
+
 @using (Html.BeginForm("UploadImage", "Profile", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
     <h1>Upload a new photo</h1>

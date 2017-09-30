@@ -51,6 +51,16 @@ namespace BLL.Servicies
             unitOfWork.Commit();
         }
 
+        public void Update(IEnumerable<BllProfile> items)
+        {
+            foreach (var item in items)
+            {
+                profileRepository.Update(item.ToDalProfile());
+            }
+            
+            unitOfWork.Commit();
+        }
+
         public IEnumerable<BllProfile> FullSearch(BllProfile profile)
         {
             var profiles = profileRepository.GetAll();

@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" }, { "class", "jumbotron" } }))
-{@*col-md-8 col-sm-pull-2  col-md-offset-2*@
+@using (Html.BeginForm("Edit", "Profile", FormMethod.Post, new Dictionary<string, object> { { "data-toggle", "validator" }, { "class", "col-md-8 col-sm-pull-2  col-md-offset-2 jumbotron" } }))
+{
     <h1>Edit profile</h1>
     <h4>Here you can edit information about yourself.</h4>
     @Html.ValidationSummary(true)
     @Html.AntiForgeryToken()
 
-    <div class="form-group" @*style = "margin-left: 20%"*@>
+    <div class="form-group">
         @Html.Label("FirstName", "First name:")
         <div class="input-group">
             <span class="input-group-addon">
@@ -67,7 +67,7 @@
         <div class="input-group">
             <span class="input-group-addon">
                 <i class="glyphicon glyphicon-pencil"></i>
-            </span>@*Html.TextArea("Body", null, 10, 55, null)*@
+            </span>
             @Html.TextArea("AboutMe", null, new { @class = "form-control", placeholder = "About me", @Value = ViewBag.Profile.AboutMe })
         </div>
         @Html.ValidationMessage("AboutMe")

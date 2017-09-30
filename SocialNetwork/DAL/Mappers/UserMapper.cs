@@ -13,7 +13,7 @@ namespace DAL.Mappers
         public static DalUser ToDalUser(this User ormUser)
         {
             if (ormUser == null) return null;
-            DalUser currentDalUser = new DalUser()
+            var currentDalUser = new DalUser()
             {
                 Id = ormUser.Id,
                 Email = ormUser.Email,
@@ -30,7 +30,7 @@ namespace DAL.Mappers
         public static User ToOrmUser(this DalUser dalUser)
         {
             if (dalUser == null) return null;
-            User currentOrmUser = new User()
+            var currentOrmUser = new User()
             {
                 Id = dalUser.Id,
                 Email = dalUser.Email,

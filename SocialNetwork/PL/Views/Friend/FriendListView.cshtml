@@ -1,5 +1,9 @@
 ﻿@model List<PL.Models.Profile.PresentationOfProfileViewModel>
 
+@{
+    ViewBag.Title = "Friends";
+}
+
 @foreach (var item in Model.ToList())
 {
     <div class="row">

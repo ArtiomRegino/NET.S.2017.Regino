@@ -1,0 +1,18 @@
+﻿@model List<PL.Models.Profile.ManagmentViewModel>
+
+@{
+    ViewBag.Title = "Managment";
+}
+
+<h1>Manage messages</h1>
+<hr />
+
+@foreach (var item in Model)
+{
+    <div class="col-md-4">
+        @Html.ActionLink($"{item.Username}", "PresentationOfProfile", "Profile", new { Id = item.Id }, null)
+    </div>
+    <div class="col-md-3 col-md-offset-4">
+        @Html.ActionLink("Manage", "GetUserMessages", "Message", new { Id = item.Id }, null)
+    </div>
+}

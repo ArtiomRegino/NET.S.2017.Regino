@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Entities;
 using BLL.Interfaces.Interfaces;
@@ -9,20 +7,17 @@ using PL.Mappers;
 
 namespace PL.Controllers
 {
+    [Authorize]
     public class FriendController : Controller
     {
         private readonly IUserService userService;
         private readonly IProfileService profileService;
-        private readonly IPhotoService photoService;
-        private readonly IMessageService messageService;
         private readonly IFriendshipService friendshipService;
 
-        public FriendController(IUserService userService, IProfileService profileService, IPhotoService photoService, IMessageService messageService, IFriendshipService friendshipService)
+        public FriendController(IUserService userService, IProfileService profileService, IFriendshipService friendshipService)
         {
             this.userService = userService;
             this.profileService = profileService;
-            this.photoService = photoService;
-            this.messageService = messageService;
             this.friendshipService = friendshipService;
         }
 

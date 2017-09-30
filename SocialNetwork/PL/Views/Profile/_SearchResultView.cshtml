@@ -1,5 +1,9 @@
 ﻿@model List<PL.Models.Search.SearchResultViewModel>
 
+@{
+    ViewBag.Title = "Search";
+}
+
 @if (Model == null || Model.Count == 0)
 {
 
@@ -20,9 +24,12 @@ else
             <div class="col-md-4">
                 @Html.ActionLink($"{item.FirstName} {item.LastName}", "PresentationOfProfile", "Profile", new { Id = item.Id }, null)
             </div>
+            @if(item.Username != User.Identity.Name)
+            {
             <div class="col-md-3">
                 @Html.ActionLink("Add to friends", "AddFriend", "Friend", new { Id = item.Id }, null)
             </div>
+            }
         </div>
     }
 }

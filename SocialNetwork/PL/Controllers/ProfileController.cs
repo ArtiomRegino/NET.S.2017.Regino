@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
@@ -14,6 +13,7 @@ using PL.Providers;
 
 namespace PL.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly IUserService userService;
@@ -21,17 +21,18 @@ namespace PL.Controllers
         private readonly IPhotoService photoService;
         private readonly IMessageService messageService;
         private readonly IFriendshipService friendshipService;
+        private readonly IRoleService roleService;
 
-        public ProfileController(IUserService userService, IProfileService profileService, IPhotoService photoService, IMessageService messageService, IFriendshipService friendshipService)
+        public ProfileController(IUserService userService, IRoleService roleService, IProfileService profileService, IPhotoService photoService, IMessageService messageService, IFriendshipService friendshipService)
         {
             this.userService = userService;
             this.profileService = profileService;
             this.photoService = photoService;
             this.messageService = messageService;
             this.friendshipService = friendshipService;
+            this.roleService = roleService;
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult Index()
         {
@@ -45,7 +46,6 @@ namespace PL.Controllers
             return View("_ProfileWall", presentProfile);
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult SearchByNames(string names)
         {
@@ -53,14 +53,15 @@ namespace PL.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                if (String.IsNullOrEmpty(names))
+                if (string.IsNullOrEmpty(names))
                     return PartialView("_SearchResultView", null);
 
                 profiles = profileService.FastSearch(names).ToSearchResultModel().ToList();
+
                 return PartialView("_SearchResultView", profiles);
             }
 
-            if (String.IsNullOrEmpty(names))
+            if (string.IsNullOrEmpty(names))
                 return View("_SearchResultView", null);
 
             profiles = profileService.FastSearch(names).ToSearchResultModel().ToList();
@@ -68,24 +69,21 @@ namespace PL.Controllers
             return View("_SearchResultView", profiles);
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult FullSearch()
         {
             return View("_FullSearchView");
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult FullSearch(FullSearchViewModel model)
         {
-            BllProfile profile = model.ToBllProfile();
-            var profiles = profileService.FullSearch(profile).ToSearchResultModel();
+            var profile = model.ToBllProfile();
+            var profiles = profileService.FullSearch(profile).ToSearchResultModel().ToList();
 
             return View("_SearchResultView", profiles.ToList());
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult Edit()
         {
@@ -97,7 +95,6 @@ namespace PL.Controllers
             return View("_EditProfile");
         }
 
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditProfileViewModel model)
@@ -122,14 +119,12 @@ namespace PL.Controllers
             return View("_EditProfile", model);
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult Settings()
         {
             return View("_ProfileSettings");
         }
 
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Settings(ProfileSettingsViewModel model)
@@ -157,14 +152,12 @@ namespace PL.Controllers
             return View("_ProfileSettings", model);
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult HelpAbout()
         {
             return View("_HelpAboutProfile");
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult Delete()
         {
@@ -223,24 +216,77 @@ namespace PL.Controllers
             return File(path, "image/png");
         }
 
-        [Authorize]
         [HttpGet]
         public ActionResult ManageUsers()
         {
+            if (!(new CustomRoleProvider().IsUserInRole(User.Identity.Name, "Admin")))
+                return RedirectToAction("Index", "Home");
+
             var profiles = profileService.GetAll().ToManagmentModel();
 
             if (Request.IsAjaxRequest())
-            {
-                    return PartialView("_ManagmentView", profiles.ToList());
-            }
+                return PartialView("_ManagmentView", profiles.ToList());
+
             return View("_ManagmentView", profiles.ToList());
         }
 
-        //[Authorize]
-        //[HttpPost]
-        //public ActionResult ManageUsers()
-        //{
-            
-        //}
+        [HttpPost]
+        public ActionResult ManageUsers(FormCollection form, string command)
+        {
+            var idsArraySplit = form["Check"].Split(',');
+            var allUsers = userService.GetAll();
+            var managedUsers = idsArraySplit.Select(item => allUsers.
+                FirstOrDefault(p => p.Id == int.Parse(item))).ToList();
+
+            if (command.Equals("Active"))
+            {
+                managedUsers = ChangeRole(managedUsers, "ActiveUser");
+                userService.Update(managedUsers);
+            }
+            if (command.Equals("Banned"))
+            {
+                managedUsers = ChangeRole(managedUsers, "BannedUser");
+                userService.Update(managedUsers);
+            }
+            if (command.Equals("Moderator"))
+            {
+                managedUsers = ChangeRole(managedUsers, "Moderator");
+                userService.Update(managedUsers);
+            }
+            if (command.Equals("Delete"))
+            {
+                foreach (var item in managedUsers)
+                {
+                    userService.Delete(item);
+                }
+            }
+
+                return RedirectToAction("ManageUsers");
+        }
+
+        [HttpGet]
+        public ActionResult FilterUsers()
+        {
+            if (!(new CustomRoleProvider().IsUserInRole(User.Identity.Name, "Admin")))
+                return RedirectToAction("Index", "Home");
+
+            var profiles = profileService.GetAll().ToManagmentModel();
+
+            if (Request.IsAjaxRequest())
+                return PartialView("_MessageFilterView", profiles.ToList());
+
+            return View("_MessageFilterView", profiles.ToList());
+        }
+
+        private List<BllUser> ChangeRole(List<BllUser> users, string role)
+        {
+            var currentRole = roleService.GetByName(role);
+            foreach (var item in users)
+            {
+                item.RoleId = currentRole.Id;
+            }
+
+            return users;
+        }
     }
 }

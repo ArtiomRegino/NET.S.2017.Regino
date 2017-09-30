@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BLL.Interface.Entities;
 using BLL.Interfaces.Interfaces;
@@ -106,6 +105,25 @@ namespace PL.Controllers
                 return PartialView("_SingleMessageView", model);
 
             return View("_SingleMessageView", model);
+        }
+
+        [HttpGet]
+        public ActionResult GetUserMessages(int? id)
+        {
+            var messages = messageService.GetAll().Where(m => m.UserFromId == id).Select(m => m.ToMvcMessage()).ToList();
+
+            return View("_UserMessagesView", messages);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult BlockMessage(int? id, string curUser)
+        {
+            var message = messageService.GetById(id);
+            message.Text = "Blocked";
+            messageService.Update(message);
+
+            return RedirectToAction("FilterUsers", "Profile");
         }
 
         private MessageViewModel WriteMessage(RecivedMessageModel message)

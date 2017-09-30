@@ -1,0 +1,43 @@
+﻿@model IEnumerable<PL.Models.Message.MessageViewModel>
+
+@if(!Model.Any())
+{
+    <b>No messages</b>
+}
+@foreach (var m in Model)
+{
+    
+    <div class="row">
+
+        <div class="col-xs-4 col-sm-4 col-md-1 col-lg-2">
+            <img src="@Url.Action("GetImage", "Profile", new { Id = m.UserFromId})" class="img-circle img-responsive" />
+        </div>
+
+        <div class="col-xs-8">
+            <div class="row">
+                <h3>
+                    @m.NameOfSender
+                </h3>
+            </div>
+
+            <div class="row">
+                <small>
+                    <i>Posted @m.Date</i>
+                </small>
+            </div>
+            <div class="row">
+                <h4> @m.Text</h4>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-6 col-md-offset-4 col-md-4 col-lg-3 col-lg-offset-4">
+            <button class="btn btn-block btn-danger" onclick="location.href='@Url.Action("BlockMessage", "Message", new { Id = m.Id, CurUser = User.Identity.Name })'">
+                Block
+            </button>
+        </div>
+    </div>
+    
+}

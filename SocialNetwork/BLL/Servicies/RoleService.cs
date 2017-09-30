@@ -29,6 +29,14 @@ namespace BLL.Servicies
             return role;
         }
 
+        public BllRole GetByName(string name)
+        {
+            var currentRole = roleRepository.GetAll().FirstOrDefault(r => r.Name == name);
+            unitOfWork.Commit();
+
+            return currentRole.ToBllRole();
+        }
+
         public IEnumerable<BllRole> GetAll()
         {
             IEnumerable<BllRole> roles = roleRepository.GetAll().Map();

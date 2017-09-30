@@ -11,5 +11,6 @@ namespace BLL.Interfaces.Interfaces
     {
         BllUser GetUserByEmail(string email);
         BllUser GetUserByUserName(string username);
+        void Update(IEnumerable<BllUser> users);
     }
 }

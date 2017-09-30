@@ -110,6 +110,7 @@ namespace PL.Mappers
         {
             var message = new MessageViewModel()
             {
+                Id = bllMessage.Id,
                 Date = bllMessage.Date,
                 Text = bllMessage.Text,
                 UserFromId = bllMessage.UserFromId,

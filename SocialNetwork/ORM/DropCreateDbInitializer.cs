@@ -6,8 +6,15 @@ using ORM.Entities;
 
 namespace ORM
 {
+    /// <summary>
+    /// Service class for database initializing
+    /// </summary>
     public class DropCreateDbInitializer: CreateDatabaseIfNotExists<SocialNetworkContext>
     {
+        /// <summary>
+        /// Method which creates all Roles, Administrator and test users.
+        /// </summary>
+        /// <param name="context">Context name.</param>
         protected override void Seed(SocialNetworkContext context)
         {
             #region Roles

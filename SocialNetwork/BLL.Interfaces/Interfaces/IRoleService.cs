@@ -9,5 +9,6 @@ namespace BLL.Interfaces.Interfaces
 {
     public interface IRoleService : IService<BllRole>
     {
+        BllRole GetByName(string name);
     }
 }

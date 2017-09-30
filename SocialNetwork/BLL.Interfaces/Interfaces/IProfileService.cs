@@ -12,5 +12,6 @@ namespace BLL.Interfaces.Interfaces
         BllProfile GetByUserEmail(string email);
         IEnumerable<BllProfile> FastSearch(string names);
         IEnumerable<BllProfile> FullSearch(BllProfile profile);
+        void Update(IEnumerable<BllProfile> items);
     }
 }

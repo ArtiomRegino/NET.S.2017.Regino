@@ -51,6 +51,16 @@ namespace BLL.Servicies
             unitOfWork.Commit();
         }
 
+        public void Update(IEnumerable<BllUser> users)
+        {
+            foreach (var item in users)
+            {
+                userRepository.Update(item.ToDalUser());
+            }
+            
+            unitOfWork.Commit();
+        }
+
         public BllUser GetUserByEmail(string email)
         {
             BllUser user = userRepository.GetUserByEmail(email).ToBllUser();

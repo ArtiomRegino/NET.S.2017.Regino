@@ -4,10 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new {  @class = "col-md-7 col-sm-pull-3  col-md-offset-4 jumbotron", data_toggle = "validator" }))
     {
-        <h1>Lorem ipsum...</h1>
+        <h1>Log In</h1>
         <h4>Join our community or login now</h4>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.AntiForgeryToken()
