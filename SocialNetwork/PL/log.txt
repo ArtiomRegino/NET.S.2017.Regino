@@ -6,3 +6,7 @@
 2017-09-30 12:23:14.8338|INFO|PL.MvcApplication|Application was started.
 2017-09-30 12:26:20.7924|INFO|PL.MvcApplication|Application was started.
 2017-09-30 13:07:03.3441|INFO|PL.MvcApplication|Application was started.
+2017-10-01 15:35:27.1544|INFO|PL.MvcApplication|Application was started.
+2017-10-01 15:36:01.3534|INFO|PL.Controllers.ErrorController|Page not found
+2017-10-01 15:39:25.7280|INFO|PL.MvcApplication|Application was started.
+2017-10-01 15:39:26.2520|INFO|PL.Controllers.ErrorController|Page not found
