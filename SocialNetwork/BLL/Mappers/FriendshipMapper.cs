@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using DAL.Interface.DTO;
 
 namespace BLL.Mappers
@@ -46,13 +43,7 @@ namespace BLL.Mappers
         {
             if (dalFrendshipCollection == null) return null;
 
-            var listOfFriendship = new List<BllFriendship>();
-            foreach (var item in dalFrendshipCollection)
-            {
-                listOfFriendship.Add(item.ToBllFriendship());
-            }
-
-            return listOfFriendship;
+            return dalFrendshipCollection.Select(item => item.ToBllFriendship()).ToList();
         }
     }
 }

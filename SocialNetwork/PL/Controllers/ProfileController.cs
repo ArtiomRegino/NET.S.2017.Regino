@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using BLL.Interfaces.Interfaces;
 using PL.Mappers;
 using PL.Models.Profile;
@@ -13,6 +13,9 @@ using PL.Providers;
 
 namespace PL.Controllers
 {
+    /// <summary>
+    ///  Class for Profile logic on website.
+    /// </summary>
     [Authorize]
     public class ProfileController : Controller
     {
@@ -23,6 +26,9 @@ namespace PL.Controllers
         private readonly IFriendshipService friendshipService;
         private readonly IRoleService roleService;
 
+        /// <summary>
+        /// Create Profile Controller instance
+        /// </summary>
         public ProfileController(IUserService userService, IRoleService roleService, IProfileService profileService, IPhotoService photoService, IMessageService messageService, IFriendshipService friendshipService)
         {
             this.userService = userService;
@@ -33,6 +39,11 @@ namespace PL.Controllers
             this.roleService = roleService;
         }
 
+        /// <summary>
+        /// Get method for getting main page of any profile.
+        /// </summary>
+        /// <param name="id">Id of profile.</param>
+        /// <returns>Main profile View.</returns>
         [HttpGet]
         public ActionResult Index()
         {
@@ -46,6 +57,11 @@ namespace PL.Controllers
             return View("_ProfileWall", presentProfile);
         }
 
+        /// <summary>
+        /// Post method for quick serch by first and last name
+        /// </summary>
+        /// <param name="names">Names in the string</param>
+        /// <returns>Search results</returns>
         [HttpPost]
         public ActionResult SearchByNames(string names)
         {
@@ -69,12 +85,21 @@ namespace PL.Controllers
             return View("_SearchResultView", profiles);
         }
 
+        /// <summary>
+        /// Get method for full search.
+        /// </summary>
+        /// <returns>View with form for full search.</returns>
         [HttpGet]
         public ActionResult FullSearch()
         {
             return View("_FullSearchView");
         }
 
+        /// <summary>
+        /// Post method for full search.
+        /// </summary>
+        /// <param name="model">Full search model.</param>
+        /// <returns>View with search results.</returns>
         [HttpPost]
         public ActionResult FullSearch(FullSearchViewModel model)
         {
@@ -84,6 +109,10 @@ namespace PL.Controllers
             return View("_SearchResultView", profiles.ToList());
         }
 
+        /// <summary>
+        /// Get method for changing profile info.
+        /// </summary>
+        /// <returns>View with form for editing.</returns>
         [HttpGet]
         public ActionResult Edit()
         {
@@ -95,6 +124,11 @@ namespace PL.Controllers
             return View("_EditProfile");
         }
 
+        /// <summary>
+        /// Post method for changing profile info.
+        /// </summary>
+        /// <param name="model">Edit profile model.</param>
+        /// <returns>Homepage or same view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditProfileViewModel model)
@@ -119,12 +153,21 @@ namespace PL.Controllers
             return View("_EditProfile", model);
         }
 
+        /// <summary>
+        /// Post method for changing profile password and e-mail.
+        /// </summary>
+        /// <returns>View with form with settings.</returns>
         [HttpGet]
         public ActionResult Settings()
         {
             return View("_ProfileSettings");
         }
 
+        /// <summary>
+        /// Post method for changing profile password and e-mail.
+        /// </summary>
+        /// <param name="model">Settings profile model.</param>
+        /// <returns>Homepage or same view.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Settings(ProfileSettingsViewModel model)
@@ -152,12 +195,21 @@ namespace PL.Controllers
             return View("_ProfileSettings", model);
         }
 
+        /// <summary>
+        /// Get method for help/about view.
+        /// </summary>
+        /// <returns>Help/about view.</returns>
         [HttpGet]
         public ActionResult HelpAbout()
         {
             return View("_HelpAboutProfile");
         }
 
+
+        /// <summary>
+        /// Method for deleting users profile by himself.
+        /// </summary>
+        /// <returns>Homepage.</returns>
         [HttpGet]
         public ActionResult Delete()
         {
@@ -173,6 +225,11 @@ namespace PL.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Get method for getting main page of any profile.
+        /// </summary>
+        /// <param name="id">Id of profile.</param>
+        /// <returns>Main profile View.</returns>
         [HttpGet]
         public ActionResult PresentationOfProfile(int id)
         {
@@ -183,12 +240,21 @@ namespace PL.Controllers
             return View("_ProfileWall", profile.ToPresentation());
         }
 
+        /// <summary>
+        /// Get method for uploading a picture.
+        /// </summary>
+        /// <returns>View where you can use dialog to find an image.</returns>
         [HttpGet]
         public ActionResult UploadImage()
         {
             return View("EditAvatarView");
         }
 
+        /// <summary>
+        /// Post method for uploading a picture.
+        /// </summary>
+        /// <param name="image">Image uploaded by user.</param>
+        /// <returns>Main profile view.</returns>
         [HttpPost]
         public ActionResult UploadImage(HttpPostedFileBase image)
         {
@@ -204,6 +270,11 @@ namespace PL.Controllers
             return RedirectToAction("Index"); 
         }
 
+        /// <summary>
+        /// Method for getting image from db for current user.
+        /// </summary>
+        /// <param name="id">Id of user.</param>
+        /// <returns>Image of user's profile.</returns>
         public FileResult GetImage(int id)
         {
             var image = photoService.GetById(id);
@@ -216,6 +287,10 @@ namespace PL.Controllers
             return File(path, "image/png");
         }
 
+        /// <summary>
+        /// Get method for user management.
+        /// </summary>
+        /// <returns>View with form for user management.</returns>
         [HttpGet]
         public ActionResult ManageUsers()
         {
@@ -230,6 +305,12 @@ namespace PL.Controllers
             return View("_ManagmentView", profiles.ToList());
         }
 
+        /// <summary>
+        /// Post method for user management.
+        /// </summary>
+        /// <param name="form">Checkboxes for users admin wants to change.</param>
+        /// <param name="command">Which button was pressed.</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult ManageUsers(FormCollection form, string command)
         {
@@ -264,6 +345,10 @@ namespace PL.Controllers
                 return RedirectToAction("ManageUsers");
         }
 
+        /// <summary>
+        /// Get method for filtering users.
+        /// </summary>
+        /// <returns>Veiw with messages of selected user.</returns>
         [HttpGet]
         public ActionResult FilterUsers()
         {
@@ -277,6 +362,7 @@ namespace PL.Controllers
 
             return View("_MessageFilterView", profiles.ToList());
         }
+
 
         private List<BllUser> ChangeRole(List<BllUser> users, string role)
         {

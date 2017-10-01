@@ -1,19 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BLL.Interface.Entities
+namespace BLL.Interfaces.Entities
 {
+    /// <summary>
+    /// BLL layout photo class.
+    /// </summary>
     public class BllPhoto
     {
+        /// <summary>
+        /// BllPhoto id.
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// BllPhoto data.
+        /// </summary>
         public byte[] Data { get; set; }
 
+        /// <summary>
+        /// Mime type of BllPhoto.
+        /// </summary>
         public string MimeType { get; set; }
 
+        /// <summary>
+        /// Date of sending.
+        /// </summary>
         public DateTime Date { get; set; }
     }
 }

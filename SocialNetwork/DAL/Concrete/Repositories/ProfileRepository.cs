@@ -10,7 +10,6 @@ namespace DAL.Concrete.Repositories
 {
     public class ProfileRepository: IProfileRepository
     {
-       //необходимо каскадное удаление данных и если да то как реализовать?
         private readonly DbContext context;
 
         public ProfileRepository(DbContext unitOfWork)

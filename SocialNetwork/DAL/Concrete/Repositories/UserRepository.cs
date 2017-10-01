@@ -12,7 +12,7 @@ namespace DAL.Concrete.Repositories
 
     public class UserRepository : IUserRepository
     {
-        private readonly DbContext context;//обработать исключения в репозиториях
+        private readonly DbContext context;
 
         public UserRepository(DbContext context)
         {
@@ -22,7 +22,7 @@ namespace DAL.Concrete.Repositories
         //DbSet представляет коллекцию всех сущностей указанного типа, которые содержатся в контексте или могут быть запрошены из базы данных. Объекты DbSet создаются из DbContext с помощью метода DbContext.Set.
         public IEnumerable<DalUser> GetAll()
         {
-            var result = context.Set<User>().Select(u => u).ToList();// почему если возвращать из метода iquerable все падает
+            var result = context.Set<User>().Select(u => u).ToList();
             return result.Select(u => u.ToDalUser());
         }
 
@@ -38,11 +38,11 @@ namespace DAL.Concrete.Repositories
             context.SaveChanges();
         }
 
-        public void Delete(DalUser dalUser)//разобраться в удалении!
+        public void Delete(DalUser dalUser)
         {
             var ormUser = dalUser.ToOrmUser();
             var user = context.Set<User>().FirstOrDefault(u => u.Id == ormUser.Id);
-            context.Set<User>().Attach(user);//как работает attach
+            context.Set<User>().Attach(user);
             context.Set<User>().Remove(user);
             context.Entry(user).State = EntityState.Deleted;
         }

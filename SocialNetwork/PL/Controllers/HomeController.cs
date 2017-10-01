@@ -2,8 +2,15 @@
 
 namespace PL.Controllers
 {
+    /// <summary>
+    /// Class for start action.
+    /// </summary>
     public class HomeController : Controller
     {
+        /// <summary>
+        /// Start action of website
+        /// </summary>
+        /// <returns>Start page</returns>
         [HttpGet]
         public ActionResult Index()
         {

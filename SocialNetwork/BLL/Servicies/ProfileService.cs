@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using BLL.Interfaces.Interfaces;
 using BLL.Mappers;
 using DAL.Interface.Interfaces;

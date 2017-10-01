@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using PL.Models.Message;
 using PL.Models.Profile;
 using PL.Models.Search;

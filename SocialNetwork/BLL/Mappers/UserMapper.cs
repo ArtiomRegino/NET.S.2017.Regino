@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DAL.Interface.DTO;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 
 namespace BLL.Mappers
 {
@@ -40,18 +37,13 @@ namespace BLL.Mappers
                 RoleId = bllUser.RoleId,
                 ProfileId = bllUser.ProfileId
             };
+
             return currentDalUser;
         }
 
         public static IEnumerable<BllUser> Map(this IEnumerable<DalUser> dalUsers)
         {
-            var bllUsersList = new List<BllUser>();
-            foreach (var item in dalUsers)
-            {
-                bllUsersList.Add(item.ToBllUser());
-            }
-
-            return bllUsersList;
+            return dalUsers.Select(item => item.ToBllUser()).ToList();
         }
     }
 }

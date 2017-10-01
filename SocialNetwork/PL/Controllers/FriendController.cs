@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using BLL.Interfaces.Interfaces;
 using PL.Mappers;
 
 namespace PL.Controllers
 {
+    /// <summary>
+    /// Class for friends and invite logic.
+    /// </summary>
     [Authorize]
     public class FriendController : Controller
     {
@@ -14,6 +17,9 @@ namespace PL.Controllers
         private readonly IProfileService profileService;
         private readonly IFriendshipService friendshipService;
 
+        /// <summary>
+        /// Create Friend controller
+        /// </summary>
         public FriendController(IUserService userService, IProfileService profileService, IFriendshipService friendshipService)
         {
             this.userService = userService;
@@ -21,6 +27,11 @@ namespace PL.Controllers
             this.friendshipService = friendshipService;
         }
 
+        /// <summary>
+        /// Method for showing all the friend user have.
+        /// </summary>
+        /// <returns>List of friends.</returns>
+        [HttpGet]
         public ActionResult ShowFriendList()
         {
             var profileList = new List<BllProfile>();
@@ -45,6 +56,11 @@ namespace PL.Controllers
             return View("FriendListView", profileList.ToPresentations().ToList());
         }
 
+        /// <summary>
+        /// Method for showing all requests user have.
+        /// </summary>
+        /// <returns>List of requests.</returns>
+        [HttpGet]
         public ActionResult RequestFriendList()
         {
             var profileList = new List<BllProfile>();
@@ -69,6 +85,11 @@ namespace PL.Controllers
             return View("RequestsListView", profileList.ToPresentations().ToList());
         }
 
+        /// <summary>
+        /// Method for confirming friendship.
+        /// </summary>
+        /// <param name="id">Id of new friend.</param>
+        /// <returns>Main profile page.</returns>
         [HttpGet]
         public ActionResult ConfirmFriendship(int id)
         {
@@ -78,6 +99,11 @@ namespace PL.Controllers
             return RedirectToAction("PresentationOfProfile", "Profile", new {Id = id });
         }
 
+        /// <summary>
+        /// Method for deleting someone from friends.
+        /// </summary>
+        /// <param name="id">Id of a friend.</param>
+        /// <returns>Main profile page.</returns>
         [HttpGet]
         public ActionResult DeleteFriend(int id)
         {
@@ -87,6 +113,11 @@ namespace PL.Controllers
             return RedirectToAction("PresentationOfProfile", "Profile", new { Id = id });
         }
 
+        /// <summary>
+        /// Method for adding a new friend.
+        /// </summary>
+        /// <param name="id">Id of new friend.</param>
+        /// <returns>Main profile page.</returns>
         [HttpGet]
         public ActionResult AddFriend(int id)
         {

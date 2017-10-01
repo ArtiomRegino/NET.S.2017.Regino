@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using DAL.Interface.DTO;
 
 namespace BLL.Mappers
@@ -48,13 +45,7 @@ namespace BLL.Mappers
         {
             if (dalMessages == null) return null;
 
-            var listOfMessages = new List<BllMessage>();
-            foreach (var item in dalMessages)
-            {
-                listOfMessages.Add(item.ToBllMessage());
-            }
-
-            return listOfMessages;
+            return dalMessages.Select(item => item.ToBllMessage()).ToList();
         }
     }
 }

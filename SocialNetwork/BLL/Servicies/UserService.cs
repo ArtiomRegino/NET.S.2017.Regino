@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using BLL.Interfaces.Interfaces;
 using BLL.Mappers;
 using DAL.Interface.Interfaces;

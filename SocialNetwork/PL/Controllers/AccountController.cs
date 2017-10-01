@@ -10,18 +10,30 @@ using PL.Providers;
 
 namespace PL.Controllers
 {
+    /// <summary>
+    /// Class for account logic on website: login,registration, captcha
+    /// </summary>
     [Authorize]
     public class AccountController : Controller
     {
         private readonly IUserService userService;
         private readonly IProfileService profileService;
 
+        /// <summary>
+        /// Creates an account controller
+        /// </summary>
         public AccountController(IUserService userService, IProfileService profileService)
         {
             this.userService = userService;
             this.profileService = profileService;
         }
 
+
+        /// <summary>
+        /// Get method for login
+        /// </summary>
+        /// <param name="returnUrl">Url to redirect after login</param>
+        /// <returns>Page of login form</returns>
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -35,6 +47,12 @@ namespace PL.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Post method for login
+        /// </summary>
+        /// <param name="loginModel">Login model.</param>
+        /// <param name="returnUrl">Url to redirect after login</param>
+        /// <returns>Homepage or banned page</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -61,6 +79,10 @@ namespace PL.Controllers
             return View(loginModel);
         }
 
+        /// <summary>
+        /// Get method for registration
+        /// </summary>
+        /// <returns>Page of registration form</returns>
         [HttpGet]
         [AllowAnonymous]
         public ActionResult Registration()
@@ -72,6 +94,12 @@ namespace PL.Controllers
             return View();
         }
 
+
+        /// <summary>
+        /// Post method for registration
+        /// </summary>
+        /// <param name="registrationModel">Registration model</param>
+        /// <returns>Homepage</returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -118,6 +146,10 @@ namespace PL.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Method to log out
+        /// </summary>
+        /// <returns>Strat page</returns>
         [HttpGet]
         public ActionResult LogOut()
         {
@@ -125,6 +157,10 @@ namespace PL.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// Method for creatin captha
+        /// </summary>
+        /// <returns>ActionResult</returns>
         [AllowAnonymous]
         public ActionResult Captcha()
         {

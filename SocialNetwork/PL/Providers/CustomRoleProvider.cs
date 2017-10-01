@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Web.Security;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using BLL.Interfaces.Interfaces;
 
 namespace PL.Providers

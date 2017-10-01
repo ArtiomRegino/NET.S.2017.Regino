@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using DAL.Interface.DTO;
 
 namespace BLL.Mappers
@@ -40,13 +37,7 @@ namespace BLL.Mappers
 
         public static IEnumerable<BllPhoto> Map(this IEnumerable<DalPhoto> dalPhotos)
         {
-            var listOfPhotos = new List<BllPhoto>();
-            foreach (var item in dalPhotos)
-            {
-                listOfPhotos.Add(item.ToBllPhoto());
-            }
-
-            return listOfPhotos;
+            return dalPhotos.Select(item => item.ToBllPhoto()).ToList();
         }
     }
 }

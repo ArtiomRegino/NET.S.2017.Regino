@@ -1,13 +1,10 @@
 ﻿using System.Data.Entity;
-using System.Data.Entity.Validation;
 using DAL.Interface.Interfaces;
-using NLog;
 
 namespace DAL.Concrete
 {
     public class UnitOfWork: IUnitOfWork
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         public DbContext Context { get; private set; }
 
         public UnitOfWork(DbContext context)
@@ -17,24 +14,7 @@ namespace DAL.Concrete
 
         public void Commit()
         {
-            try
-            {
-                Context.SaveChanges();
-            }
-            catch (DbEntityValidationException e)
-            {
-                foreach (var eve in e.EntityValidationErrors)
-                {
-                    logger.Error("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
-                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
-                    foreach (var ve in eve.ValidationErrors)
-                    {
-                        logger.Error("- Property: \"{0}\", Error: \"{1}\"",
-                            ve.PropertyName, ve.ErrorMessage);
-                    }
-                }
-                throw;
-            }
+           Context.SaveChanges();
         }
 
         public void Dispose()

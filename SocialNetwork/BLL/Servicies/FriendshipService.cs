@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BLL.Interface.Entities;
+using BLL.Interfaces.Entities;
 using BLL.Interfaces.Interfaces;
 using BLL.Mappers;
 using DAL.Interface.Interfaces;
 
 namespace BLL.Servicies
 {
-    public class FriendshipService: IFriendshipService //реализовать методы
+    public class FriendshipService: IFriendshipService
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IFriendshipRepository friendshipRepository;
