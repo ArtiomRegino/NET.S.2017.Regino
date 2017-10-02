@@ -10,3 +10,5 @@
 2017-10-01 15:36:01.3534|INFO|PL.Controllers.ErrorController|Page not found
 2017-10-01 15:39:25.7280|INFO|PL.MvcApplication|Application was started.
 2017-10-01 15:39:26.2520|INFO|PL.Controllers.ErrorController|Page not found
+2017-10-02 07:49:35.2174|INFO|PL.MvcApplication|Application was started.
+2017-10-02 09:07:16.0231|INFO|PL.MvcApplication|Application was started.
