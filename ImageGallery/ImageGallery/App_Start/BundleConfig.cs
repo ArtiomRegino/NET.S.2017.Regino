@@ -19,16 +19,12 @@ namespace ImageGallery
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/sass").Include(
-                "~/sass/_variables.sass",
-                "~/sass/lightbox.sass",
-                "~/sass/screen.sass"));
+            bundles.Add(new ScriptBundle("~/bundles/light").Include(
+                "~/Scripts/lightbox-2.6.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js",
-                      "~/Scripts/lightbox-2.6.js",
-                      "~/Scripts/lightbox-2.6.min.js"));
+                      "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
