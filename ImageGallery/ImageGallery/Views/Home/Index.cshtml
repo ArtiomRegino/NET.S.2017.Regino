@@ -2,71 +2,79 @@
     ViewBag.Title = "Home Page";
 }
 
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>Gallery</h1>
+            <button type="submit" class="btn btn-success" onclick="location.href='@Url.Action("UploadImage", "Home")'">Add images</button>
+        </div>
+    </div>
+</div>
+<hr />
 <div class="container">
 
-    <h1 class="text-center">Gallery</h1>
-
     <div class="row text-center">
+        
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 1})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 1})" alt="">
+            </a>
+        </div>
 
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <a href="@Url.Action("GetFullImage", "Home", new { Id = 2})" data-lightbox="roadtrip">
+                    <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 2})" alt="">
+                </a>
+            </div>
+        
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/1.jpeg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/1.jpeg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 3})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 3})" alt="">
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/2.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/2.jpg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 4})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 4})" alt="">
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/3.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/3.jpg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 5})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 5})" alt="">
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/4.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/4.jpg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 6})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 6})" alt="">
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/5.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/5.jpg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 7})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 7})" alt="">
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/6.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/6.jpg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 8})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 8})" alt="">
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/7.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/7.jpg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 9})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 9})" alt="">
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/8.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/8.jpg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 10})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 10})" alt="">
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/9.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/9.jpg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 11})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 11})" alt="">
             </a>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/10.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/10.jpg")" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/11.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/11.jpg")" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Content("~/Content/Images/12.jpg")" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Content("~/Content/Images/12.jpg")" alt="">
+            <a href="@Url.Action("GetFullImage", "Home", new { Id = 12})" data-lightbox="roadtrip">
+                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 12})" alt="">
             </a>
         </div>
     </div>

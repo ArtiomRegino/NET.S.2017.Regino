@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Upload Image";
+}
+
+
+@using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new {enctype = "multipart/form-data"}))
+{
+    <h1>Upload a new image</h1>
+    <hr />
+    <h4 class="text-center">Please upload a real photo of yourself, so that friends can recognize you.</h4>
+    <h4 class="text-center">We support JPG, GIF or PNG files.</h4> 
+    <div class="form-group btn btn-default text-center col-md-4 col-md-offset-4">
+        <input type="file" name="postedImage" value="Select a file"/>
+    </div>
+
+    <div class="row">
+        <button type="submit" class="btn btn-success text-center" style="margin-left: 2%">Save</button>
+    </div>
+    <div class="col-md-offset-4">
+        @Html.TextArea("Description", new { rows = 3, @class = "form-control", placeholder = "Descripton", style ="margin-top: 2%; max-width: 313px; align: center" })
+    </div>
+    <hr/>
+    <h5 class="text-center">If you have any problems with your upload, try using a smaller picture.</h5>
+}
