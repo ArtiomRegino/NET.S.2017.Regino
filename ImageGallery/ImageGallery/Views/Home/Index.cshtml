@@ -1,4 +1,7 @@
-﻿@{
+﻿@model ImageGallery.Models.ImagesListViewModel
+@using ImageGallery.HtmlHelpers
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -15,68 +18,17 @@
 
     <div class="row text-center">
         
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 1})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 1})" alt="">
-            </a>
-        </div>
-
+        @foreach (var image in Model.Images)
+        {
             <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <a href="@Url.Action("GetFullImage", "Home", new { Id = 2})" data-lightbox="roadtrip">
-                    <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 2})" alt="">
+                <a href="@Url.Action("GetFullImage", "Home", new {Id = image.Id})" data-lightbox="roadtrip">
+                    <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new {Id = image.Id})" alt="">
                 </a>
             </div>
-        
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 3})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 3})" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 4})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 4})" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 5})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 5})" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 6})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 6})" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 7})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 7})" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 8})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 8})" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 9})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 9})" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 10})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 10})" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 11})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 11})" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <a href="@Url.Action("GetFullImage", "Home", new { Id = 12})" data-lightbox="roadtrip">
-                <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new { Id = 12})" alt="">
-            </a>
-        </div>
-    </div>
+        }
 
+    </div>
+    <div>
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("GetImages", new { page = x }))
+    </div>
 </div>

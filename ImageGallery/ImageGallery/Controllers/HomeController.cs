@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ImageGallery.Mappers;
+using ImageGallery.Models;
 using ORM.Entities;
 
 namespace ImageGallery.Controllers
@@ -12,17 +14,30 @@ namespace ImageGallery.Controllers
     public class HomeController : Controller
     {
         private readonly ImageGalleryContext context = new ImageGalleryContext();
+        public int pageSize = 12;
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("GetImages");
         }
 
-        public ActionResult About()
+        [HttpGet]
+        public ViewResult GetImages(int page = 1)
         {
-            ViewBag.Message = "Your application description page.";
+            var model = new ImagesListViewModel
+            {
+                Images = context.Images.OrderBy(im => im.Id)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize).ToImageModel(),
+                PagingInfo = new PagingInfoModel
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = context.Images.Count()
+                }
+            };
 
-            return View();
+            return View("Index", model);
         }
 
         [HttpGet]
