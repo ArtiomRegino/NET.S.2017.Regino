@@ -18,11 +18,11 @@ namespace ImageGallery.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("GetImages");
+            return RedirectToAction("Gallery");
         }
 
         [HttpGet]
-        public ViewResult GetImages(int page = 1)
+        public ViewResult Gallery(int page = 1)
         {
             var model = new ImagesListViewModel
             {
@@ -84,24 +84,14 @@ namespace ImageGallery.Controllers
         {
             var image = context.Images.FirstOrDefault(im => im.Id == id);
 
-            //if (image.BigImage != null && image.MimeType != null)
                 return File(image.BigImage, image.MimeType);
-
-            //var path = Server.MapPath("~/Content/profile-default.png");
-
-            //return File(path, "image/png");
         }
 
         public FileResult GetSmallImage(int id)
         {
             var image = context.Images.FirstOrDefault(im => im.Id == id);
 
-            //if (image.BigImage != null && image.MimeType != null)
             return File(image.SmallImage, image.MimeType);
-
-            //var path = Server.MapPath("~/Content/profile-default.png");
-
-            //return File(path, "image/png");
         }
     }
 }
