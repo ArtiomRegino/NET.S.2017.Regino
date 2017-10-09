@@ -22,7 +22,7 @@ namespace ImageGallery.Controllers
         }
 
         [HttpGet]
-        public ViewResult Gallery(int page = 1)
+        public ActionResult Gallery(int page = 1)
         {
             var model = new ImagesListViewModel
             {
@@ -36,6 +36,11 @@ namespace ImageGallery.Controllers
                     TotalItems = context.Images.Count()
                 }
             };
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
 
             return View("Index", model);
         }

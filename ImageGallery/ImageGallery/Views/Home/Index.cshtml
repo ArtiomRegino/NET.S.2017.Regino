@@ -17,19 +17,19 @@
 <div class="container">
 
     <div class="row text-center">
-        
-        @foreach (var image in Model.Images)
-        {
-            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                <a href="@Url.Action("GetFullImage", "Home", new {Id = image.Id})" data-lightbox="roadtrip">
-                    <img class="img-thumbnail" src="@Url.Action("GetSmallImage", "Home", new {Id = image.Id})" alt="">
-                </a>
-            </div>
-        }
-
+        @Html.Partial("~/Views/Home/_Images.cshtml", Model)
     </div>
     <hr/>
-    <div class="text-center">
+    @*<div class="text-center">
         @Html.PageLinks(Model.PagingInfo, x => Url.Action("Gallery", new { page = x }))
-    </div>
+    </div>*@
+    <ul class="pager">
+        @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+        {
+            <li>
+                @Ajax.ActionLink(i.ToString(), "Gallery", new { page = i }, 
+                    new AjaxOptions { HttpMethod = "GET", OnSuccess = "dataModule.backData" })
+            </li>
+        }
+    </ul>
 </div>

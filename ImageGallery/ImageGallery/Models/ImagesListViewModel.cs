@@ -8,7 +8,7 @@ namespace ImageGallery.Models
 {
     public class ImagesListViewModel
     {
-            public IEnumerable<ImageModel> Images { get; set; }
+            public List<ImageModel> Images { get; set; }
             public PagingInfoModel PagingInfo { get; set; }
     }
 }

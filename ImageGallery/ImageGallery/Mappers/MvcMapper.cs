@@ -14,7 +14,9 @@ namespace ImageGallery.Mappers
             var imgModel = new ImageModel
             {
                 Id = img.Id,
-                Description = img.Description
+                Description = img.Description,
+                Image = $"/Home/GetFullImage/{img.Id}",
+                ImageSmall = $"/Home/GetSmallImage/{img.Id}"
             };
 
             return imgModel;
