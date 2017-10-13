@@ -14,7 +14,7 @@ namespace DAL.Mappers
         {
             if (ormFriendship == null) return null;
 
-            DalFriendship currentDalMessage = new DalFriendship()
+            var currentDalMessage = new DalFriendship()
             {
                 Id = ormFriendship.Id,
                 UserFromId = ormFriendship.UserFromId,
@@ -30,7 +30,7 @@ namespace DAL.Mappers
         {
             if (dalFriendship == null) return null;
 
-            Friendship currentDalFriendship = new Friendship()
+            var currentDalFriendship = new Friendship()
             {
                 Id = dalFriendship.Id,
                 UserFromId = dalFriendship.UserFromId,

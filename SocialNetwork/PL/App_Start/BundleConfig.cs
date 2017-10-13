@@ -27,7 +27,10 @@ namespace PL
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css", "~/Content/lightbox.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/light").Include(
+                "~/Scripts/lightbox-2.6.js"));
         }
     }
 }

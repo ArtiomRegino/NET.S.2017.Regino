@@ -18,6 +18,7 @@ namespace BLL.Servicies
             this.unitOfWork = unitOfWork;
             this.friendshipRepository = friendshipRepository;
         }
+
         public BllFriendship GetById(int? id)
         {
             BllFriendship friendship = friendshipRepository.GetById(id).ToBllFriendship();
@@ -40,9 +41,9 @@ namespace BLL.Servicies
 
         public void DeleteById(int curUserId, int otherUserId)
         {
-            var friendship = friendshipRepository.GetAll().
-                FirstOrDefault(fr => (fr.UserFromId == curUserId && fr.UserToId == otherUserId) ||
-                                        (fr.UserToId == curUserId && fr.UserFromId == otherUserId));
+            var friendship = friendshipRepository.GetAll()
+                .FirstOrDefault(fr => (fr.UserFromId == curUserId && fr.UserToId == otherUserId)
+                ||(fr.UserToId == curUserId && fr.UserFromId == otherUserId));
 
             friendshipRepository.Delete(friendship);
             unitOfWork.Commit();
@@ -67,7 +68,10 @@ namespace BLL.Servicies
                                        (fr.IsConfirmed == true)) || (fr.UserToId == curUserId 
                                       && fr.UserFromId == otherUserId && (fr.IsConfirmed == true)));
             unitOfWork.Commit();
-            if (friendship == null) return null;
+
+            if (friendship == null)
+                return null;
+
             return friendship.IsConfirmed == true;
         }
 

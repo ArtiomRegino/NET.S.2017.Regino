@@ -11,7 +11,7 @@ namespace BLL.Mappers
         {
             if (dalMessage == null) return null;
 
-            BllMessage currentBllMessage = new BllMessage()
+            var currentBllMessage = new BllMessage()
             {
                 Id = dalMessage.Id,
                 Date = dalMessage.Date,
@@ -29,7 +29,7 @@ namespace BLL.Mappers
         {
             if (bllMessage == null) return null;
 
-            DalMessage dalMessage = new DalMessage()
+            var dalMessage = new DalMessage()
             {
                 Id = bllMessage.Id,
                 Date = bllMessage.Date,

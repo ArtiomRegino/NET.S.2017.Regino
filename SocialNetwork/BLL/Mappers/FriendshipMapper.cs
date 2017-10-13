@@ -11,7 +11,7 @@ namespace BLL.Mappers
         {
             if (dalFriendship == null) return null;
 
-            BllFriendship currentBllFriendship = new BllFriendship()
+            var currentBllFriendship = new BllFriendship()
             {
                 Id = dalFriendship.Id,
                 UserFromId = dalFriendship.UserFromId,
@@ -27,7 +27,7 @@ namespace BLL.Mappers
         {
             if (bllFriendship == null) return null;
 
-            DalFriendship currentDalMessage = new DalFriendship()
+            var currentDalMessage = new DalFriendship()
             {
                 Id = bllFriendship.Id,
                 UserFromId = bllFriendship.UserFromId,

@@ -18,9 +18,14 @@ namespace DAL.Mappers
             return new DalPhoto()
             {
                 Id = ormPhoto.Id,
-                Data = ormPhoto.Data,
+                BigImage = ormPhoto.BigImage,
                 Date = ormPhoto.Date,
                 MimeType = ormPhoto.MimeType,
+                Description = ormPhoto.Description,
+                SmallImage = ormPhoto.SmallImage,
+                ProfileId = ormPhoto.ProfileId,
+                Profile = ormPhoto.Profile.ToDalProfile(),
+                IsAvatar = ormPhoto.IsAvatar
             };
         }
 
@@ -31,10 +36,13 @@ namespace DAL.Mappers
             var ormPhoto = new Photo()
             {
                 Id = dalPhoto.Id,
-                Data = dalPhoto.Data,
+                BigImage = dalPhoto.BigImage,
                 Date = dalPhoto.Date,
                 MimeType = dalPhoto.MimeType,
-
+                SmallImage = dalPhoto.SmallImage,
+                Description = dalPhoto.Description,
+                ProfileId = dalPhoto.ProfileId,
+                IsAvatar = dalPhoto.IsAvatar
             };
 
             return ormPhoto;

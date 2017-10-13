@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BLL.Interfaces.Entities
 {
@@ -33,14 +34,9 @@ namespace BLL.Interfaces.Entities
         public DateTime? BirthDate { get; set; }
 
         /// <summary>
-        /// BllProfile photo id.
+        /// BllProfile avatar id.
         /// </summary>
         public int? PhotoId { get; set; }
-
-        /// <summary>
-        /// BllProfile reference to photo.
-        /// </summary>
-        public BllPhoto Photo { get; set; }
 
         /// <summary>
         /// BllProfile name of city.
@@ -61,5 +57,10 @@ namespace BLL.Interfaces.Entities
         /// BllProfile additional information.
         /// </summary>
         public string AboutMe { get; set; }
+
+        /// <summary>
+        /// BllProfile ids of photos.
+        /// </summary>
+        public IList<int> Photos { get; set; }
     }
 }

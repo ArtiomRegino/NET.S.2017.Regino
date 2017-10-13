@@ -8,8 +8,6 @@ using ORM.Entities;
 
 namespace DAL.Concrete.Repositories
 {
-    //Репозиторий — это коллекция.Коллекция, которая содержит сущности и может фильтровать и возвращать результат обратно в зависимости от требований вашего приложения. Где и как он хранит эти объекты является ДЕТАЛЬЮ РЕАЛИЗАЦИИ.
-
     public class UserRepository : IUserRepository
     {
         private readonly DbContext context;
@@ -19,7 +17,6 @@ namespace DAL.Concrete.Repositories
             this.context = context;
         }
 
-        //DbSet представляет коллекцию всех сущностей указанного типа, которые содержатся в контексте или могут быть запрошены из базы данных. Объекты DbSet создаются из DbContext с помощью метода DbContext.Set.
         public IEnumerable<DalUser> GetAll()
         {
             var result = context.Set<User>().Select(u => u).ToList();
@@ -42,6 +39,9 @@ namespace DAL.Concrete.Repositories
         {
             var ormUser = dalUser.ToOrmUser();
             var user = context.Set<User>().FirstOrDefault(u => u.Id == ormUser.Id);
+            if (user == null)
+                return;
+
             context.Set<User>().Attach(user);
             context.Set<User>().Remove(user);
             context.Entry(user).State = EntityState.Deleted;
@@ -49,30 +49,29 @@ namespace DAL.Concrete.Repositories
 
         public void Update(DalUser e)
         {
-            if (e != null)
-            {
-                var userToUpdate = context.Set<User>().FirstOrDefault(u => u.Id == e.Id);
-                context.Set<User>().Attach(userToUpdate);
-                userToUpdate.RoleId = e.RoleId;
-                userToUpdate.Email = e.Email;
-                userToUpdate.Password = e.Password;
-                context.Entry(userToUpdate).State = EntityState.Modified;
-            }
+            if (e == null)
+                return;
+
+            var userToUpdate = context.Set<User>().FirstOrDefault(u => u.Id == e.Id);
+            if (userToUpdate == null)
+                return;
+
+            context.Set<User>().Attach(userToUpdate);
+            userToUpdate.RoleId = e.RoleId;
+            userToUpdate.Email = e.Email;
+            userToUpdate.Password = e.Password;
+            context.Entry(userToUpdate).State = EntityState.Modified;
         }
 
         public DalUser GetUserByEmail(string email)
         {
             var user = context.Set<User>().FirstOrDefault(u => u.Email == email);
-            if (user == null)
-                return null;
-            return user.ToDalUser();
+            return user?.ToDalUser();
         }
 
         public DalUser GetUserByUserName(string username)
         {
             var user = context.Set<User>().FirstOrDefault(u => u.UserName == username).ToDalUser();
-            if (user == null)
-                return null;
             return user;
         }
     }

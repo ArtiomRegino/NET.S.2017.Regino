@@ -10,7 +10,7 @@ namespace BLL.Mappers
         public static BllRole ToBllRole(this DalRole dalRole)
         {
             if (dalRole == null) return null;
-            BllRole currentBllRole = new BllRole()
+            var currentBllRole = new BllRole()
             {
                 Id = dalRole.Id,
                 Name = dalRole.Name
@@ -22,7 +22,7 @@ namespace BLL.Mappers
         public static DalRole ToDalRole(this BllRole bllRole)
         {
             if (bllRole == null) return null;
-            DalRole currentDalRole = new DalRole()
+            var currentDalRole = new DalRole()
             {
                 Id = bllRole.Id,
                 Name = bllRole.Name

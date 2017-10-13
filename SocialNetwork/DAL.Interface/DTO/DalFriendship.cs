@@ -8,7 +8,6 @@ namespace DAL.Interface.DTO
     /// </summary>
     public class DalFriendship : IEntity
     {
-
         /// <summary>
         /// DalFriendship id.
         /// </summary>

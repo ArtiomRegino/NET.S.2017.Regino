@@ -19,7 +19,7 @@ else
     {
         <div class="row" style="margin-top: 2%">
             <div class="col-md-2">
-                <img src="@Url.Action("GetImage", "Profile", new { Id = item.PhotoId })" class="img-circle img-responsive center-block" />
+                <img src="@Url.Action("GetImage", "Profile", new { Id = item.Id })" class="img-circle img-responsive center-block" />
             </div>
             <div class="col-md-4">
                 @Html.ActionLink($"{item.FirstName} {item.LastName}", "PresentationOfProfile", "Profile", new { Id = item.Id }, null)

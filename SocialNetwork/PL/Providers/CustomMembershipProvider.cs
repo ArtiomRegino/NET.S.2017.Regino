@@ -17,6 +17,12 @@ namespace PL.Providers
         public IRoleService RoleService { get; } =
             (IRoleService)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IRoleService));
 
+        public IPhotoService PhotoService { get; } =
+            (IPhotoService)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IPhotoService));
+
+        public IProfileService ProfileService { get; } =
+            (IProfileService)System.Web.Mvc.DependencyResolver.Current.GetService(typeof(IProfileService));
+
         public override bool ValidateUser(string username, string password)
         {
             bool isValid = false;
@@ -30,13 +36,11 @@ namespace PL.Providers
 
         public MembershipUser CreateUser(string username, string password, string email)
         {
-            BllPhoto photo = new BllPhoto();
-            BllProfile profile = new BllProfile
+            var profile = new BllProfile
                                 {
-                                    Photo = photo,
                                     UserName = username
                                 };
-            BllUser user = new BllUser()
+            var user = new BllUser()
                                 {
                                   Profile = profile,
                                   UserName = username,
@@ -45,6 +49,16 @@ namespace PL.Providers
                                   RoleId = RoleService.GetAll().FirstOrDefault(r => r.Name == "ActiveUser").Id
                                 };
             UserService.Create(user);
+            profile = ProfileService.GetByUserEmail(email);
+            var photo = new BllPhoto()
+            {
+                ProfileId = profile.Id,
+                IsAvatar = true
+            };
+            PhotoService.Create(photo);
+            photo = PhotoService.GetProfileAvatar(profile);
+            profile.PhotoId = photo.Id;
+            ProfileService.Update(profile);
 
             return GetUser(username, true);
         }

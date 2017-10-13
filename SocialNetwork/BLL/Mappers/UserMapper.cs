@@ -10,7 +10,7 @@ namespace BLL.Mappers
         public static BllUser ToBllUser(this DalUser dalUser)
         {
             if (dalUser == null) return null;
-            BllUser currentBllUser = new BllUser()
+            var currentBllUser = new BllUser()
             {
                 Id = dalUser.Id,
                 Email = dalUser.Email,
@@ -27,7 +27,7 @@ namespace BLL.Mappers
         public static DalUser ToDalUser(this BllUser bllUser)
         {
             if (bllUser == null) return null;
-            DalUser currentDalUser = new DalUser()
+            var currentDalUser = new DalUser()
             {
                 Id = bllUser.Id,
                 Email = bllUser.Email,

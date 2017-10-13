@@ -14,9 +14,14 @@ namespace DAL.Interface.DTO
         public int Id { get; set; }
 
         /// <summary>
-        /// DalPhoto data.
+        /// Dall fullsize image.
         /// </summary>
-        public byte[] Data { get; set; }
+        public byte[] BigImage { get; set; }
+
+        /// <summary>
+        /// Dal small image.
+        /// </summary>
+        public byte[] SmallImage { get; set; }
 
         /// <summary>
         /// Mime type of DalPhoto.
@@ -27,5 +32,25 @@ namespace DAL.Interface.DTO
         /// Date of sending.
         /// </summary>
         public DateTime Date { get; set; }
+
+        /// <summary>
+        /// Dal description.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// DalPhoto is avatar.
+        /// </summary>
+        public bool IsAvatar { get; set; }
+
+        /// <summary>
+        /// DalPhoto belongs to the user.
+        /// </summary>
+        public int ProfileId { get; set; }
+
+        /// <summary>
+        /// DalPhoto reference to profile.
+        /// </summary>
+        public DalProfile Profile { get; set; }
     }
 }

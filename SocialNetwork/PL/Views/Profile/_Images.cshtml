@@ -1,0 +1,15 @@
+﻿@model PL.Models.Photo.ImagesListViewModel
+
+@{ int counter = 0; }
+
+@foreach (var image in Model.Images)
+{
+    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 image_handler image_handler-@counter">
+        <a href="@image.Image" data-lightbox="roadtrip" class="image-lightbox-@counter">
+            <img class="img-thumbnail image-@counter" src="@image.ImageSmall" alt="" style="margin-top: 2%">
+        </a>
+    </div>
+
+    counter++;
+}
+

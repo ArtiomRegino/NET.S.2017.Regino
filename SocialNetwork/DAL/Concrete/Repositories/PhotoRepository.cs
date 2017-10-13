@@ -16,17 +16,41 @@ namespace DAL.Concrete.Repositories
         {
             context = unitOfWork;
         }
+
         public void Create(DalPhoto e)
         {
             context.Set<Photo>().Add(e.ToOrmPhoto());
         }
 
-        public void Delete(DalPhoto e)
+        public void Delete(DalPhoto dalPhoto)
         {
-            var userPhoto = context.Set<Photo>().FirstOrDefault(p => p.Id == e.Id);
+            var userPhoto = context.Set<Photo>()
+                .FirstOrDefault(p => p.Id == dalPhoto.Id);
+            if (userPhoto == null)
+                return;
+
             context.Set<Photo>().Attach(userPhoto);
             context.Set<Photo>().Remove(userPhoto);
             context.Entry(userPhoto).State = EntityState.Deleted;
+        }
+
+        public void DeleteAll(int? id)
+        {
+            var userPhotos = context.Set<Photo>().Where(p => p.ProfileId == id);
+
+            foreach (var photo in userPhotos)
+            {
+                context.Set<Photo>().Attach(photo);
+                context.Set<Photo>().Remove(photo);
+                context.Entry(photo).State = EntityState.Deleted;
+            }
+        }
+
+        public IEnumerable<DalPhoto> GetProfilePhotos(int profileId)
+        {
+            var photos = context.Set<Photo>().Where(u => u.ProfileId == profileId).ToList();
+
+            return photos.Select(p => p.ToDalPhoto());
         }
 
         public IEnumerable<DalPhoto> GetAll()
@@ -38,18 +62,20 @@ namespace DAL.Concrete.Repositories
         public DalPhoto GetById(int? key)
         {
             var photo = context.Set<Photo>().Find(key);
-            if (photo == null)
-                return null;
-            return photo.ToDalPhoto();
+
+            return photo?.ToDalPhoto();
         }
 
-        public void Update(DalPhoto e)
+        public void Update(DalPhoto dalPhoto)
         {
-            var photo = context.Set<Photo>().First(x => x.Id == e.Id);
+            var photo = context.Set<Photo>().First(x => x.Id == dalPhoto.Id);
             context.Set<Photo>().Attach(photo);
-            photo.Data = e.Data;
-            photo.MimeType = e.MimeType;
-            photo.Date = e.Date;
+            photo.BigImage = dalPhoto.BigImage;
+            photo.ProfileId = dalPhoto.ProfileId;
+            photo.SmallImage = dalPhoto.SmallImage;
+            photo.Description = dalPhoto.Description;
+            photo.MimeType = dalPhoto.MimeType;
+            photo.Date = dalPhoto.Date;
             context.Entry(photo).State = EntityState.Modified;
         }
     }

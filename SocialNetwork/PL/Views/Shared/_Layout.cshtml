@@ -33,7 +33,9 @@
     </div>
 
 </div>
-@RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/light")
+        <script src="~/Scripts/CustomForPager.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 
 </html>

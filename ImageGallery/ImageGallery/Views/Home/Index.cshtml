@@ -1,5 +1,4 @@
 ﻿@model ImageGallery.Models.ImagesListViewModel
-@using ImageGallery.HtmlHelpers
 
 @{
     ViewBag.Title = "Home Page";
@@ -20,9 +19,7 @@
         @Html.Partial("~/Views/Home/_Images.cshtml", Model)
     </div>
     <hr/>
-    @*<div class="text-center">
-        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Gallery", new { page = x }))
-    </div>*@
+    
     <ul class="pager">
         @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
         {

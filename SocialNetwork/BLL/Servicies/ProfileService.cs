@@ -23,6 +23,7 @@ namespace BLL.Servicies
         {
             BllProfile profile = profileRepository.GetById(id).ToBllProfile();
             unitOfWork.Commit();
+
             return profile;
         }
 
@@ -30,12 +31,20 @@ namespace BLL.Servicies
         {
             IEnumerable<BllProfile> profiles = profileRepository.GetAll().Map();
             unitOfWork.Commit();
+
             return profiles;
         }
 
         public void Create(BllProfile item)
         {
             profileRepository.Create(item.ToDalProfile());
+            unitOfWork.Commit();
+        }
+
+        public void AddPhoto(BllPhoto item)
+        {
+            profileRepository.AddPhoto(item.ToDalPhoto());
+
             unitOfWork.Commit();
         }
 
@@ -103,18 +112,18 @@ namespace BLL.Servicies
                 string secondPart = arrayOfNames[1].ToLower();
 
                 var profiles = profileRepository.GetAll()
-                    .Where(p => p.FirstName.ToLower() == firstPart ||
-                                p.FirstName.ToLower() == secondPart ||
-                                p.LastName.ToLower() == firstPart ||
-                                p.LastName.ToLower() == secondPart).Distinct().Map();
+                    .Where(p => p.FirstName.ToLower() == firstPart
+                                || p.FirstName.ToLower() == secondPart 
+                                || p.LastName.ToLower() == firstPart
+                                || p.LastName.ToLower() == secondPart).Distinct().Map();
 
                 return profiles;
             }
 
             string first = arrayOfNames[0].ToLower();
             var profile = profileRepository.GetAll()
-                .Where(p => p.FirstName.ToLower() == first ||
-                p.LastName.ToLower() == first).Distinct().Map();
+                .Where(p => p.FirstName.ToLower() == first
+                || p.LastName.ToLower() == first).Distinct().Map();
 
             unitOfWork.Commit();
 

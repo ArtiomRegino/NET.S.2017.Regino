@@ -19,10 +19,16 @@ namespace ORM.Entities
         public int Id { get; set; }
 
         /// <summary>
-        /// Data of photo.
+        /// Full image.
         /// </summary>
         [Column(TypeName = "varbinary(MAX)")]
-        public byte[] Data { get; set; }
+        public byte[] BigImage { get; set; }
+
+        /// <summary>
+        /// Small image.
+        /// </summary>
+        [Column(TypeName = "varbinary(MAX)")]
+        public byte[] SmallImage { get; set; }
 
         /// <summary>
         /// Mime type.
@@ -35,5 +41,24 @@ namespace ORM.Entities
         [Column(TypeName = "datetime2")]
         public DateTime Date { get; set; }
 
+        /// <summary>
+        /// Description.
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Photo is avatar.
+        /// </summary>
+        public bool IsAvatar { get; set; }
+
+        /// <summary>
+        /// Photo belongs to the user.
+        /// </summary>
+        public int ProfileId { get; set; }
+
+        /// <summary>
+        /// User profile. It needs for db creating.
+        /// </summary>
+        public virtual Profile Profile { get; set; }
     }
 }

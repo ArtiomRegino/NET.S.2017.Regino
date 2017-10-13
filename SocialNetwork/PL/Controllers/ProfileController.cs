@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Helpers;
@@ -7,6 +8,7 @@ using System.Web.Security;
 using BLL.Interfaces.Entities;
 using BLL.Interfaces.Interfaces;
 using PL.Mappers;
+using PL.Models.Photo;
 using PL.Models.Profile;
 using PL.Models.Search;
 using PL.Providers;
@@ -25,6 +27,7 @@ namespace PL.Controllers
         private readonly IMessageService messageService;
         private readonly IFriendshipService friendshipService;
         private readonly IRoleService roleService;
+        public int pageSize = 12;
 
         /// <summary>
         /// Create Profile Controller instance
@@ -47,13 +50,15 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var profile = profileService.GetAll().FirstOrDefault(p => p.UserName == User.Identity.Name);
+            var profile = profileService.GetAll()
+                .FirstOrDefault(p => p.UserName == User.Identity.Name);
             var presentProfile = profile.ToPresentation();
 
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_ProfileWall", presentProfile);
             }
+
             return View("_ProfileWall", presentProfile);
         }
 
@@ -192,6 +197,7 @@ namespace PL.Controllers
             }
 
             ModelState.AddModelError("", "Input all info.");
+
             return View("_ProfileSettings", model);
         }
 
@@ -214,11 +220,13 @@ namespace PL.Controllers
         public ActionResult Delete()
         {
             var user = userService.GetUserByUserName(User.Identity.Name);
+            var avatar = photoService.GetById(user.Profile.PhotoId);
             FormsAuthentication.SignOut();
 
             friendshipService.DeleteAllUserRelationById(user.Id);
             messageService.DeleteAllUserMessagesById(user.Id);
-            photoService.Delete(user.Profile.Photo);
+            photoService.Delete(avatar);
+            photoService.DeleteAll(user.Profile.Id);
             profileService.Delete(user.Profile);
             userService.Delete(user);
 
@@ -245,29 +253,62 @@ namespace PL.Controllers
         /// </summary>
         /// <returns>View where you can use dialog to find an image.</returns>
         [HttpGet]
-        public ActionResult UploadImage()
+        public ActionResult UploadImage(bool fromGallery)
         {
-            return View("EditAvatarView");
+            ViewBag.FromGallery = fromGallery;
+
+            return View("UploadImage");
         }
 
         /// <summary>
         /// Post method for uploading a picture.
         /// </summary>
-        /// <param name="image">Image uploaded by user.</param>
+        /// <param name="postedImage">Image uploaded by user.</param>
+        /// <param name="description">Description of the image.</param>
+        /// <param name="fromGallery">Request came from the gallery or not.</param>
         /// <returns>Main profile view.</returns>
         [HttpPost]
-        public ActionResult UploadImage(HttpPostedFileBase image)
+        public ActionResult UploadImage(HttpPostedFileBase postedImage, string description, bool fromGallery)
         {
-            if (image == null) return RedirectToAction("Index");
+            if (postedImage == null)
+                return RedirectToAction("Index");
 
             var user = userService.GetUserByUserName(User.Identity.Name);
-            var photo = user.Profile.Photo;
-            photo.MimeType = image.ContentType;
-            photo.Data = new byte[image.ContentLength];
-            image.InputStream.Read(photo.Data, 0, image.ContentLength);
-            photoService.Update(photo);
 
-            return RedirectToAction("Index"); 
+            if (!fromGallery)
+            {
+                
+                var avatar = photoService.GetById(user.Profile.PhotoId);
+
+                if (avatar != null)
+                {
+                    avatar.MimeType = postedImage.ContentType;
+                    avatar.BigImage = new byte[postedImage.ContentLength];
+                    avatar.Description = description;
+                    postedImage.InputStream.Read(avatar.BigImage, 0, postedImage.ContentLength);
+                    
+                    avatar.SmallImage = ResizeImage(avatar.BigImage);
+                    photoService.Update(avatar);
+                }
+
+                return RedirectToAction("Index");
+            }
+
+            var newImage = new BllPhoto()
+            {
+                BigImage = new byte[postedImage.ContentLength],
+                MimeType = postedImage.ContentType,
+                Description = description,
+                Date = DateTime.Now,
+                ProfileId = user.Id
+            };
+            var profileId = userService.GetUserByUserName(User.Identity.Name).ProfileId;
+
+            postedImage.InputStream.Read(newImage.BigImage, 0, postedImage.ContentLength);
+            newImage.SmallImage = ResizeImage(newImage.BigImage);
+            profileService.AddPhoto(newImage);
+
+            return RedirectToAction("Gallery", new { ProfileId = profileId });
         }
 
         /// <summary>
@@ -277,14 +318,74 @@ namespace PL.Controllers
         /// <returns>Image of user's profile.</returns>
         public FileResult GetImage(int id)
         {
-            var image = photoService.GetById(id);
+            var avatarId = profileService.GetById(id).PhotoId;
+            var image = photoService.GetById(avatarId);
 
-            if (image.Data != null && image.MimeType != null)
-                return File(image.Data, image.MimeType);
+            if (image != null)
+            {
+                if (image.BigImage != null && image.MimeType != null)
+                    return File(image.BigImage, image.MimeType);
+            }
 
             var path = Server.MapPath("~/Content/profile-default.png");
 
             return File(path, "image/png");
+        }
+
+        [HttpGet]
+        public ActionResult GetGallery(int profileId)
+        {
+            return RedirectToAction("Gallery", new { ProfileId = profileId, IsFirstStart = true });
+        }
+
+        [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0)]
+        public ActionResult Gallery(int profileId, int page = 1, bool isFirstStart = false)
+        {
+            if (profileId == -1)
+                profileId = userService.GetUserByUserName(User.Identity.Name).Id;
+
+            var photos = photoService.GetProfilePhotos(profileId);
+            photos = photos.Where(ph => ph.BigImage != null);
+
+            var model = new ImagesListViewModel
+            {
+                ProfileId = profileId,
+                AuthorizedId = userService.GetUserByUserName(User.Identity.Name).Id,
+                Images = photos.OrderBy(im => im.Id)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize).ToImageModel(),
+                PagingInfo = new PagingInfoModel
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = pageSize,
+                    TotalItems = photos.Count()
+                }
+            };
+
+            if (Request.IsAjaxRequest())
+            {
+                if(isFirstStart)
+                    return PartialView("_GalleryView", model);
+
+                return Json(model, JsonRequestBehavior.AllowGet);
+            }
+
+            return View("_GalleryView", model);
+        }
+
+        public FileResult GetFullImage(int id)
+        {
+            var image = photoService.GetById(id);
+
+            return File(image.BigImage, image.MimeType);
+        }
+
+        public FileResult GetSmallImage(int id)
+        {
+            var image = photoService.GetById(id);
+
+            return File(image.SmallImage, image.MimeType);
         }
 
         /// <summary>
@@ -363,6 +464,20 @@ namespace PL.Controllers
             return View("_MessageFilterView", profiles.ToList());
         }
 
+        private byte[] ResizeImage(byte[] arrayBytes)
+        {
+            var localMemStream = new System.IO.MemoryStream(arrayBytes);
+            var fullsizeImage = System.Drawing.Image.FromStream(localMemStream);
+            System.Drawing.Image newImage;
+            if (fullsizeImage.Height > fullsizeImage.Width)
+                newImage = fullsizeImage.GetThumbnailImage(200, 300, null, IntPtr.Zero);
+            else newImage = fullsizeImage.GetThumbnailImage(300, 200, null, IntPtr.Zero);
+
+            var resultStream = new System.IO.MemoryStream();
+            newImage.Save(resultStream, System.Drawing.Imaging.ImageFormat.Jpeg);  //Or whatever format you want.
+
+            return resultStream.ToArray();  //Returns a new byte array.
+        }
 
         private List<BllUser> ChangeRole(List<BllUser> users, string role)
         {

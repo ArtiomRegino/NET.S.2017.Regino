@@ -33,13 +33,13 @@ namespace DAL.Interface.DTO
         public int? ProfileId { get; set; }
 
         /// <summary>
+        /// DalUser role id.
+        /// </summary>
+        public int RoleId { get; set; } 
+        
+        /// <summary>
         /// DalUser reference to profile.
         /// </summary>
         public DalProfile Profile { get; set; }
-
-        /// <summary>
-        /// DalUser role id.
-        /// </summary>
-        public int RoleId { get; set; }
     }
 }

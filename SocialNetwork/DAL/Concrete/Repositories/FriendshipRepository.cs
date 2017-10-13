@@ -22,16 +22,21 @@ namespace DAL.Concrete.Repositories
             context.Set<Friendship>().Add(e.ToOrmFriendship());
         }
 
-        public void Delete(DalFriendship e)
+        public void Delete(DalFriendship dalFriendship)
         {
-            if (e != null)
-            {
-                var ormFriendship = e.ToOrmFriendship();
-                var friendship = context.Set<Friendship>().FirstOrDefault(f => f.Id == ormFriendship.Id);
-                context.Set<Friendship>().Attach(friendship);
-                context.Set<Friendship>().Remove(friendship);
-                context.Entry(friendship).State = EntityState.Deleted;
-            }
+            if (dalFriendship == null)
+                return;
+
+            var ormFriendship = dalFriendship.ToOrmFriendship();
+            var friendship = context.Set<Friendship>()
+                .FirstOrDefault(f => f.Id == ormFriendship.Id);
+
+            if (friendship == null)
+                return;
+
+            context.Set<Friendship>().Attach(friendship);
+            context.Set<Friendship>().Remove(friendship);
+            context.Entry(friendship).State = EntityState.Deleted;
         }
 
         public IEnumerable<DalFriendship> GetAll()
@@ -43,16 +48,15 @@ namespace DAL.Concrete.Repositories
         public DalFriendship GetById(int? key)
         {
             var friendship = context.Set<Friendship>().Find(key);
-            if (friendship == null)
-                return null;
-            return friendship.ToDalFriendship();
+            return friendship?.ToDalFriendship();
         }
 
-        public void Update(DalFriendship e)
+        public void Update(DalFriendship dalFriendship)
         {
-            if (e != null)
+            if (dalFriendship != null)
             {
-                context.Set<Friendship>().AddOrUpdate(e.ToOrmFriendship());
+                context.Set<Friendship>()
+                    .AddOrUpdate(dalFriendship.ToOrmFriendship());
             }
         }
 
@@ -65,7 +69,6 @@ namespace DAL.Concrete.Repositories
                 context.Set<Friendship>().Remove(item);
                 context.Entry(item).State = EntityState.Deleted;
             }
-
         }
     }
 }

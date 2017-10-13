@@ -43,7 +43,8 @@ namespace PL.Controllers
 
             foreach (var item in lastMessages)
             {
-                var companion = userService.GetById(item.UserFromId == curUser.Id ? item.UserToId : item.UserFromId);
+                var companion = userService
+                    .GetById(item.UserFromId == curUser.Id ? item.UserToId : item.UserFromId);
                 var dialog = new DialogViewModel()
                 {
                     Message = item.ToMvcMessage(),
@@ -99,13 +100,14 @@ namespace PL.Controllers
         {
             var companion = profileService.GetById(id);
 
-            var profile = profileService.GetAll().FirstOrDefault(p => p.UserName == User.Identity.Name);
+            var profile = profileService.GetAll()
+                .FirstOrDefault(p => p.UserName == User.Identity.Name);
 
             var messages = messageService.GetAll().Where(m =>
-                    (m.UserFromId == profile.Id && m.UserToId == companion.Id) ||
-                    (m.UserFromId == companion.Id && m.UserToId == profile.Id)).
-                OrderByDescending(d => d.Date).Take(5).OrderBy(d => d.Date).
-                Select(m => m.ToMvcMessage()).ToList();
+                    (m.UserFromId == profile.Id && m.UserToId == companion.Id)
+                    || (m.UserFromId == companion.Id && m.UserToId == profile.Id))
+                    .OrderByDescending(d => d.Date).Take(5).OrderBy(d => d.Date)
+                    .Select(m => m.ToMvcMessage()).ToList();
 
             var model = new AllMessagesViewModel()
             {
@@ -145,7 +147,8 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult GetUserMessages(int? id)
         {
-            var messages = messageService.GetAll().Where(m => m.UserFromId == id).Select(m => m.ToMvcMessage()).ToList();
+            var messages = messageService.GetAll()
+                .Where(m => m.UserFromId == id).Select(m => m.ToMvcMessage());
 
             return View("_UserMessagesView", messages);
         }

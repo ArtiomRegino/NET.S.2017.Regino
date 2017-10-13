@@ -14,21 +14,19 @@ namespace DAL.Mappers
         {
             if (ormProfile == null) return  null;
 
-            DalProfile currentDalProfile = new DalProfile()
+            var currentDalProfile = new DalProfile
             {
                 Id = ormProfile.Id,
                 BirthDate = ormProfile.BirthDate,
                 City = ormProfile.City,
                 FirstName = ormProfile.FirstName,
                 LastName = ormProfile.LastName,
-                Photo = ormProfile.Photo.ToDalPhoto(),
                 PhotoId = ormProfile.PhotoId,
                 UserName = ormProfile.UserName,
                 AboutMe = ormProfile.AboutMe,
                 ContactPhone = ormProfile.ContactPhone,
-                Gender = ormProfile.Gender
+                Gender = ormProfile.Gender,
             };
-            //нужно ли мапить фото и айдишник фото?
             return currentDalProfile;
         }
 
@@ -36,21 +34,20 @@ namespace DAL.Mappers
         {
             if (dalProfile == null) return null;
 
-            Profile currentDalProfile = new Profile()
+            var currentDalProfile = new Profile()
             {
                 Id = dalProfile.Id,
                 BirthDate = dalProfile.BirthDate,
                 City = dalProfile.City,
                 FirstName = dalProfile.FirstName,
                 LastName = dalProfile.LastName,
-                Photo = dalProfile.Photo.ToOrmPhoto(),
                 PhotoId = dalProfile.PhotoId,
                 UserName = dalProfile.UserName,
                 AboutMe = dalProfile.AboutMe,
                 ContactPhone = dalProfile.ContactPhone,
                 Gender = dalProfile.Gender
             };
-            //нужно ли мапить фото и айдишник фото?
+
             return currentDalProfile;
         }
 

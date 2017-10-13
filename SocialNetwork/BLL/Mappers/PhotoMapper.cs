@@ -14,9 +14,14 @@ namespace BLL.Mappers
             var bllPhoto = new BllPhoto()
             {
                 Id = dalPhoto.Id,
-                Data = dalPhoto.Data,
+                BigImage = dalPhoto.BigImage,
+                SmallImage = dalPhoto.SmallImage,
+                Profile = dalPhoto.Profile.ToBllProfile(),
+                Description = dalPhoto.Description,
+                ProfileId = dalPhoto.ProfileId,
                 Date = dalPhoto.Date,
                 MimeType = dalPhoto.MimeType,
+                IsAvatar = dalPhoto.IsAvatar
 
             };
 
@@ -29,9 +34,13 @@ namespace BLL.Mappers
             return new DalPhoto()
             {
                 Id = bllPhoto.Id,
-                Data = bllPhoto.Data,
+                BigImage = bllPhoto.BigImage,
+                SmallImage = bllPhoto.SmallImage,
+                Description = bllPhoto.Description,
+                ProfileId = bllPhoto.ProfileId,
                 Date = bllPhoto.Date,
                 MimeType = bllPhoto.MimeType,
+                IsAvatar = bllPhoto.IsAvatar
             };
         }
 

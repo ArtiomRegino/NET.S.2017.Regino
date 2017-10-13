@@ -36,14 +36,16 @@ namespace PL.Controllers
         /// <returns>Page of login form</returns>
         [HttpGet]
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl = null)
         {
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.ReturnUrl = returnUrl;
+            if(returnUrl != null)
+                ViewBag.ReturnUrl = returnUrl;
+
             return View();
         }
 

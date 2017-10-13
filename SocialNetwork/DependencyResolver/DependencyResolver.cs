@@ -28,8 +28,8 @@ namespace DependencyResolver
         {
             //https://github.com/ninject/Ninject.Web.Common/wiki/InRequestScope
             //The main reason for using InRequestScope() is to make sure that a single instance of an object is shared by all objects created via the Ninject kernel for that HTTP request (e.g. to share an object that is expensive to create).
-            kernel.Bind<DbContext>().To<SocialNetworkContext>().InRequestScope();
-            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
+            kernel.Bind<DbContext>().To<SocialNetworkContext>().InSingletonScope();
+            kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InSingletonScope();
 
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<IUserRepository>().To<UserRepository>();

@@ -13,7 +13,7 @@ namespace DAL.Mappers
         public static DalRole ToDalRole(this Role ormRole)
         {
             if (ormRole == null) return null;
-            DalRole currentDalRole = new DalRole()
+            var currentDalRole = new DalRole()
             {
                 Id = ormRole.Id,
                 Name = ormRole.Name
@@ -25,7 +25,7 @@ namespace DAL.Mappers
         public static Role ToOrmRole(this DalRole dalRole)
         {
             if (dalRole == null) return null;
-            Role currentOrmRole = new Role()
+            var currentOrmRole = new Role()
             {
                 Id = dalRole.Id,
                 Name = dalRole.Name

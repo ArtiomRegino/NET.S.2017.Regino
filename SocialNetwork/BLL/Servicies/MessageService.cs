@@ -12,7 +12,6 @@ namespace BLL.Servicies
         private readonly IUnitOfWork unitOfWork;
         private readonly IMessageRepository messageRepository;
 
-
         public MessageService(IUnitOfWork unitOfWork, IMessageRepository messageRepository)
         {
             this.unitOfWork = unitOfWork;
@@ -24,6 +23,7 @@ namespace BLL.Servicies
         {
             BllMessage message = messageRepository.GetById(id).ToBllMessage();
             unitOfWork.Commit();
+
             return message;
         }
 
@@ -31,6 +31,7 @@ namespace BLL.Servicies
         {
             IEnumerable<BllMessage> messages = messageRepository.GetAll().Map();
             unitOfWork.Commit();
+
             return messages;
         }
 
@@ -64,8 +65,8 @@ namespace BLL.Servicies
             }
 
             var lastMessages = idsOfinterlocutors.
-                Select(item => messages.Last(m => (m.UserFromId == item && m.UserToId == userId) ||
-                (m.UserToId == item && m.UserFromId == userId)).ToBllMessage()).ToList();
+                Select(item => messages.Last(m => (m.UserFromId == item && m.UserToId == userId)
+                ||(m.UserToId == item && m.UserFromId == userId)).ToBllMessage()).ToList();
 
             return lastMessages;
         }

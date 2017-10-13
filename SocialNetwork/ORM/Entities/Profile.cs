@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,6 +10,14 @@ namespace ORM.Entities
     /// </summary>
     public class Profile
     {
+        /// <summary>
+        /// Default constructor of ORM profile entity.
+        /// </summary>
+        public Profile()
+        {
+            Photos = new HashSet<Photo>();
+        }
+
         /// <summary>
         /// Profile id.
         /// </summary>
@@ -36,15 +45,15 @@ namespace ORM.Entities
         [Column(TypeName = "datetime2")]
         public DateTime? BirthDate { get; set; }
 
-        /// <summary>
-        /// It needs for db creating.
-        /// </summary>
-        public virtual Photo Photo { get; set; }
+        ///// <summary>
+        ///// It needs for db creating.
+        ///// </summary>
+        //public virtual Photo Avatar { get; set; }
 
         /// <summary>
         /// User photo id.
         /// </summary>
-        [ForeignKey("Photo")]
+        //[ForeignKey("Avatar")]
         public int? PhotoId { get; set; }
 
         /// <summary>
@@ -67,5 +76,9 @@ namespace ORM.Entities
         /// </summary>
         public string AboutMe { get; set; }
 
+        /// <summary>
+        /// Photos of current user. It needs for db creating.
+        /// </summary>
+        public virtual ICollection<Photo> Photos { get; set; }
     }
 }

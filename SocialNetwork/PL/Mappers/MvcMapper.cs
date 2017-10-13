@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using BLL.Interfaces.Entities;
 using PL.Models.Message;
+using PL.Models.Photo;
 using PL.Models.Profile;
 using PL.Models.Search;
 
@@ -132,6 +133,31 @@ namespace PL.Mappers
             };
 
             return profile;
+        }
+
+        public static ImageModel ToImageModel(this BllPhoto img)
+        {
+            var imgModel = new ImageModel
+            {
+                Id = img.Id,
+                Description = img.Description,
+                Image = $"/Profile/GetFullImage/{img.Id}",
+                ImageSmall = $"/Profile/GetSmallImage/{img.Id}"
+            };
+
+            return imgModel;
+        }
+
+        public static List<ImageModel> ToImageModel(this IEnumerable<BllPhoto> images)
+        {
+            var imageModels = new List<ImageModel>();
+
+            foreach (var item in images)
+            {
+                imageModels.Add(item.ToImageModel());
+            }
+
+            return imageModels;
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using DAL.Interface.Interfaces;
 using System;
+using System.Collections.Generic;
+using ORM.Entities;
 
 namespace DAL.Interface.DTO
 {
@@ -34,14 +36,9 @@ namespace DAL.Interface.DTO
         public DateTime? BirthDate { get; set; }
 
         /// <summary>
-        /// DalProfile photo id.
+        /// DalProfile avatar id.
         /// </summary>
         public int? PhotoId { get; set; }
-
-        /// <summary>
-        /// DalProfile reference to photo.
-        /// </summary>
-        public DalPhoto Photo { get; set; }
 
         /// <summary>
         /// DalProfile name of city.
@@ -62,5 +59,10 @@ namespace DAL.Interface.DTO
         /// DalProfile additional information.
         /// </summary>
         public string AboutMe { get; set; }
+
+        /// <summary>
+        /// DalProfile ids of photos.
+        /// </summary>
+        public IList<DalPhoto> Photos { get; set; }
     }
 }

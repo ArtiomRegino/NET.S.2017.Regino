@@ -11,14 +11,13 @@ namespace BLL.Mappers
         {
             if (dalProfile == null) return null;
 
-            BllProfile currentBllProfile = new BllProfile()
+            var currentBllProfile = new BllProfile()
             {
                 Id = dalProfile.Id,
                 BirthDate = dalProfile.BirthDate,
                 City = dalProfile.City,
                 FirstName = dalProfile.FirstName,
                 LastName = dalProfile.LastName,
-                Photo = dalProfile.Photo.ToBllPhoto(),
                 PhotoId = dalProfile.PhotoId,
                 UserName = dalProfile.UserName,
                 AboutMe = dalProfile.AboutMe,
@@ -33,14 +32,13 @@ namespace BLL.Mappers
         {
             if (bllProfile == null) return null;
 
-            DalProfile currentDalProfile = new DalProfile()
+            var currentDalProfile = new DalProfile()
             {
                 Id = bllProfile.Id,
                 BirthDate = bllProfile.BirthDate,
                 City = bllProfile.City,
                 FirstName = bllProfile.FirstName,
                 LastName = bllProfile.LastName,
-                Photo = bllProfile.Photo.ToDalPhoto(),
                 PhotoId = bllProfile.PhotoId,
                 UserName = bllProfile.UserName,
                 AboutMe = bllProfile.AboutMe,

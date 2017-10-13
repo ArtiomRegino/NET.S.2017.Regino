@@ -9,5 +9,6 @@ namespace BLL.Interfaces.Interfaces
         IEnumerable<BllProfile> FastSearch(string names);
         IEnumerable<BllProfile> FullSearch(BllProfile profile);
         void Update(IEnumerable<BllProfile> items);
+        void AddPhoto(BllPhoto item);
     }
 }

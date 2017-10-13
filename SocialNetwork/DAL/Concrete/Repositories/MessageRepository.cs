@@ -26,6 +26,8 @@ namespace DAL.Concrete.Repositories
         public void Delete(DalMessage e)
         {
             var message = context.Set<Message>().FirstOrDefault(m => m.Id == e.Id);
+            if (message == null)
+                return;
 
             context.Set<Message>().Attach(message);
             context.Set<Message>().Remove(message);
@@ -41,26 +43,31 @@ namespace DAL.Concrete.Repositories
         public DalMessage GetById(int? key)
         {
             var message = context.Set<Message>().Find(key);
-            if (message == null)
-                return null;
-            return message.ToDalMessage();
+            return message?.ToDalMessage();
         }
 
         public void Update(DalMessage e)
         {
             var ormMessage = e.ToOrmMessage();
             var message = context.Set<Message>().FirstOrDefault(m => m.Id == e.Id);
-            if (message != null)
+
+            if (message == null)
+                return;
+
+            if (ormMessage.Date != null)
             {
-                message.Text = ormMessage.Text;
+                message.Date = ormMessage.Date;
             }
+            message.Text = ormMessage.Text;
+
+            context.Entry(message).State = EntityState.Modified;
         }
 
         public List<DalMessage> GetMessages(int firstUserId, int secondUserId)
         {
-            return GetAll().Where(m => (m.UserFromId == firstUserId && m.UserToId == secondUserId) ||
-                                       (m.UserFromId == secondUserId && m.UserToId == firstUserId)).
-                OrderBy(m => m.Date).ToList();
+            return GetAll().Where(m => (m.UserFromId == firstUserId && m.UserToId == secondUserId)
+                                   ||(m.UserFromId == secondUserId && m.UserToId == firstUserId))
+                                   .OrderBy(m => m.Date).ToList();
         }
 
         public void DeleteAllUserMessagesById(int id)

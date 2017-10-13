@@ -6,7 +6,7 @@
     <hr/>
     <div class="row">
         <div class="col-md-2 col-sm-12">
-            <img src="@Url.Action("GetImage", "Profile", new { Id = Model.PhotoId })" class="img-circle img-responsive center-block" />
+            <img src="@Url.Action("GetImage", "Profile", new { Id = Model.Id })" class="img-circle img-responsive center-block" />
         </div>
         <div class="col-md-4 col-sm-12 center-block text-center">
             @Html.ActionLink($"{Model.FirstName} {Model.LastName}", "PresentationOfProfile", "Profile", new { Id = Model.Id }, null)

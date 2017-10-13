@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using BLL.Interfaces.Entities;
 using BLL.Interfaces.Interfaces;
 using BLL.Mappers;
@@ -21,6 +22,7 @@ namespace BLL.Servicies
         {
             BllPhoto photo = photoRepository.GetById(id).ToBllPhoto();
             unitOfWork.Commit();
+
             return photo;
         }
 
@@ -28,7 +30,22 @@ namespace BLL.Servicies
         {
             IEnumerable<BllPhoto> photos = photoRepository.GetAll().Map();
             unitOfWork.Commit();
+
             return photos;
+        }
+
+        public IEnumerable<BllPhoto> GetProfilePhotos(int profileId)
+        {
+            var photos = photoRepository.GetProfilePhotos(profileId);
+            unitOfWork.Commit();
+
+            return photos.Map();
+        }
+
+        public BllPhoto GetProfileAvatar(BllProfile profile)
+        {
+             return photoRepository.GetAll().Map()
+                .FirstOrDefault(ph => ph.Profile.UserName == profile.UserName && ph.IsAvatar);
         }
 
         public void Create(BllPhoto item)
@@ -46,6 +63,12 @@ namespace BLL.Servicies
         public void Update(BllPhoto item)
         {
             photoRepository.Update(item.ToDalPhoto());
+            unitOfWork.Commit();
+        }
+
+        public void DeleteAll(int? id)
+        {
+            photoRepository.DeleteAll(id);
             unitOfWork.Commit();
         }
     }

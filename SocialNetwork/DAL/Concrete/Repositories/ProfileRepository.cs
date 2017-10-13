@@ -23,7 +23,12 @@ namespace DAL.Concrete.Repositories
 
         public void Delete(DalProfile dalProfile)
         {
-            var userProfile = context.Set<Profile>().FirstOrDefault(p => p.Id == dalProfile.Id);
+            var userProfile = context.Set<Profile>()
+                .FirstOrDefault(p => p.Id == dalProfile.Id);
+
+            if (userProfile == null)
+                return;
+
             context.Set<Profile>().Attach(userProfile);
             context.Set<Profile>().Remove(userProfile);
             context.Entry(userProfile).State = EntityState.Deleted;
@@ -38,38 +43,54 @@ namespace DAL.Concrete.Repositories
         public DalProfile GetById(int? key)
         {
             var profile = context.Set<Profile>().Find(key);
-            if (profile == null)
-                return null;
-            return profile.ToDalProfile();
+            return profile?.ToDalProfile();
+        }
+
+        public void AddPhoto(DalPhoto item)
+        {
+            var profile = context.Set<Profile>().FirstOrDefault(p => p.Id == item.ProfileId);
+            profile.Photos.Add(item.ToOrmPhoto());
+
+            context.Set<Profile>().Attach(profile);
+
+            context.Entry(profile).State = EntityState.Modified;
         }
 
         public void Update(DalProfile dalProfile)
         {
-            if (dalProfile != null)
-            {
-                var profile = context.Set<Profile>().FirstOrDefault(p => p.Id == dalProfile.Id);
-                if (profile != null)
-                {
-                    context.Set<Profile>().Attach(profile);
+            if (dalProfile == null)
+                return;
 
-                    profile.FirstName = dalProfile.FirstName ?? profile.FirstName;
-                    profile.LastName = dalProfile.LastName ?? profile.LastName;
-                    profile.BirthDate = dalProfile.BirthDate ?? profile.BirthDate;
-                    profile.AboutMe = dalProfile.AboutMe ?? profile.AboutMe;
-                    profile.ContactPhone = dalProfile.ContactPhone ?? profile.ContactPhone;
-                    profile.City = dalProfile.City ?? profile.City;
+            var profile = context.Set<Profile>()
+                .FirstOrDefault(p => p.Id == dalProfile.Id);
 
-                    context.Entry(profile).State = EntityState.Modified;
-                }
-            }
+            if (profile == null)
+                return;
+
+            context.Set<Profile>().Attach(profile);
+
+            profile.FirstName = dalProfile.FirstName ?? profile.FirstName;
+            profile.LastName = dalProfile.LastName ?? profile.LastName;
+            profile.BirthDate = dalProfile.BirthDate ?? profile.BirthDate;
+            profile.AboutMe = dalProfile.AboutMe ?? profile.AboutMe;
+            profile.ContactPhone = dalProfile.ContactPhone ?? profile.ContactPhone;
+            profile.City = dalProfile.City ?? profile.City;
+            profile.Gender = dalProfile.Gender ?? profile.Gender;
+            profile.PhotoId = dalProfile.PhotoId ?? profile.PhotoId;
+
+            context.Entry(profile).State = EntityState.Modified;
         }
 
         public DalProfile GetByUserEmail(string email)
         {
-            if (email == null) return null;
+            if (email == null)
+                return null;
 
-            var user = context.Set<User>().Include(u => u.Profile).FirstOrDefault(u => u.Email == email);
-            return user.Profile.ToDalProfile();
+            var user = context.Set<User>()
+                .Include(u => u.Profile)
+                .FirstOrDefault(u => u.Email == email);
+
+            return user?.Profile.ToDalProfile();
         }
     }
 }

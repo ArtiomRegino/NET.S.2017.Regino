@@ -3,7 +3,7 @@
 @if (User.Identity.IsAuthenticated)
 {
     <div class="row">
-        <div class="list-group text-left" style="border: 0px">
+        <div class="list-group text-left" style="border: 0">
 
             @Ajax.ActionLink(" Profile", "Index", "Profile", null, new AjaxOptions
                                                              {
@@ -16,6 +16,19 @@
                                                              },
                                                                  new { @class = "list-group-item glyphicon glyphicon-home",
                                                                  style = "border: 0px" })
+            
+            @Ajax.ActionLink(" Gallery", "GetGallery", "Profile", new {ProfileId = -1 }, new AjaxOptions
+       {
+           UpdateTargetId = "main_container",
+           InsertionMode = InsertionMode.Replace,
+           HttpMethod = "GET",
+           LoadingElementId = "processing",
+           AllowCache = false,
+           OnBegin = "hideContent",
+           OnComplete = "unhideContent"
+       },
+                new { @class = "list-group-item glyphicon glyphicon-picture",
+                    style = "border: 0px" })
 
             @Ajax.ActionLink(" Messages", "GetAllDialogs", "Message", null, new AjaxOptions
                                                             {

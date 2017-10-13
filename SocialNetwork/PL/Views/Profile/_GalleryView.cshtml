@@ -1,0 +1,40 @@
+﻿@model PL.Models.Photo.ImagesListViewModel
+
+@{
+    ViewBag.Title = "Gallery";
+}
+
+    <div class="row">
+        <div class="text-center">
+            <h1>Gallery</h1>
+            @if (Model.ProfileId == Model.AuthorizedId)
+            {
+                <button type="submit" class="btn btn-success" onclick="location.href='@Url.Action("UploadImage", "Profile", new {FromGallery = true}, null)'">Add images</button>
+            }
+        </div>
+    </div>
+<hr />
+
+    <div class="row text-center">
+        @Html.Partial("~/Views/Profile/_Images.cshtml", Model)
+        @if (Model.Images.Count == 0)
+        {
+            <h3>No uploaded images.</h3>
+        }
+
+    </div>
+
+    <hr />
+
+    <ul class="pager">
+        @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+        {
+            <li>
+                @Ajax.ActionLink(i.ToString(), "Gallery", new { page = i, Model.ProfileId },
+                    new AjaxOptions { HttpMethod = "GET", OnSuccess = "dataModule.backData" })
+            </li>
+        }
+    </ul>
+
+
+

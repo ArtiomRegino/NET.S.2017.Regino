@@ -197,6 +197,9 @@
     <Compile Include="Models\Message\DialogViewModel.cs" />
     <Compile Include="Models\Message\MessageViewModel.cs" />
     <Compile Include="Models\Message\RecivedMessageModel.cs" />
+    <Compile Include="Models\Photo\ImageModel.cs" />
+    <Compile Include="Models\Photo\ImagesListViewModel.cs" />
+    <Compile Include="Models\Photo\PagingInfoModel.cs" />
     <Compile Include="Models\Profile\EditProfileViewModel.cs" />
     <Compile Include="Models\Profile\ManagmentViewModel.cs" />
     <Compile Include="Models\Profile\PresentationOfProfileViewModel.cs" />
@@ -216,12 +219,17 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CustomStyle.css" />
+    <Content Include="Content\lightbox.css" />
     <Content Include="Content\Logo\logo1.png" />
     <Content Include="Content\Logo\logo2.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\close.png" />
+    <Content Include="img\loading.gif" />
+    <Content Include="img\next.png" />
+    <Content Include="img\prev.png" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -241,9 +249,13 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="sass\_variables.sass" />
+    <Content Include="sass\screen.sass" />
+    <Content Include="sass\lightbox.sass" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CustomForPager.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -253,6 +265,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lightbox-2.6.js" />
+    <Content Include="Scripts\lightbox-2.6.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -270,7 +284,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Account\Registration.cshtml" />
@@ -280,7 +293,7 @@
     <Content Include="Views\Shared\_BannedUserView.cshtml" />
     <Content Include="Views\Profile\_ProfileSettings.cshtml" />
     <Content Include="Views\Profile\_HelpAboutProfile.cshtml" />
-    <Content Include="Views\Profile\EditAvatarView.cshtml" />
+    <Content Include="Views\Profile\UploadImage.cshtml" />
     <Content Include="Views\Friend\FriendListView.cshtml" />
     <Content Include="Views\Friend\RequestsListView.cshtml" />
     <Content Include="Views\Profile\_SearchResultView.cshtml" />
@@ -293,6 +306,8 @@
     <Content Include="Views\Profile\_MessageFilterView.cshtml" />
     <Content Include="Views\Message\_UserMessagesView.cshtml" />
     <Content Include="Views\Error\NotFoundView.cshtml" />
+    <Content Include="Views\Profile\_Images.cshtml" />
+    <Content Include="Views\Profile\_GalleryView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
