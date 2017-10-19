@@ -1,0 +1,48 @@
+body { margin: 30px; }
+
+.divLine { 
+	width: 600px;
+	height: 100px;
+}
+
+.innerDiv {
+	width: 98px; 
+	height: 98px; 
+	background-color: #f0f0f0; 
+	display: inline-block; 
+	border-width: 1px; 
+	border-style: solid; 
+	border-color: grey;
+	border-right-color: #f0f0f07a; 
+	background-clip: content-box;  
+}
+
+.buttons {
+	cursor: pointer;
+	background-color: white;
+	width: 60%; height: 30px;
+	border: 1px solid grey;
+	margin: 2%
+}
+
+.divContainer {
+	border: 2px solid black;
+	display: inline-block;
+	width: 600px;
+    height: 300px;
+	margin: -2px;
+}
+
+.mainContainer {
+	display: inline-block;
+	text-align: center;
+	width: 800px;
+	height: 300px;
+}
+
+.btnContainer {
+	width: 195px;
+	height: 300px;
+	display: inline-block;
+	vertical-align: top;
+}
