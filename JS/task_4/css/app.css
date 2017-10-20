@@ -1,0 +1,23 @@
+
+.buttons {
+	cursor: pointer;
+	background-color: white;
+	height: 30px;
+	border: 1px solid #f0f0f07a;
+}
+
+.divContainer {
+	border: 2px solid grey;
+	display: inline-block;
+	width: 600px;
+    height: 150px;
+}
+
+.divLine { 
+	width: 600px;
+	height: 80px;
+}
+
+.btnContainer {
+	margin: 10px;
+}

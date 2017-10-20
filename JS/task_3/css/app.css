@@ -46,3 +46,19 @@ body { margin: 30px; }
 	display: inline-block;
 	vertical-align: top;
 }
+
+.divOrange {
+	background-color: #ff9800;
+}
+
+.divRed {
+	background-color: #f44336;
+}
+
+.divGreen {
+	background-color:  #4caf50;
+}
+
+.divGrey {
+	background-color: #f0f0f0;
+}
