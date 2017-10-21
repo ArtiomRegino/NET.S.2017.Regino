@@ -10,14 +10,34 @@
 	border: 2px solid grey;
 	display: inline-block;
 	width: 600px;
-    height: 150px;
+    height: 170px;
 }
 
 .divLine { 
+	margin-left: 530px;
 	width: 600px;
-	height: 80px;
+	height: 100px;
 }
 
 .btnContainer {
 	margin: 10px;
+}
+
+.gifDiv {
+	height: 100px;
+	width: 100px;
+	background-image: url(../img/default.gif);
+	background-repeat: no-repeat;
+}
+
+.healthDiv {
+	background-color: green;
+	width: 50px;
+	height: 5px;
+}
+
+.zombieDiv {
+	padding-top: 20px;
+	height: 105px;
+	width: 130px;
 }
