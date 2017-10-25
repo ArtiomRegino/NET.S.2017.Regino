@@ -1,0 +1,110 @@
+.buttons {
+	cursor: pointer;
+	background-color: orange;
+	height: 30px;
+	width: 80px;
+	border: 1px solid #f0f0f07a;
+}
+
+.divContainer {
+	vertical-align: middle;
+	text-align: center;
+	display: inline-block;
+	width: 900px;
+    height: 500px;
+}
+
+.divLine { 
+	background-image: url(../img/grass.png);
+	width: 900px;
+	height: 100px;
+}
+
+.zombieDiv {
+	margin-left: 840px;
+	position: absolute;
+	padding-top: 10px;
+	height: 105px;
+	width: 70px;
+}
+
+.defaultZombie, .strongZombie, .michaelZombie, .peaShooter, .peaBullet, .ballonZombie {
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.defaultZombie {
+	height: 45px;
+	width: 50px;
+	background-image: url(../img/default.gif);
+}
+
+.strongZombie {
+	height: 100px;
+	width: 60px;
+	background-image: url(../img/strong.gif);
+}
+
+.michaelZombie {
+	height: 80px;
+	width: 50px;
+	background-image: url(../img/michael.gif);
+}
+
+.ballonZombie {
+	height: 80px;
+	width: 50px;
+	background-image: url(../img/ballon.gif);
+}
+
+.healthStrong, .healthDefault, .healthMichael, .healthBallon {
+		background-color: red;
+		height: 5px;
+		border-color: yellow;
+		border-top-width: 1px;
+		border-style: solid;
+}
+
+.healthStrong {
+	width: 60px;
+}
+
+.healthDefault {
+	width: 30px;
+}
+
+.healthMichael {
+	width: 45px;
+}
+
+.healthBallon {
+	width: 45px;
+}
+
+.gameText {
+	vertical-align: middle;
+	position: absolute;
+	color: red;
+	margin-top: 230px;
+	margin-left: 375px;
+	visibility: hidden;
+}
+
+.peaShooter {
+	cursor: pointer;
+	margin-top: 15px;
+	height: 80px;
+	width: 70px;
+	background-image: url(../img/more/pea-shooter.gif);
+	position: absolute;
+}
+
+.peaBullet {
+
+	height: 20px;
+	width: 20px;
+	margin-top: 25px;
+	margin-left: 55px;
+	position: absolute;
+	background-image: url(../img/more/pea-bullet.png);
+}

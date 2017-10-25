@@ -6,6 +6,7 @@ function Zombie () {
 	var healthDiv = document.createElement("div");
 	var gifDiv = document.createElement("div");
 	var killed = new CustomEvent("killed");
+	var events = {};
 
 	zombieElement.classList.add("zombieDiv");
 	gifDiv.classList.add("gifDiv");
@@ -14,18 +15,14 @@ function Zombie () {
 	zombieElement.appendChild(healthDiv);
 	zombieElement.appendChild(gifDiv);
 
-	on( "killed", function() {
-		zombieElement.parentNode.removeChild(zombieElement);
-	});
-
 	Object.defineProperty( this, "zombieBlock", {
 	 	get : function () {
 			return zombieElement;
 		}
 	});
 
-	function on ( eventName, eventCallback ) {
-		zombieElement.addEventListener(eventName, eventCallback);
+	this.on = function ( eventName, eventCallback ) {
+		events[eventName] = eventCallback;
 	}
 
 	this.move = function () {
@@ -42,7 +39,7 @@ function Zombie () {
 			healthDiv.style.width = newWidth + "px";
 		} 
 		else {
-			zombieElement.dispatchEvent(killed);
+			events["killed"]();
 		}
 	}
 

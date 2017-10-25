@@ -20,6 +20,10 @@ window.addEventListener("load", function () {
 			var zombieBlock = zombie.zombieBlock;
 
 			divLine.appendChild(zombieBlock);
+
+			zombie.on( "killed", function() {
+				zombieBlock.parentNode.removeChild(zombieBlock);
+			});
 		}
 	}
 
