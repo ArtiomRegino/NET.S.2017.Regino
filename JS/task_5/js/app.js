@@ -155,6 +155,7 @@ window.addEventListener("load", function () {
 				var count = 0;
 
 				if ( curBullet === undefined ) continue;
+				if ( innerBullet.parentNode === null ) continue;
 
 				var previousMarginL = getComputedStyle( innerBullet ).marginLeft; 
 				var currentMarginL = parseInt( previousMarginL ) + 10;
@@ -181,13 +182,17 @@ window.addEventListener("load", function () {
 					var zombieMargin = thisLineZombies[i].zombieBlock.style.marginLeft;
 
 					if ( parseInt( zombieMargin ) <= currentMarginL ) {
-						if( curBullet === undefined || innerBullet === undefined ) continue;
+						if( curBullet === undefined ) continue;
+						if( innerBullet === undefined ) continue;
 
+						console.log("true");
+						console.log(innerBullet);
 						innerBullet.parentNode.removeChild( innerBullet );
 						curBullet = undefined;
 
 						if ( thisLineZombies[i] === undefined ) continue;
 						thisLineZombies[i].hit(10);
+						break;
 					}
 				}
 				
